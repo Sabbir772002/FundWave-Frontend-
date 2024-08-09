@@ -12,8 +12,54 @@ import {
 } from '@mantine/core';
 import {Helmet} from "react-helmet";
 import {IconBrandFacebook, IconBrandGoogle} from "@tabler/icons-react";
-
+import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
+    // const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
+       event.preventDefault();
+
+        const response = await fetch('http://localhost:3000/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+               username,
+                password
+                }),
+        });
+
+        let data;
+        try {
+            data = await response.json();  // Attempt to parse JSON
+        } catch (error) {
+            data = response;  // Fallback to plain text
+        }
+        console.log(data);
+        if (response.ok) {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('username');
+            if (data.token) {
+                    localStorage.setItem('authToken', data.token);
+                }
+            localStorage.setItem('username', username);
+            console.log('Signup successful:', data);
+            navigate('/'); 
+            
+        } else {
+            // Handle signup error
+            console.error('Login failed:', data);
+            alert(`Login failed: Try with Correct Information`);
+
+        }
+    };
+    
     return (
         <>
             <Helmet>
@@ -33,21 +79,22 @@ const LoginPage = () => {
                     </Anchor>
                 </Text>
 
-                <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+                <Paper withBorder shadow="md" p={30} mt={30} radius="md" component="form" onSubmit={handleSubmit}>
                     <Group grow mb="md" mt="md">
                         <Button radius="xl" leftIcon={<IconBrandFacebook size={18}/>}>Facebook</Button>
                         <Button radius="xl" leftIcon={<IconBrandGoogle size={18}/>}>Google</Button>
                     </Group>
                     <Divider label="Or continue with email" labelPosition="center" my="lg" />
-                    <TextInput label="Email" placeholder="you@mantine.dev" required />
-                    <PasswordInput label="Password" placeholder="Your password" required mt="md" />
+                    {/* <TextInput label="Email" placeholder="Your email" required mt="md" value={email} onChange={(e) => setEmail(e.target.value)} /> */}
+                    <TextInput label="Username" placeholder="Your Username" required mt="md" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Group position="apart" mt="lg">
-                        <Checkbox label="Remember me" />
+                        <Checkbox label="Remember me" checked={rememberMe} onChange={(e) => setRememberMe(e.currentTarget.checked)} />
                         <Anchor component="button" size="sm">
                             Forgot password?
                         </Anchor>
                     </Group>
-                    <Button fullWidth mt="xl">
+                    <Button type="submit" fullWidth mt="xl">
                         Sign in
                     </Button>
                 </Paper>

@@ -66,6 +66,7 @@ const DashboardPage = () => {
         size: 18,
         mb: "sm"
     }
+    const username=localStorage.getItem('username');
 
     return (
         <>
@@ -75,7 +76,7 @@ const DashboardPage = () => {
             <Box>
                 <Container fluid my="xl">
                     <Stack spacing="xl">
-                        <Title order={3}>Good evening, Jane</Title>
+                        <Title order={3}>Good evening, {username}</Title>
                         <SimpleGrid
                             cols={4}
                             breakpoints={[{maxWidth: 'md', cols: 2, spacing: 'md'}, {

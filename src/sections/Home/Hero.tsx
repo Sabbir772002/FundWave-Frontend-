@@ -156,8 +156,11 @@ const HeroSection = () => {
                 </Container>
 
                 <div className={classes.controls}>
+                <Button className={classes.control} variant="white" size="lg" component={Link} to="/loan">
+                        Find Loan
+                    </Button>
                     <Button className={classes.control} variant="white" size="lg" component={Link} to="/create-campaign">
-                        Start a campaign
+                        Start a Funraising
                     </Button>
                     <Button className={classes.control} variant="white" size="lg" component={Link} to="/campaigns">
                         Explore now

@@ -28,8 +28,9 @@ import {
 } from '@tabler/icons-react';
 import {useState} from "react";
 import {AppLinks, BrandName, SearchDrawer} from "./index";
-
+import { useNavigate } from 'react-router-dom';
 const useStyles = createStyles((theme) => ({
+
     header: {
         backgroundColor: theme.colors.primary[6]
     },
@@ -152,7 +153,20 @@ const ICON_SIZE = 18
 type IProps = BoxProps
 
 const AppNavbar = ({...others}: IProps) => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        // Remove the token and username from localStorage
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('username');
+
+        // Redirect the user to the login page
+        navigate('/');
+    };
+
+
     const {classes, theme, cx} = useStyles();
+
     const [userMenuOpened, setUserMenuOpened] = useState(false);
     const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
     const [searchOpened, {toggle: toggleSearchDrawer, close: closeSearchDrawer}] = useDisclosure(false);
@@ -256,7 +270,8 @@ const AppNavbar = ({...others}: IProps) => {
                                     <Menu.Item icon={<IconSettings size="0.9rem" stroke={1.5}/>}>
                                         Account settings
                                     </Menu.Item>
-                                    <Menu.Item
+                                    <Menu.Item onClick={handleLogout}
+
                                         icon={<IconLogout size="0.9rem" stroke={1.5}/>}>Logout</Menu.Item>
                                 </Menu.Dropdown>
                             </Menu>
