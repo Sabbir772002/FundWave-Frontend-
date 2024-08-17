@@ -14,7 +14,7 @@ import {
 import { Helmet } from "react-helmet";
 import { IconBrandFacebook, IconBrandGoogle } from "@tabler/icons-react";
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
     const [name, setName] = useState('');
@@ -67,7 +67,7 @@ const SignupPage = () => {
                 <Text color="dimmed" size="sm" align="center" mt={5}>
                     Already have an account?{' '}
                     <Anchor size="sm" component="button">
-                        Login
+                        <Link to="/login">Login</Link>
                     </Anchor>
                 </Text>
 
