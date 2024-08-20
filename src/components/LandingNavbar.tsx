@@ -213,6 +213,7 @@ const LandingNavbar = ({compressed}: IProps) => {
             window.removeEventListener('scroll', stickNavbar);
         };
     }, []);
+    const username=localStorage.getItem('username');
 
     return (
         <Box
@@ -286,15 +287,17 @@ const LandingNavbar = ({compressed}: IProps) => {
                             <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
                                 Start a campaign
                             </Button>
-                            <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
-                                My dashboard
-                            </Button>
+                            
+                            {username ? <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
+                        {username}
+                    </Button> : <Button component={Link} to="/login" className={classes.link} {...buttonProps}>
+                        Login
+                    </Button>}
                         </Flex>
                         <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop}/>
                     </Flex>
                 </Container>
             </Header>
-
             <Drawer
                 opened={drawerOpened}
                 onClose={closeDrawer}
@@ -329,9 +332,12 @@ const LandingNavbar = ({compressed}: IProps) => {
                     <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
                         Start a campaign
                     </Button>
-                    <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
-                        My dashboard
-                    </Button>
+                    {username ? <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
+                        {username}
+                    </Button> : <Button component={Link} to="/login" className={classes.link} {...buttonProps}>
+                        Login
+                    </Button>}
+                    
                     <Button
                         leftIcon={<IconSearch size={18}/>}
                         onClick={() => {
