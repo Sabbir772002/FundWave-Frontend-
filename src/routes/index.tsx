@@ -9,7 +9,7 @@ import {
     HomePage,
     HowItWorksPage,
     LoginPage,
-    SignupPage
+    SignupPage,
 } from "../pages";
 import {DashboardLayout, PublicLayout} from "../layout";
 
