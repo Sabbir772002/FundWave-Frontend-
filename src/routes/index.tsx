@@ -10,6 +10,7 @@ import {
     HowItWorksPage,
     LoginPage,
     SignupPage,
+    CreateLoanPage
 } from "../pages";
 import {DashboardLayout, PublicLayout} from "../layout";
 
@@ -89,6 +90,20 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: "loan", 
+        element: <DashboardLayout/>,
+        errorElement: <Error404Page/>,
+        children: [
+            {
+                path: '',
+                index: true,
+                element: <CreateLoanPage/> 
+            }
+        ]
+    }
+    
+    
 ]);
 
 

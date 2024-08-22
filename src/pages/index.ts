@@ -8,6 +8,7 @@ import LoginPage from "./Login";
 import SignupPage from "./Signup";
 import DashboardPage from "./Dashboard";
 import CreateCampaignPage from "./CreateCampaign";
+import CreateLoanPage from "./CreateLoan";
 
 export {
     HomePage,
@@ -20,5 +21,6 @@ export {
     SignupPage,
     DashboardPage,
     CreateCampaignPage,
+    CreateLoanPage
 
 }
