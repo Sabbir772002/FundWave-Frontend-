@@ -433,9 +433,6 @@ const CreateLoanPage = () => {
                                                     label="Total amount"
                                                     icon={<IconCurrencyTaka size={18}/>}/>
                                 <NumberInput
-                                                    label="Paid amount"
-                                                    icon={<IconCurrencyTaka size={18}/>}/>
-                                <NumberInput
                                                     label="Due amount"
                                                     icon={<IconCurrencyTaka size={18}/>}/>        
                                 <NumberInput
