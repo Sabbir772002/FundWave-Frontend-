@@ -431,10 +431,7 @@ const CreateLoanPage = () => {
                                 <Stack spacing="sm">
                                 <NumberInput
                                                     label="Total amount"
-                                                    icon={<IconCurrencyTaka size={18}/>}/>
-                                <NumberInput
-                                                    label="Due amount"
-                                                    icon={<IconCurrencyTaka size={18}/>}/>        
+                                                    icon={<IconCurrencyTaka size={18}/>}/>       
                                 <NumberInput
                                                     label="Interest amount"
                                                     icon={<IconCurrencyTaka size={18}/>}/>                                                  
