@@ -156,7 +156,7 @@ const HeroSection = () => {
                 </Container>
 
                 <div className={classes.controls}>
-                <Button className={classes.control} variant="white" size="lg" component={Link} to="/loan">
+                <Button className={classes.control} variant="white" size="lg" component={Link} to="/create-loan">
                         Find Loan
                     </Button>
                     <Button className={classes.control} variant="white" size="lg" component={Link} to="/create-campaign">
