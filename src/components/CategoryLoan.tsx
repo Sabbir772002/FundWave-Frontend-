@@ -50,12 +50,12 @@ const CategorySelectItem = forwardRef<HTMLDivElement, CategorySelectItemProps>(
     )
 );
 
-interface CategorySelectProps {
+interface CategoryLoanProps {
     value: string | null;
     onChange: (value: string | null) => void;
 }
 
-const CategorySelect: React.FC<CategorySelectProps> = ({ value, onChange }) => {
+const CategoryLoan: React.FC<CategoryLoanProps> = ({ value, onChange }) => {
     const handleChange = (newValue: string | null) => {
         // Ensure newValue is not null and handle it
         onChange(newValue);
@@ -79,5 +79,5 @@ const CategorySelect: React.FC<CategorySelectProps> = ({ value, onChange }) => {
     );
 };
 
-export default CategorySelect;
+export default CategoryLoan;
 

@@ -142,11 +142,7 @@ const useStyles = createStyles((theme) => ({
     }
 }));
 
-const user = {
-    "name": "Jane Spoonfighter",
-    "email": "janspoon@fighter.dev",
-    "image": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-}
+
 
 const ICON_SIZE = 18
 
@@ -163,6 +159,11 @@ const AppNavbar = ({...others}: IProps) => {
         // Redirect the user to the login page
         navigate('/');
     };
+    const user = {
+        "name": "Jane Spoonfighter",
+        "email": "janspoon@fighter.dev",
+        "image": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+    }
 
 
     const {classes, theme, cx} = useStyles();
@@ -171,6 +172,7 @@ const AppNavbar = ({...others}: IProps) => {
     const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
     const [searchOpened, {toggle: toggleSearchDrawer, close: closeSearchDrawer}] = useDisclosure(false);
     const matchesMobile = useMediaQuery('(max-width: 600px)');
+    const username=localStorage.getItem('username');
 
     return (
         <Box {...others}>
@@ -232,7 +234,7 @@ const AppNavbar = ({...others}: IProps) => {
                                             {!matchesMobile &&
                                                 <>
                                                     <Text weight={500} size="sm" sx={{lineHeight: 1}} mr={3}>
-                                                        {user.name}
+                                                        {username}
                                                     </Text>
                                                     <IconChevronDown size={rem(12)} stroke={1.5}/>
                                                 </>}
