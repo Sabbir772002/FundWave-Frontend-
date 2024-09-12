@@ -244,10 +244,12 @@ const LandingNavbar = ({compressed}: IProps) => {
                             <Button component={Link} to="/how-it-works" className={classes.link} {...buttonProps}>
                                 How it works
                             </Button>
-                            <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
+                            <Button component={Link} to="/loans" className={classes.link} {...buttonProps}>
+                                Loans
+                            </Button> <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
                                 Campaigns
                             </Button>
-                            <HoverCard width={700} position="bottom" radius="sm" shadow="md" withinPortal>
+                            {/* <HoverCard width={700} position="bottom" radius="sm" shadow="md" withinPortal>
                                 <HoverCard.Target>
                                     <a href="#" className={classes.link}>
                                         <Center inline>
@@ -275,13 +277,13 @@ const LandingNavbar = ({compressed}: IProps) => {
                                         {links}
                                     </SimpleGrid>
                                 </HoverCard.Dropdown>
-                            </HoverCard>
+                            </HoverCard> */}
                             <Button
                                 leftIcon={<IconSearch size={18} className={classes.linkIcon}/>}
                                 onClick={toggleSearchDrawer}
                                 className={classes.link}
-                                {...buttonProps}
-                            >
+                                {...buttonProps}>
+
                                 Search
                             </Button>
                             <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
