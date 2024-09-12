@@ -172,6 +172,7 @@ const AppNavbar = ({...others}: IProps) => {
     const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
     const [searchOpened, {toggle: toggleSearchDrawer, close: closeSearchDrawer}] = useDisclosure(false);
     const matchesMobile = useMediaQuery('(max-width: 600px)');
+    const username=localStorage.getItem('username');
 
     return (
         <Box {...others}>
@@ -233,7 +234,7 @@ const AppNavbar = ({...others}: IProps) => {
                                             {!matchesMobile &&
                                                 <>
                                                     <Text weight={500} size="sm" sx={{lineHeight: 1}} mr={3}>
-                                                        {user.name}
+                                                        {username}
                                                     </Text>
                                                     <IconChevronDown size={rem(12)} stroke={1.5}/>
                                                 </>}
