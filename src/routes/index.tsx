@@ -11,7 +11,7 @@ import {
     LoginPage,
     SignupPage,
 } from "../pages";
-import CreateLoanPage from "../pages/CreateLoan";
+import CreateLoanPage from "../pages/CreateLoan.tsx";
 
 import {DashboardLayout, PublicLayout} from "../layout";
 const router = createBrowserRouter([

@@ -245,7 +245,10 @@ const LandingNavbar = ({compressed}: IProps) => {
                                 How it works
                             </Button>
                             <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
-                                Campaigns
+                                Donation
+                            </Button>
+                            <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
+                                Loan
                             </Button>
                             <HoverCard width={700} position="bottom" radius="sm" shadow="md" withinPortal>
                                 <HoverCard.Target>
@@ -284,9 +287,9 @@ const LandingNavbar = ({compressed}: IProps) => {
                             >
                                 Search
                             </Button>
-                            <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
+                            {/* <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
                                 Start a campaign
-                            </Button>
+                            </Button> */}
                             
                             {username ? <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
                         {username}
@@ -317,7 +320,10 @@ const LandingNavbar = ({compressed}: IProps) => {
                         How it works
                     </Button>
                     <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
-                        Campaigns
+                        Donate
+                    </Button>
+                    <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
+                        Loan
                     </Button>
                     <UnstyledButton className={classes.link} onClick={toggleLinks}>
                         <Center inline>
@@ -329,9 +335,9 @@ const LandingNavbar = ({compressed}: IProps) => {
                     </UnstyledButton>
                     <Collapse in={linksOpened}>{links}</Collapse>
 
-                    <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
+                    {/* <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
                         Start a campaign
-                    </Button>
+                    </Button> */}
                     {username ? <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
                         {username}
                     </Button> : <Button component={Link} to="/login" className={classes.link} {...buttonProps}>
