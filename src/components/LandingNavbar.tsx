@@ -260,7 +260,7 @@ const LandingNavbar = ({compressed}: IProps) => {
                                         </Center>
                                     </a>
                                 </HoverCard.Target>
-
+                                
                                 <HoverCard.Dropdown sx={{overflow: 'hidden'}}>
                                     <Group position="apart" px="md">
                                         <Text fw={500} color="dark">Categories</Text>
