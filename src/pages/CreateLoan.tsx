@@ -54,7 +54,7 @@ import {
     IconPlus,
     IconTrash
 } from "@tabler/icons-react";
-import { CategorySelect, CountrySelect, CurrencySelect, FileDropzone } from "../components";
+import CategoryLoan from "../components/CategoryLoan";
 import { randomId } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 
@@ -73,7 +73,6 @@ const SocialSelectItem = forwardRef<HTMLDivElement, ISocialProps>(
         </div>
     )
 );
-
 const CreateLoanPage = () => {
     const theme = useMantineTheme();
     const [active, setActive] = useState(0);
@@ -114,23 +113,28 @@ const CreateLoanPage = () => {
 
     const nextStep = () => setActive((current: number) => (current < 4 ? current + 1 : current));
     const prevStep = () => setActive((current: number) => (current > 0 ? current - 1 : current));
-
+    const formatDate = (isoString: string): string => {
+        const date = new Date(isoString);
+            return date.toISOString().split('T')[0]; // Extracts 'YYYY-MM-DD' from ISO string
+        };
+  
     const handleSubmit = async () => {
         const formData = {
+            username:localStorage.getItem('username'),
             title: socialForm.values.title,
             category: socialForm.values.category,
             targetAmount: target === 'deadline' ? socialForm.values.targetAmount : undefined,
-            deadlineDate: target === 'deadline' ? deadlineDate : undefined,
+            deadlineDate: target === 'deadline' && deadlineDate ? formatDate(String(deadlineDate)) : undefined,
             donationType,
             minimumCheck,
             interest: socialForm.values.interest,
-            firstName: socialForm.values.firstName,
-            lastName: socialForm.values.lastName,
-            profilePicture: socialForm.values.profilePicture,
-            socialLinks: socialForm.values.employees.map(e => ({
-                name: e.name,
-                active: e.active
-            })),
+            // firstName: socialForm.values.firstName,
+            // lastName: socialForm.values.lastName,
+            // profilePicture: socialForm.values.profilePicture,
+            // socialLinks: socialForm.values.employees.map(e => ({
+            //     name: e.name,
+            //     active: e.active
+            // })),
             bkashNumber,
             nagadNumber,
             rocketNumber,
@@ -139,7 +143,7 @@ const CreateLoanPage = () => {
         console.log('formData:', formData);
 
         try {
-            const response = await fetch('http://localhost:3000/loan/create', {
+            const response = await fetch('http://localhost:3000/api/loans/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -220,7 +224,7 @@ const CreateLoanPage = () => {
                             <Paper {...paperProps}>
                                 <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
                                     <TextInput label="Title" {...socialForm.getInputProps('title')} />
-                                    <CategorySelect value={socialForm.getInputProps('category').value} onChange={socialForm.getInputProps('category').onChange} />
+                                    <CategoryLoan value={socialForm.getInputProps('category').value} onChange={socialForm.getInputProps('category').onChange} />
                                     </SimpleGrid>
                             </Paper>
                             <Paper {...paperProps}>

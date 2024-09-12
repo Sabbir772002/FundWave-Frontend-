@@ -10,12 +10,12 @@ import {
     HowItWorksPage,
     LoginPage,
     SignupPage,
-} from "../pages";
-import LoansPage from "../pages/Loans";
-import CreateLoanPage from "../pages/CreateLoan";
-import LoanDetailsPage from "../pages/LoanDetailsPage";
+} from ".";
+import LoansPage from "./Loans";
+import CreateLoanPage from "./CreateLoan";
 
 import {DashboardLayout, PublicLayout} from "../layout";
+import React from "react";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
             },
             {
                 path: ":id",
-                element: <LoanDetailsPage/>,
+                element: <CampaignDetailsPage/>,
                 errorElement: <DetailError404Page/>
             }
         ]
