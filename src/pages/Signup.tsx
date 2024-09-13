@@ -61,9 +61,10 @@ const SignupPage = () => {
                 <title>Signup</title>
             </Helmet>
             <Container size={420} my={40}>
-                <Title align="center" sx={() => ({ fontWeight: 900 })}>
-                    Welcome!
-                </Title>
+                <Title sx={{ fontWeight: 900, textAlign: 'center' , whiteSpace: 'nowrap'}}>
+                    Welcome to FundWave!
+                 </Title>
+
                 <Text color="dimmed" size="sm" align="center" mt={5}>
                     Already have an account?{' '}
                     <Anchor size="sm" component="button">
@@ -72,11 +73,7 @@ const SignupPage = () => {
                 </Text>
 
                 <Paper withBorder shadow="md" p={30} mt={30} radius="md" component="form" onSubmit={handleSubmit}>
-                    <Group grow mb="md" mt="md">
-                        <Button radius="xl" leftIcon={<IconBrandFacebook size={18} />}>Facebook</Button>
-                        <Button radius="xl" leftIcon={<IconBrandGoogle size={18} />}>Google</Button>
-                    </Group>
-                    <Divider label="Or continue with email" labelPosition="center" my="lg" />
+                    
                     <TextInput label="Name" placeholder="Your name" required value={name} onChange={(e) => setName(e.target.value)} />
                     <TextInput label="Email" placeholder="Your email" required mt="md" value={email} onChange={(e) => setEmail(e.target.value)} />
                     <TextInput label="Username" placeholder="Your Username" required mt="md" value={username} onChange={(e) => setUsername(e.target.value)} />

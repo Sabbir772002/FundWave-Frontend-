@@ -159,7 +159,7 @@ const LandingFooter = ({data}: FooterLinksProps) => {
                 <div className={classes.logo}>
                     <Stack align="flex-start">
                         <BrandName size={40}/>
-                        <Text size="sm">CrowdUp is a website for crowdfunding and student loan platform dedicated to helping UIU
+                        <Text size="sm">FundWave is a website for crowdfunding and student loan platform dedicated to helping UIU
                              students raise money for their educational needs and any crisis. From tuition fees and textbooks to housing
                               and academics, we empower students to help overcoming financial barriers and achieve their dreams. We've 
                               supported students in campus raising funds and accessing affordable loans.
@@ -170,7 +170,7 @@ const LandingFooter = ({data}: FooterLinksProps) => {
             </Container>
             <Container className={classes.afterFooter} size="lg">
                 <Text size="sm">
-                    © {new Date().getFullYear()} CrowdUp. All rights reserved.
+                    © {new Date().getFullYear()} FundWave. All rights reserved.
                 </Text>
 
                 <Group spacing={0} className={classes.social} position="right" noWrap>

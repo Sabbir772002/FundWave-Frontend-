@@ -21,6 +21,6 @@ export {
     SignupPage,
     DashboardPage,
     CreateCampaignPage,
-    CreateLoanPage
+    
 
 }

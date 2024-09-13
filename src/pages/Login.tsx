@@ -70,7 +70,7 @@ const LoginPage = () => {
                     align="center"
                     sx={() => ({ fontWeight: 900 })}
                 >
-                    Welcome back!
+                    Welcome back to FundWave!
                 </Title>
                 <Text color="dimmed" size="sm" align="center" mt={5}>
                     Do not have an account yet?{' '}
@@ -80,11 +80,7 @@ const LoginPage = () => {
                 </Text>
 
                 <Paper withBorder shadow="md" p={30} mt={30} radius="md" component="form" onSubmit={handleSubmit}>
-                    <Group grow mb="md" mt="md">
-                        <Button radius="xl" leftIcon={<IconBrandFacebook size={18}/>}>Facebook</Button>
-                        <Button radius="xl" leftIcon={<IconBrandGoogle size={18}/>}>Google</Button>
-                    </Group>
-                    <Divider label="Or continue with email" labelPosition="center" my="lg" />
+                    
                     {/* <TextInput label="Email" placeholder="Your email" required mt="md" value={email} onChange={(e) => setEmail(e.target.value)} /> */}
                     <TextInput label="Username" placeholder="Your Username" required mt="md" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => setPassword(e.target.value)} />
