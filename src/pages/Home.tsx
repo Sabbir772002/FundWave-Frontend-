@@ -43,10 +43,9 @@ const HomePage = (): JSX.Element => {
                 <Container>
                     <Box {...boxProps}>
                         <TitleBadge title="About us"/>
-                        <Title {...titleProps}>more people more impact</Title>
-                        <Text {...subTitleProps}>Because together, we can make a real difference. Our volunteers service
-                            in a
-                            variety of roles according to their skills and interests.</Text>
+                        <Title {...titleProps}>more students more impact</Title>
+                        <Text {...subTitleProps}>Because together, we can make a real difference. Our service
+                           is to bring all UIU students in a common platfprm so that they can help each other and others in need.</Text>
                     </Box>
                     <FeaturesSection boxProps={boxProps} subtitleProps={subTitleProps}/>
                     <StatsSection boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>

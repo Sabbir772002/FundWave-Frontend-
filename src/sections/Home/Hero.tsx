@@ -8,7 +8,7 @@ const useStyles = createStyles((theme) => ({
         paddingTop: rem(180),
         paddingBottom: rem(130),
         backgroundImage:
-            'url(https://images.unsplash.com/photo-1509099836639-18ba1795216d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80)',
+            'url(https://www.uiu.ac.bd/wp-content/uploads/2024/06/1.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: rem(640),
@@ -134,17 +134,17 @@ const HeroSection = () => {
                             </Group>
                         </Center>
                         <Title className={classes.title}>
-                            Help the people, make <Text
+                            Help the students, Support <Text
                             component="span"
                             inherit
                             variant="gradient"
                             gradient={{from: theme.colors.lime[5], to: theme.colors.green[4]}}
-                        >big changes</Text> and <Text
+                        >the Loans</Text> and <Text
                             component="span"
                             inherit
                             variant="gradient"
                             gradient={{from: theme.colors.green[4], to: theme.colors.lime[5]}}
-                        >help this world.</Text>
+                        >Fund Dreams.</Text>
                         </Title>
                         <Text size="lg" className={classes.description}>
                             Join us and be part of something special. Together we can make a difference and bring your

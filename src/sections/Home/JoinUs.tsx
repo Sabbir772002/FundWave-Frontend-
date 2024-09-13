@@ -36,8 +36,8 @@ const JoinUsSection = ({boxProps, subtitleProps}: IProps) => {
                             <IconWorld/>
                         </ThemeIcon>
                         <Stack spacing={2}>
-                            <Text weight={600}>Global community</Text>
-                            <Text size="sm">Reach a community that can make us strong and useful.</Text>
+                            <Text weight={600}>UIU community</Text>
+                            <Text size="sm">Reach our community that can make us strong and useful.</Text>
                         </Stack>
                     </Flex>
                     <Flex gap="xs">
@@ -69,7 +69,7 @@ const JoinUsSection = ({boxProps, subtitleProps}: IProps) => {
                 </Stack>
                 <Box mx={matchesMobile ? 0 : 'auto'}>
                     <Image
-                        src="https://images.unsplash.com/photo-1524069290683-0457abfe42c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                        src="https://scontent.fdac19-1.fna.fbcdn.net/v/t39.30808-6/457298825_952789776875078_1004883036196412916_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFWxw7IPepcIKdxX5E3rDpFSog-1jEi8K1KiD7WMSLwrb9Nehmwc16VUPY_xDs4zzbVfCz4MiF8zT33p6tsB5Ef&_nc_ohc=JDsilFm_NPIQ7kNvgFRJJaB&_nc_ht=scontent.fdac19-1.fna&oh=00_AYBMoYYZmeF9NO5IVq2piQuajBX8kXeD86ctakt3T0rQOQ&oe=66E90558"
                         width={matchesMobile ? '100%' : 500}
                         height={400}
                         radius="sm"
