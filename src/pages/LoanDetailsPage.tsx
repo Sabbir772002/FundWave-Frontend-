@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ILoans } from "../types";
+import { DateInput } from "@mantine/dates";
 import {
     Accordion,
     ActionIcon,
@@ -15,9 +15,12 @@ import {
     Grid,
     Group,
     Image,
+    Modal,
+    NumberInput,
     Paper,
     PaperProps,
     Progress,
+    Select,
     Stack,
     Text,
     TextProps,
@@ -27,7 +30,7 @@ import {
 } from "@mantine/core";
 import { IconFlag, IconHeart, IconHeartFilled, IconSeparator, IconShare } from "@tabler/icons-react";
 import { useDisclosure, useMediaQuery, useToggle } from "@mantine/hooks";
-import { BackButton, DonationDrawer, NotFound, ShareModal, UserCard } from "../components";
+import { BackButton, NotFound, UserCard } from "../components";
 import LenderCard from "../components/LenderCard";
 import { Helmet } from "react-helmet";
 import * as dayjs from "dayjs";
@@ -37,12 +40,20 @@ import { notifications } from "@mantine/notifications";
 const LoanDetailsPage = (): JSX.Element => {
     dayjs.extend(LocalizedFormat);
     const { id } = useParams<{ id: string }>();
-    const [Loans, setLoans] = useState<ILoans | undefined>();
+    const [Loans, setLoans] = useState<any>();
     const [opened, { open, close }] = useDisclosure(false);
     const [donateOpened, { open: donateOpen, close: donateClose }] = useDisclosure(false);
-    const [username, setUsername] = useState(localStorage.getItem('username')); 
+    const [username, setUsername] = useState(localStorage.getItem('username'));
     const [following, setFollowing] = useToggle();
     const matchesMobile = useMediaQuery('(max-width: 768px)');
+    const [final, setFinal] = useState(false);
+
+    // Modal for Bid for Lend
+    const [bidModalOpened, { open: openBidModal, close: closeBidModal }] = useDisclosure(false);
+    const [bidType, setBidType] = useState<string | null>(null);
+    const [maxTime, setMaxTime] = useState<Date | null>(null);
+    const [interest, setInterest] = useState<number | "">(0);
+
     const paperProps: PaperProps = {
         p: "md",
         shadow: "sm",
@@ -82,7 +93,60 @@ const LoanDetailsPage = (): JSX.Element => {
     useEffect(() => {
         fetchLoanData();
     }, [id]);
-    const [final, setFinal] = useState(true);
+
+    const handleBidSubmit = async () => {
+        if (id && bidType && maxTime && interest && username) {
+            console.log("Submitting bid...");
+            console.log("id:", id);
+            console.log("bidType:", bidType);
+            console.log("maxTime:", maxTime);
+            console.log("interest:", interest);
+            console.log("username:", username);
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/bids`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        loanId: id,
+                        username,
+                        bidType,
+                        maxTime,
+                        interest
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to submit bid");
+                }
+
+                notifications.show({
+                    title: "Bid submitted",
+                    message: "Your bid for lending has been submitted successfully.",
+                    withBorder: true,
+                    styles: (theme) => ({
+                        root: {
+                            backgroundColor: theme.colors.green[6],
+                            borderColor: theme.colors.green[6],
+                            '&::before': { backgroundColor: theme.white },
+                        },
+                        title: { color: theme.white },
+                        description: { color: theme.white },
+                        closeButton: {
+                            color: theme.white,
+                            '&:hover': { backgroundColor: theme.colors.green[7] },
+                        },
+                    }),
+                });
+
+                closeBidModal();
+            } catch (error) {
+                console.error("Error submitting bid:", error);
+            }
+        }
+    };
 
     return (
         <>
@@ -97,7 +161,6 @@ const LoanDetailsPage = (): JSX.Element => {
                             <Grid.Col lg={8}>
                                 <Stack>
                                     <Card padding="md" shadow="sm">
-                                        
                                         <Card.Section>
                                             <Image src={Loans?.mainImage} height={480} />
                                         </Card.Section>
@@ -134,68 +197,14 @@ const LoanDetailsPage = (): JSX.Element => {
                                                     </Group>
                                                 </Stack>
                                             )}
-                                            <Text {...subTitleProps}>Why i Need this</Text>
-                                         <Text size="sm" dangerouslySetInnerHTML={{ __html: Loans?.story || '' }} />
-                                            {matchesMobile && (  
-                                                <>
-                                                    <Divider />
-                                                    <Flex align="flex-end" gap="sm">
-                                                        <Title {...titleProps} align="center">{Loans?.amountRaised}</Title>
-                                                        <Text fw={500} align="center" color="dimmed">raised of {Loans?.targetAmount}</Text>
-                                                    </Flex>
-                                                    <Progress value={(Loans?.targetAmount / Loans?.targetAmount) * 100} size="md" />
-                                                    <Flex justify="space-between">
-                                                        <Text fw={500}>{(Loans?.targetAmount / Loans?.targetAmount) * 100}% Funded</Text>
-                                                        <Text fw={500}>{Loans?.contributors} Donors</Text>
-                                                    </Flex>
-                                                    <Flex align="center" gap="xs">
-                                                        <Button onClick={donateOpen} fullWidth>Donate</Button>
-                                                        <ActionIcon
-                                                            variant="subtle"
-                                                            onClick={open}
-                                                            color="blue"
-                                                            title="Share with your friends"
-                                                            size="lg"
-                                                        >
-                                                            <IconShare size={iconSize} />
-                                                        </ActionIcon>
-                                                        <ActionIcon
-                                                            title={`${following ? 'Unfollow' : 'Follow'} this campaign`}
-                                                            size="lg"
-                                                            color={'secondary'}
-                                                            onClick={() => {
-                                                                setFollowing();
-                                                                notifications.show({
-                                                                    title: 'Notification',
-                                                                    message: `${following ? 'Following' : 'Unfollowed'} this campaign`,
-                                                                    withBorder: true,
-                                                                    styles: (theme) => ({
-                                                                        root: {
-                                                                            backgroundColor: theme.colors.blue[6],
-                                                                            borderColor: theme.colors.blue[6],
-                                                                            '&::before': { backgroundColor: theme.white },
-                                                                        },
-                                                                        title: { color: theme.white },
-                                                                        description: { color: theme.white },
-                                                                        closeButton: {
-                                                                            color: theme.white,
-                                                                            '&:hover': { backgroundColor: theme.colors.blue[7] },
-                                                                        },
-                                                                    }),
-                                                                });
-                                                            }}
-                                                        >
-                                                            {following ? <IconHeartFilled size={iconSize} /> : <IconHeart size={iconSize} />}
-                                                        </ActionIcon>
-                                                    </Flex>
-                                                </>
-                                            )}
+                                            <Text {...subTitleProps}>Why I Need This</Text>
+                                            <Text size="sm" dangerouslySetInnerHTML={{ __html: Loans?.story || '' }} />
                                         </Stack>
                                     </Card>
                                     <Paper {...paperProps}>
                                         <Text {...subTitleProps} mb="sm">Lender</Text>
                                         <UserCard username={Loans?.username} />
-                                        </Paper>
+                                    </Paper>
                                     <Paper {...paperProps}>
                                         <Text>Created on {dayjs(Loans?.createdAt).format('LL')}</Text>
                                     </Paper>
@@ -212,25 +221,20 @@ const LoanDetailsPage = (): JSX.Element => {
                             </Grid.Col>
                             <Grid.Col lg={4}>
                                 <Stack>
-
                                     {!matchesMobile && (
                                         <Paper {...paperProps}>
                                             <Stack spacing="sm">
-                                            {
-                                                username === Loans?.username ? (
+                                                {username === Loans?.username ? (
                                                     <Button variant="outline" size="xl">Update Loans</Button>
                                                 ) : !final ? (
-                                                    <Button size="xl">BID for Lend</Button>
+                                                    <Button size="xl" onClick={openBidModal}>BID for Lend</Button>
                                                 ) : (
                                                     <Button disabled size="xl">Final</Button>
-                                                )
-                                                }
-
-                                            {final ? ( <>
-                                                          <Button size="xl" >Transaction Page</Button>
-                                                        </>
-                                                        ) : null}
-                                            <Button
+                                                )}
+                                                {final ? (
+                                                    <Button size="xl">Transaction Page</Button>
+                                                ) : null}
+                                                <Button
                                                     leftIcon={<IconShare size={iconSize} />}
                                                     variant="outline"
                                                     onClick={open}
@@ -248,19 +252,6 @@ const LoanDetailsPage = (): JSX.Element => {
                                                             title: 'Notification',
                                                             message: `${following ? 'Following' : 'Unfollowed'} this campaign`,
                                                             withBorder: true,
-                                                            styles: (theme) => ({
-                                                                root: {
-                                                                    backgroundColor: theme.colors.blue[6],
-                                                                    borderColor: theme.colors.blue[6],
-                                                                    '&::before': { backgroundColor: theme.white },
-                                                                },
-                                                                title: { color: theme.white },
-                                                                description: { color: theme.white },
-                                                                closeButton: {
-                                                                    color: theme.white,
-                                                                    '&:hover': { backgroundColor: theme.colors.blue[7] },
-                                                                },
-                                                            }),
                                                         });
                                                     }}
                                                 >
@@ -272,7 +263,6 @@ const LoanDetailsPage = (): JSX.Element => {
                                     <Paper {...paperProps}>
                                         <Text {...subTitleProps} mb="md">Interested Lender</Text>
                                         <LenderCard username={Loans?.username} />
-
                                     </Paper>
                                     {matchesMobile && (
                                         <Button
@@ -290,9 +280,59 @@ const LoanDetailsPage = (): JSX.Element => {
                 ) : (
                     <NotFound />
                 )}
-                {/* <ShareModal opened={opened} onClose={close} Loans={Loans} iconSize={iconSize} />
-                <DonationDrawer campaign={Loans} opened={donateOpened} onClose={donateClose} iconSize={iconSize} /> */}
             </Box>
+
+            {/* Modal for bidding */}
+            <Modal
+                opened={bidModalOpened}
+                onClose={closeBidModal}
+                title="Bid for Lend"
+                size="lg"
+            >
+                <Stack>
+                    <Select
+                        label="EMI Type"
+                        placeholder="Select EMI Type"
+                        data={[
+                            { value: 'EMI', label: 'EMI' },
+                            { value: 'One Time', label: 'One Time' },
+                            { value: 'Wish', label: 'Wish' },
+                        ]}
+                        value={bidType}
+                        onChange={setBidType}
+                    />
+                    <DateInput
+                        label="Maximum Time"
+                        placeholder="Select Date"
+                        value={maxTime}
+                        onChange={setMaxTime}
+                    />
+                    <NumberInput
+                        label="Interest (%)"
+                        placeholder="Enter Interest"
+                        value={interest}
+                        onChange={setInterest}
+                        precision={2}
+                        min={0}
+                        max={100}
+                    />
+                    <Group mt="lg" position="right">
+                        <Button onClick={handleBidSubmit}>Submit</Button>
+                    </Group>
+                </Stack>
+            </Modal>
+
+            {/* Modal for sharing */}
+            <Modal
+                opened={opened}
+                onClose={close}
+                title="Share Loan with Friends"
+                size="lg"
+            >
+                <Group>
+                    {/* Implement your sharing functionality here */}
+                </Group>
+            </Modal>
         </>
     );
 };
