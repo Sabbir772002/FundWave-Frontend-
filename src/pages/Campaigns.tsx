@@ -3,7 +3,7 @@ import campaignsData from "../data/Campaigns.json";
 import {CampaignCard} from "../components";
 import {Helmet} from "react-helmet";
 import {useMediaQuery} from "@mantine/hooks";
-
+import  { useState, useEffect } from 'react';
 const CampaignsPage = (): JSX.Element => {
     const matchesMobile = useMediaQuery('(max-width: 768px)');
 
@@ -20,8 +20,27 @@ const CampaignsPage = (): JSX.Element => {
         transform: 'capitalize',
         sx: {lineHeight: '40px'}
     }
+    const [campaign, setCampaign] = useState([{ id: 0 ,data:[{}]}]);
+    // Function to fetch loan data
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/campaign');
 
-    const items = campaignsData.data.map(c => (<CampaignCard key={c.id} data={c} showActions={true}/>))
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setCampaign(data);
+      } catch (error) {
+        console.error('Error fetching loan data:', error);
+      }
+    };
+    // Fetch data when the component mounts
+    useEffect(() => {
+      fetchData();
+    }, []);
+    
+    const items = campaign.map(c => (<CampaignCard key={c.id} data={c} showActions={true}/>))
 
     return (
         <>

@@ -28,6 +28,7 @@ import {
 import { IconFlag, IconHeart, IconHeartFilled, IconSeparator, IconShare } from "@tabler/icons-react";
 import { useDisclosure, useMediaQuery, useToggle } from "@mantine/hooks";
 import { BackButton, DonationDrawer, NotFound, ShareModal, UserCard } from "../components";
+import LenderCard from "../components/LenderCard";
 import { Helmet } from "react-helmet";
 import * as dayjs from "dayjs";
 import * as LocalizedFormat from "dayjs/plugin/localizedFormat";
@@ -39,6 +40,7 @@ const LoanDetailsPage = (): JSX.Element => {
     const [Loans, setLoans] = useState<ILoans | undefined>();
     const [opened, { open, close }] = useDisclosure(false);
     const [donateOpened, { open: donateOpen, close: donateClose }] = useDisclosure(false);
+    const [username, setUsername] = useState(localStorage.getItem('username')); 
     const [following, setFollowing] = useToggle();
     const matchesMobile = useMediaQuery('(max-width: 768px)');
     const paperProps: PaperProps = {
@@ -80,6 +82,7 @@ const LoanDetailsPage = (): JSX.Element => {
     useEffect(() => {
         fetchLoanData();
     }, [id]);
+    const [final, setFinal] = useState(true);
 
     return (
         <>
@@ -94,6 +97,7 @@ const LoanDetailsPage = (): JSX.Element => {
                             <Grid.Col lg={8}>
                                 <Stack>
                                     <Card padding="md" shadow="sm">
+                                        
                                         <Card.Section>
                                             <Image src={Loans?.mainImage} height={480} />
                                         </Card.Section>
@@ -116,7 +120,7 @@ const LoanDetailsPage = (): JSX.Element => {
                                             ) : (
                                                 <Stack>
                                                     <Flex gap="md">
-                                                        <Text size="sm">Fundraise campaign created by</Text>
+                                                        <Text size="sm">This lending requested by</Text>
                                                         <UnstyledButton component={Anchor}>
                                                             <Flex gap="xs" align="center">
                                                                 <Avatar src={Loans?.createdByImage} radius="xl" size="sm" />
@@ -130,7 +134,7 @@ const LoanDetailsPage = (): JSX.Element => {
                                                     </Group>
                                                 </Stack>
                                             )}
-                                            <Text {...subTitleProps}>Our story</Text>
+                                            <Text {...subTitleProps}>Why i Need this</Text>
                                          <Text size="sm" dangerouslySetInnerHTML={{ __html: Loans?.story || '' }} />
                                             {matchesMobile && (  
                                                 <>
@@ -189,9 +193,9 @@ const LoanDetailsPage = (): JSX.Element => {
                                         </Stack>
                                     </Card>
                                     <Paper {...paperProps}>
-                                        <Text {...subTitleProps} mb="sm">Organizer</Text>
-                                        <UserCard />
-                                    </Paper>
+                                        <Text {...subTitleProps} mb="sm">Lender</Text>
+                                        <UserCard username={Loans?.username} />
+                                        </Paper>
                                     <Paper {...paperProps}>
                                         <Text>Created on {dayjs(Loans?.createdAt).format('LL')}</Text>
                                     </Paper>
@@ -208,18 +212,25 @@ const LoanDetailsPage = (): JSX.Element => {
                             </Grid.Col>
                             <Grid.Col lg={4}>
                                 <Stack>
+
                                     {!matchesMobile && (
                                         <Paper {...paperProps}>
                                             <Stack spacing="sm">
-                                                <Title {...titleProps} align="center">{Loans?.amountRaised}</Title>
-                                                <Text fw={500} align="center" color="dimmed">raised of {Loans?.goal}</Text>
-                                                <Progress value={(Loans?.amountRaised / Loans?.goal) * 100} size="md" />
-                                                <Flex justify="space-between">
-                                                    <Text fw={500}>{(Loans?.amountRaised / Loans?.goal) * 100}% Funded</Text>
-                                                    <Text fw={500}>{Loans?.contributors} Donors</Text>
-                                                </Flex>
-                                                <Button size="xl" onClick={donateOpen}>Donate</Button>
-                                                <Button
+                                            {
+                                                username === Loans?.username ? (
+                                                    <Button variant="outline" size="xl">Update Loans</Button>
+                                                ) : !final ? (
+                                                    <Button size="xl">BID for Lend</Button>
+                                                ) : (
+                                                    <Button disabled size="xl">Final</Button>
+                                                )
+                                                }
+
+                                            {final ? ( <>
+                                                          <Button size="xl" >Transaction Page</Button>
+                                                        </>
+                                                        ) : null}
+                                            <Button
                                                     leftIcon={<IconShare size={iconSize} />}
                                                     variant="outline"
                                                     onClick={open}
@@ -259,17 +270,9 @@ const LoanDetailsPage = (): JSX.Element => {
                                         </Paper>
                                     )}
                                     <Paper {...paperProps}>
-                                        <Text {...subTitleProps} mb="md">Donation FAQ</Text>
-                                        <Accordion defaultValue="customization" variant="separated">
-                                            <Accordion.Item value="customization">
-                                                <Accordion.Control>When will {Loans?.username} get my payment?</Accordion.Control>
-                                                <Accordion.Panel>Your payment is sent directly to {Loans?.username} so it immediately helps their campaign.</Accordion.Panel>
-                                            </Accordion.Item>
-                                            <Accordion.Item value="flexibility">
-                                                <Accordion.Control>How secure is the payment process?</Accordion.Control>
-                                                <Accordion.Panel>Payments are made in a highly-secure environment. We use industry-leading technology (such as SSL) to keep your information safe and encrypted.</Accordion.Panel>
-                                            </Accordion.Item>
-                                        </Accordion>
+                                        <Text {...subTitleProps} mb="md">Interested Lender</Text>
+                                        <LenderCard username={Loans?.username} />
+
                                     </Paper>
                                     {matchesMobile && (
                                         <Button

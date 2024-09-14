@@ -1,17 +1,18 @@
 export interface ICampaign {
-    id: string
+    _id: string
     title: string
-    description: string
+    story: string
     createdAt: string
     mainImage: string
-    createdBy: string
+    username: string
     daysLeft: number
-    amountRaised: string
-    goal: string
+    Amount: Number
+    target: string
     contributors: number
     createdByImage: string
     category: string
-    country: string
+    amountRaised: number
+    deadlineDate: string
     type: string | null
 }
 

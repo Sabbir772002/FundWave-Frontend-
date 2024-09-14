@@ -49,7 +49,7 @@ const LoginPage = () => {
                     localStorage.setItem('authToken', data.token);
                 }
             localStorage.setItem('username', username);
-            console.log('Signup successful:', data);
+            console.log('Signin successful:', data);
             navigate('/'); 
             
         } else {
