@@ -16,7 +16,7 @@ const CampaignsSection = ({boxProps, titleProps}: IProps) => {
     return (
         <Box {...boxProps}>
             <TitleBadge title="Happening near you"/>
-            <Title {...titleProps}>Fundraisers in your community</Title>
+            <Title {...titleProps}>Fundraisers in our UIU</Title>
             <Carousel
                 slideSize="45%"
                 align="start"
