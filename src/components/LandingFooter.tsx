@@ -159,9 +159,10 @@ const LandingFooter = ({data}: FooterLinksProps) => {
                 <div className={classes.logo}>
                     <Stack align="flex-start">
                         <BrandName size={40}/>
-                        <Text size="sm">CrowdUp is a crowdfunding website that lets you raise money for anything that
-                            matters to you. From personal causes and events to projects and more. We've helped people
-                            from all over the world raise millions online.
+                        <Text size="sm">FundWave is a website for crowdfunding and student loan platform dedicated to helping UIU
+                             students raise money for their educational needs and any crisis. From tuition fees and textbooks to housing
+                              and academics, we empower students to help overcoming financial barriers and achieve their dreams. We've 
+                              supported students in campus raising funds and accessing affordable loans.
                         </Text>
                     </Stack>
                 </div>
@@ -169,23 +170,23 @@ const LandingFooter = ({data}: FooterLinksProps) => {
             </Container>
             <Container className={classes.afterFooter} size="lg">
                 <Text size="sm">
-                    © {new Date().getFullYear()} CrowdUp. All rights reserved.
+                    © {new Date().getFullYear()} FundWave. All rights reserved.
                 </Text>
 
                 <Group spacing={0} className={classes.social} position="right" noWrap>
-                    <ActionIcon size="lg" component="a" href="https://github.com/kelvink96" target="_blank">
+                    <ActionIcon size="lg" component="a" href="" target="_blank">
                         <IconBrandGithub size="20" stroke={2}/>
                     </ActionIcon>
-                    <ActionIcon size="lg" component="a" href="https://twitter.com/kelvink_96" target="_blank">
+                    <ActionIcon size="lg" component="a" href="" target="_blank">
                         <IconBrandTwitter size="20" stroke={2}/>
                     </ActionIcon>
-                    <ActionIcon size="lg" component="a" href="https://www.facebook.com/kelvinkk96" target="_blank">
+                    <ActionIcon size="lg" component="a" href="" target="_blank">
                         <IconBrandFacebook size="20" stroke={2}/>
                     </ActionIcon>
-                    <ActionIcon size="lg" component="a" href="https://www.instagram.com/kelvink_96/" target="_blank">
+                    <ActionIcon size="lg" component="a" href="" target="_blank">
                         <IconBrandInstagram size="20" stroke={2}/>
                     </ActionIcon>
-                    <ActionIcon size="lg" component="a" href="https://www.linkedin.com/in/kelvink96/" target="_blank">
+                    <ActionIcon size="lg" component="a" href="" target="_blank">
                         <IconBrandLinkedin size="20" stroke={2}/>
                     </ActionIcon>
                 </Group>

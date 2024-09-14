@@ -241,9 +241,9 @@ const LandingNavbar = ({compressed}: IProps) => {
                     <Flex justify="space-between" align="center" sx={{height: '100%'}}>
                         <BrandName size={28} asLink/>
                         <Flex align="center" gap="xs" sx={{height: '100%'}} className={classes.hiddenMobile}>
-                            <Button component={Link} to="/how-it-works" className={classes.link} {...buttonProps}>
+                            {/* <Button component={Link} to="/how-it-works" className={classes.link} {...buttonProps}>
                                 How it works
-                            </Button>
+                            </Button> */}
                             <Button component={Link} to="/loans" className={classes.link} {...buttonProps}>
                                 Loans
                             </Button> <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
@@ -286,9 +286,9 @@ const LandingNavbar = ({compressed}: IProps) => {
 
                                 Search
                             </Button>
-                            <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
+                            {/* <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
                                 Start a campaign
-                            </Button>
+                            </Button> */}
                             
                             {username ? <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
                         {username}
@@ -319,7 +319,10 @@ const LandingNavbar = ({compressed}: IProps) => {
                         How it works
                     </Button>
                     <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
-                        Campaigns
+                        Donate
+                    </Button>
+                    <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
+                        Loan
                     </Button>
                     <UnstyledButton className={classes.link} onClick={toggleLinks}>
                         <Center inline>
@@ -331,9 +334,9 @@ const LandingNavbar = ({compressed}: IProps) => {
                     </UnstyledButton>
                     <Collapse in={linksOpened}>{links}</Collapse>
 
-                    <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
+                    {/* <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
                         Start a campaign
-                    </Button>
+                    </Button> */}
                     {username ? <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
                         {username}
                     </Button> : <Button component={Link} to="/login" className={classes.link} {...buttonProps}>

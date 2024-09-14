@@ -14,6 +14,8 @@ import {
 import LoansPage from "./Loans";
 import CreateLoanPage from "./CreateLoan";
 
+
+
 import {DashboardLayout, PublicLayout} from "../layout";
 import React from "react";
 const router = createBrowserRouter([
@@ -119,7 +121,9 @@ const router = createBrowserRouter([
                 element: <CreateLoanPage/>
             }
         ]
+        
     },
+   
 ]);
 
 
