@@ -53,17 +53,22 @@ const CampaignCard = ({data, showActions}: IProps) => {
     const {classes} = useStyles();
     const {
         mainImage,
-        id,
+        _id,
         title,
         amountRaised,
         daysLeft,
         contributors,
-        description,
+        story,
         category,
-        country
-    } = data;
-    const linkProps = {to: `/campaigns/${id}`, rel: 'noopener noreferrer'};
+        username,
+        deadlineDate,
+        Amount,
+        createdAt,
+        target
 
+        
+    } = data;
+    const linkProps = {to: `/campaigns/${_id}`, rel: 'noopener noreferrer'};
     return (
         <Card radius="sm" shadow="md" ml="xs" component={Link} {...linkProps} className={classes.card}>
             <Card.Section>
@@ -77,11 +82,12 @@ const CampaignCard = ({data, showActions}: IProps) => {
                     </Text>
 
                     <Group position="apart">
-                        <Text size="xs" transform="uppercase" color="dimmed" fw={700}>{country}</Text>
+                        {/* <Text size="xs" transform="uppercase" color="dimmed" fw={700}> By <b>{username}</b></Text> */}
+                        <Text size="xs"> By <b>{username}</b></Text>
                         <Badge variant="dot" color="secondary">{category}</Badge>
                     </Group>
 
-                    {showActions && <Text lineClamp={3} size="sm">{description}</Text>}
+                    <Text lineClamp={3} size="sm"><b>Deadline: </b>{target=="deadline"?deadlineDate:target}</Text>
 
                     <Progress value={daysLeft}/>
 

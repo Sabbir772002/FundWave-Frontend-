@@ -63,7 +63,7 @@ const LoanCard = ({ data, showActions }: IProps) => {
         story,
         condition
     } = data;
-
+    
     const linkProps = { to: `/loans/${_id}`, rel: 'noopener noreferrer' };
 
     // Calculate days left for progress (assumes deadlineDate is in ISO format)

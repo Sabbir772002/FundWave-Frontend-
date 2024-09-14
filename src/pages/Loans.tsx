@@ -13,7 +13,6 @@ const LoansPage = (): JSX.Element => {
         mb: matchesMobile ? 4 : 48,
         py: matchesMobile ? 16 : 24
     }
-
     const titleProps: TitleProps = {
         size: 32,
         weight: 700,
@@ -21,12 +20,11 @@ const LoansPage = (): JSX.Element => {
         transform: 'capitalize',
         sx: {lineHeight: '40px'}
     }
-    const [loansData, setLoansData] = useState([{ id: 0 ,data:[{id: 0, title: "", amountRaised: 0, daysLeft: 0, contributors: 0, mainImage: ""}]}]);
-
+    const [loansData, setLoansData] = useState([{ id: 0 ,data:[{}]}]);
       // Function to fetch loan data
       const fetchLoanData = async () => {
         try {
-          const response = await fetch('http://localhost:3000/api/loans'); // Adjust the URL if needed
+          const response = await fetch('http://localhost:3000/api/loans');
 
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -40,11 +38,9 @@ const LoansPage = (): JSX.Element => {
       // Fetch data when the component mounts
       useEffect(() => {
         fetchLoanData();
-      }, []); // Empty dependency array means this effect runs once on mount
-    
-    
-    const items = loansData.map(c => (<LoanCard key={c.id} data={c} showActions={true}/>))
+      }, []);
 
+    const items = loansData.map(c => (<LoanCard key={c.id} data={c} showActions={true}/>))
     return (
         <>
             <Helmet>
@@ -73,7 +69,8 @@ const LoansPage = (): JSX.Element => {
                                         {value: '50', label: 'show: 50'},
                                         {value: '100', label: 'show: 100'},
                                     ]}
-                                />
+                            
+                                    />
                                 <Select
                                     label=""
                                     placeholder="Explore"
