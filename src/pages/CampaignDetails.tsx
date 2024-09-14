@@ -180,7 +180,7 @@ const CampaignDetailsPage = (): JSX.Element => {
                     <Text {...subTitleProps} mb="sm">
                       Organizer
                     </Text>
-                    <UserCard username={campaign?.createdBy} />
+                    <UserCard username={campaign?.username} />
                   </Paper>
                 </Stack>
               </Grid.Col>

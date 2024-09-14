@@ -11,9 +11,14 @@ import {
     LoginPage,
     SignupPage,
 } from "../pages";
+import {Navigate} from "react-router-dom";
 import LoansPage from "../pages/Loans";
 import CreateLoanPage from "../pages/CreateLoan";
 import LoanDetailsPage from "../pages/LoanDetailsPage";
+const RequireAuth = ({ children }: { children: JSX.Element }) => {
+    const username = localStorage.getItem('username');
+    return username ? children : <Navigate to="/login" />;
+};
 
 import {DashboardLayout, PublicLayout} from "../layout";
 const router = createBrowserRouter([
@@ -63,8 +68,12 @@ const router = createBrowserRouter([
             },
             {
                 path: ":id",
-                element: <CampaignDetailsPage/>,
-                errorElement: <DetailError404Page/>
+                element: (
+                    <RequireAuth>
+                    <CampaignDetailsPage/>
+                </RequireAuth>
+                ),
+               errorElement: <DetailError404Page/>
             }
         ]
     },
@@ -80,7 +89,11 @@ const router = createBrowserRouter([
             },
             {
                 path: ":id",
-                element: <LoanDetailsPage/>,
+                element: (
+                    <RequireAuth>
+                    <LoanDetailsPage/>
+                </RequireAuth>
+                ),
                 errorElement: <DetailError404Page/>
             }
         ]
@@ -93,7 +106,11 @@ const router = createBrowserRouter([
             {
                 path: '',
                 index: true,
-                element: <DashboardPage/>
+                element: (
+                    <RequireAuth>
+                    <DashboardPage/>
+                </RequireAuth>
+                )
             }
         ]
     },
@@ -105,7 +122,11 @@ const router = createBrowserRouter([
             {
                 path: '',
                 index: true,
-                element: <CreateCampaignPage/>
+                element: (
+                    <RequireAuth>
+                    <CreateCampaignPage />
+                </RequireAuth>
+                )
             }
         ]
     },{
@@ -116,7 +137,12 @@ const router = createBrowserRouter([
             {
                 path: '',
                 index: true,
-                element: <CreateLoanPage/>
+                element: (
+                    <RequireAuth>
+                    <CreateLoanPage />
+                </RequireAuth>
+                )
+
             }
         ]
     },

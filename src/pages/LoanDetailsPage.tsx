@@ -21,8 +21,10 @@ import {
     PaperProps,
     Progress,
     Select,
+    Space,
     Stack,
     Text,
+    TextInput,
     TextProps,
     Title,
     TitleProps,
@@ -88,20 +90,41 @@ const LoanDetailsPage = (): JSX.Element => {
             }
         }
     };
-
     // Fetch data when the component mounts or id changes
     useEffect(() => {
         fetchLoanData();
     }, [id]);
-
+    const [searchTerm, setSearchTerm] = useState('');
+  
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(event.target.value);
+    };
+    const [Lender, setLender] = useState<any[]>([]);
+    const [filteredLender, setFilteredLender] = useState<any[]>([]);
+    const fetchLenderData = async () =>{
+    fetch(`http://localhost:3000/api/bids/${Loans?._id}`)
+        .then((response) => response.json())
+        .then((data) => setFilteredLender(data.data))
+        .catch((error) => console.error('Error fetching user data:', error));
+        setLender(filteredLender);
+    }
+    useEffect(() => {
+        fetchLenderData();
+    }, [Loans?._id]);
+    
+  useEffect(() => {
+    if(searchTerm!=""){ 
+        const result = Lender?.filter(lender =>
+            lender?.username?.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        setFilteredLender(result ? result : null);
+    }else{
+    setFilteredLender(Lender);
+    }
+  }, [searchTerm]);
+  
     const handleBidSubmit = async () => {
         if (id && bidType && maxTime && interest && username) {
-            console.log("Submitting bid...");
-            console.log("id:", id);
-            console.log("bidType:", bidType);
-            console.log("maxTime:", maxTime);
-            console.log("interest:", interest);
-            console.log("username:", username);
 
             try {
                 const response = await fetch(`http://localhost:3000/api/bids`, {
@@ -204,6 +227,7 @@ const LoanDetailsPage = (): JSX.Element => {
                                     <Paper {...paperProps}>
                                         <Text {...subTitleProps} mb="sm">Lender</Text>
                                         <UserCard username={Loans?.username} />
+                                    
                                     </Paper>
                                     <Paper {...paperProps}>
                                         <Text>Created on {dayjs(Loans?.createdAt).format('LL')}</Text>
@@ -216,20 +240,31 @@ const LoanDetailsPage = (): JSX.Element => {
                                         >
                                             Report campaign
                                         </Button>
+                                
                                     )}
                                 </Stack>
                             </Grid.Col>
                             <Grid.Col lg={4}>
+                                
                                 <Stack>
                                     {!matchesMobile && (
                                         <Paper {...paperProps}>
                                             <Stack spacing="sm">
+                                            <Button variant="outline" size="xl">৳{Loans?.targetAmount}</Button>
+
                                                 {username === Loans?.username ? (
                                                     <Button variant="outline" size="xl">Update Loans</Button>
-                                                ) : !final ? (
-                                                    <Button size="xl" onClick={openBidModal}>BID for Lend</Button>
-                                                ) : (
-                                                    <Button disabled size="xl">Final</Button>
+                                                 ) : !final ? (
+                                                    <Button
+                                                    size="xl"
+                                                    disabled={Lender?.some(lender => lender.username === username)}  
+                                                    onClick={openBidModal}
+                                                    >
+                                                    BID for Lend
+                                                    </Button>
+
+                                                                                                    ) : (
+                                                <Button disabled size="xl">Final</Button>
                                                 )}
                                                 {final ? (
                                                     <Button size="xl">Transaction Page</Button>
@@ -261,8 +296,34 @@ const LoanDetailsPage = (): JSX.Element => {
                                         </Paper>
                                     )}
                                     <Paper {...paperProps}>
-                                        <Text {...subTitleProps} mb="md">Interested Lender</Text>
-                                        <LenderCard username={Loans?.username} />
+                                        <Text {...subTitleProps} mb="md">Interested Lender </Text>
+                                         <TextInput
+                                                            placeholder="Search Lender"
+                                                            value={searchTerm}
+                                                            onChange={handleSearch}
+                                                            mb="md"
+                                                        />
+                                            {filteredLender ? (
+                                               filteredLender.map((lender, index) => (
+        
+                                                      <>
+                                            <Space h="md" />
+                                            <Box
+                                                    style={{
+                                                    border: '1px solid #ccc',
+                                                    padding: '0px',
+                                                    borderRadius: '5px',
+                                                    }} >
+
+                                        <LenderCard key={index} username={lender.username} />
+                                        </Box>
+                                            <Space h="md" /> 
+                                                    </>
+                                                ))
+                                                ) : (
+                                                <Text>No lender found</Text>
+                                            )}
+
                                     </Paper>
                                     {matchesMobile && (
                                         <Button
@@ -270,7 +331,7 @@ const LoanDetailsPage = (): JSX.Element => {
                                             variant="subtle"
                                             color="secondary"
                                         >
-                                            Report campaign
+                                            Report Campaign
                                         </Button>
                                     )}
                                 </Stack>

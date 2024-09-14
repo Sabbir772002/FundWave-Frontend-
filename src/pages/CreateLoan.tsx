@@ -24,7 +24,8 @@ import {
     TitleProps,
     useMantineTheme
 } from "@mantine/core";
-import { Link, RichTextEditor } from '@mantine/tiptap';
+import { Link } from 'react-router-dom';
+import { RichTextEditor } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import Highlight from '@tiptap/extension-highlight';
 import StarterKit from '@tiptap/starter-kit';
