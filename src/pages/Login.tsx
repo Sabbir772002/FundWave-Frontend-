@@ -8,10 +8,10 @@ import {
     Text,
     Container,
     Group,
-    Button, Divider,
+    Button,
 } from '@mantine/core';
 import {Helmet} from "react-helmet";
-import {IconBrandFacebook, IconBrandGoogle} from "@tabler/icons-react";
+//import {IconBrandFacebook, IconBrandGoogle} from "@tabler/icons-react";
 import {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 const LoginPage = () => {
@@ -49,7 +49,7 @@ const LoginPage = () => {
                     localStorage.setItem('authToken', data.token);
                 }
             localStorage.setItem('username', username);
-            console.log('Signin successful:', data);
+            console.log('Signup successful:', data);
             navigate('/'); 
             
         } else {

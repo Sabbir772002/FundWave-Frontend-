@@ -8,7 +8,7 @@ import WaysToFundSection from "../sections/Home/WaysToFund";
 import CampaignsSection from "../sections/Home/Campaigns";
 import Loan from "../sections/Home/loan";
 import GetStartedSection from "../sections/Home/GetStarted";
-import TestimonialsSection from "../sections/Home/Testimonials";
+// import TestimonialsSection from "../sections/Home/Testimonials";
 import {Helmet} from "react-helmet";
 
 const HomePage = (): JSX.Element => {
@@ -53,7 +53,7 @@ const HomePage = (): JSX.Element => {
                 </Container>
                 <WaysToFundSection boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>
                 <Container>
-                    <TestimonialsSection boxProps={boxProps} titleProps={titleProps}/>
+                    {/* <TestimonialsSection boxProps={boxProps} titleProps={titleProps}/> */}
                     <Loan boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>
                     <CampaignsSection boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>
                     <GetStartedSection boxProps={boxProps} titleProps={titleProps}/>
