@@ -176,7 +176,7 @@ const CreateCampaignPage = () => {
                     <Stepper active={active} onStepClick={setActive} breakpoint="sm">
                         <Stepper.Step
                             label="Get started"
-                            description="Set essential fundraiser details such as fundraiser title, target and currency"
+                            description="Set essential campaign details such as campaign title, target and currency"
                         >
                             <Title {...titleProps}>Campaign information</Title>
                             <Paper {...paperProps}>
@@ -189,19 +189,19 @@ const CreateCampaignPage = () => {
                                 <Stack spacing="sm">
                                     <Title {...subTitleProps}>Donation information</Title>
                                     <Radio.Group
-                                        label="What kind of fundraiser would you like to create?"
+                                        label="What kind of Campaign would you like to create?"
                                         value={target}
                                         onChange={setTarget}
                                     >
                                         <Group mt="xs">
-                                            <Radio value="deadline" label="Fundraiser with a specific end date?"/>
-                                            <Radio value="no-deadline" label="Ongoing (no deadline) fundraiser?"/>
+                                            <Radio value="deadline" label="Campaign with a specific end date?"/>
+                                            <Radio value="no-deadline" label="Ongoing (no deadline) campaign?"/>
                                         </Group>
                                     </Radio.Group>
                                     <Paper {...paperProps}>
                                         {target === 'deadline' ?
                                             <Stack spacing="xs">
-                                                <Text size="sm">Fundraiser with a specific end date?</Text>
+                                                <Text size="sm">Campaign with a specific end date?</Text>
                                                 <Text size="sm">This creates urgency and should always be used when money is needed before a certain time.</Text>
                                                 <DateInput
                                                     value={deadlineDate}
@@ -219,7 +219,7 @@ const CreateCampaignPage = () => {
                                                     label="Allow your fundraiser to be funded over the needed amount?"/> */}
                                             </Stack> :
                                             <Stack spacing="xs">
-                                                <Text size="sm">Ongoing (no deadline) fundraiser?</Text>
+                                                <Text size="sm">Ongoing (no deadline) campaign?</Text>
                                                 <Text size="sm">This should be used if you are collecting money on a regular basis.</Text>                                                
                                             </Stack>}
                                     </Paper>
@@ -319,7 +319,7 @@ const CreateCampaignPage = () => {
                                         <RichTextEditor.Content/>
                                     </RichTextEditor>
                                     <FileDropzone
-                                        label="Upload fundraiser photos"
+                                        label="Upload campaign photos"
                                         description="You can select and upload several in one go"/>
                                 </Stack>
                             </Paper>
