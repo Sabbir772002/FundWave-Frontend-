@@ -3,7 +3,7 @@ import {
     Button,
     Checkbox,
     Container,
-    Divider,
+   // Divider,
     Group,
     Paper,
     PasswordInput,
@@ -12,7 +12,7 @@ import {
     Title,
 } from '@mantine/core';
 import { Helmet } from "react-helmet";
-import { IconBrandFacebook, IconBrandGoogle } from "@tabler/icons-react";
+//import { IconBrandFacebook, IconBrandGoogle } from "@tabler/icons-react";
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -80,9 +80,9 @@ const SignupPage = () => {
                     <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Group position="apart" mt="lg">
                         <Checkbox label="Remember me" checked={rememberMe} onChange={(e) => setRememberMe(e.currentTarget.checked)} />
-                        <Anchor component="button" size="sm">
+                        {/* <Anchor component="button" size="sm">
                             Forgot password?
-                        </Anchor>
+                        </Anchor> */}
                     </Group>
                     <Button type="submit" fullWidth mt="xl">
                         Sign Up
