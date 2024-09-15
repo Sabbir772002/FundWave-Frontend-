@@ -159,7 +159,7 @@ const HeroSection = () => {
                         Find Loan
                     </Button>
                     <Button className={classes.control} variant="white" size="lg" component={Link} to="/create-campaign">
-                        Start a Fundraising
+                        Start a Campaign
                     </Button>
                     <Button className={classes.control} variant="white" size="lg" component={Link} to="/loans">
                         Explore now

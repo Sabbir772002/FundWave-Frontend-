@@ -247,7 +247,7 @@ const LandingNavbar = ({compressed}: IProps) => {
                             <Button component={Link} to="/create-loan" className={classes.link} {...buttonProps}>
                             Start your Loan
                             </Button> <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
-                            Start Fundraising
+                            Start Campaign
 
                             </Button> <Button component={Link} to="/loans" className={classes.link} {...buttonProps}>
                                 Loans
