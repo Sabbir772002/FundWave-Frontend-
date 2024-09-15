@@ -42,6 +42,7 @@ const LoginPage = () => {
             data = response;  // Fallback to plain text
         }
         console.log(data);
+        console.log(data);
         if (response.ok) {
             localStorage.removeItem('authToken');
             localStorage.removeItem('username');
@@ -55,7 +56,7 @@ const LoginPage = () => {
         } else {
             // Handle signup error
             console.error('Login failed:', data);
-            alert(`Login failed: Try with Correct Information`);
+            alert(`Login failed, try again with Correct Information`);
 
         }
     };
@@ -85,8 +86,8 @@ const LoginPage = () => {
                     <TextInput label="Username" placeholder="Your Username" required mt="md" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Group position="apart" mt="lg">
-                        <Checkbox label="Remember me" checked={rememberMe} onChange={(e) => setRememberMe(e.currentTarget.checked)} />
-                        {/* <Anchor component="button" size="sm">
+                        {/* <Checkbox label="Remember me" checked={rememberMe} onChange={(e) => setRememberMe(e.currentTarget.checked)} /> */}
+                        <Anchor component="button" size="sm">
                             Forgot password?
                         </Anchor> */}
                     </Group>

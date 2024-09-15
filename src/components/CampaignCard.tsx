@@ -13,6 +13,7 @@ import {
 } from '@mantine/core';
 import {ICampaign} from "../types";
 import {Link} from "react-router-dom";
+import {useEffect, useState} from 'react';
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -45,8 +46,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface IProps extends PaperProps {
-    data: ICampaign
-    showActions?: boolean
+    data: ICampaign;
+    showActions?: boolean;
 }
 
 const CampaignCard = ({data, showActions}: IProps) => {
@@ -65,10 +66,41 @@ const CampaignCard = ({data, showActions}: IProps) => {
         Amount,
         createdAt,
         target
-
-        
     } = data;
+
+    const [campaign, setCampaign] = useState<ICampaign | null>(null);
+    const [donations, setDonations] = useState<any[]>([]);
+    const [updatedAmountRaised, setUpdatedAmountRaised] = useState<number>(0);
+
+    useEffect(() => {
+        const fetchCampaignData = async () => {
+            if (_id) {
+                try {
+                    const campaignResponse = await fetch(`http://localhost:3000/api/campaign/${_id}`);
+                    const donationResponse = await fetch(`http://localhost:3000/api/fundpayments/${_id}`);
+
+                    if (!campaignResponse.ok || !donationResponse.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    const campaignData = await campaignResponse.json();
+                    const donationData = await donationResponse.json();
+                    const totalAmountRaised = donationData.map(d => d.Amount).reduce((a, b) => a + b, 0);
+                    setUpdatedAmountRaised(totalAmountRaised);
+
+                    
+                    setCampaign(campaignData);
+                    setDonations(donationData);
+                } catch (error) {
+                    console.error("Error fetching campaign or donation data:", error);
+                }
+            }
+        };
+
+        fetchCampaignData();
+    }, [_id]);
+
     const linkProps = {to: `/campaigns/${_id}`, rel: 'noopener noreferrer'};
+
     return (
         <Card radius="sm" shadow="md" ml="xs" component={Link} {...linkProps} className={classes.card}>
             <Card.Section>
@@ -82,21 +114,27 @@ const CampaignCard = ({data, showActions}: IProps) => {
                     </Text>
 
                     <Group position="apart">
-                        {/* <Text size="xs" transform="uppercase" color="dimmed" fw={700}> By <b>{username}</b></Text> */}
                         <Text size="xs"> By <b>{username}</b></Text>
                         <Badge variant="dot" color="secondary">{category}</Badge>
                     </Group>
 
-                    <Text lineClamp={3} size="sm"><b>Deadline: </b>{target=="deadline"?deadlineDate:target}</Text>
+                    <Text lineClamp={3} size="sm">
+                        <b>Deadline: </b>
+                        {target === "deadline" ? deadlineDate : target}
+                    </Text>
+                     {Amount &&
+                    <Progress value={(updatedAmountRaised / Amount) * 100} />
+                     }
+                     {!Amount &&
+                    <Progress value={100} />
+                     }
 
-                    <Progress value={daysLeft}/>
 
                     <Flex justify="space-between">
-                        <Text><b>{amountRaised}</b> raised</Text>
-                        <Text><b>{contributors}</b> donations</Text>
+                        <Text><b>৳{updatedAmountRaised}</b> raised</Text>
+                        <Text><b>{donations.length}</b> donations</Text>
                     </Flex>
 
-                    {/*{showActions && <Button>Donate Now</Button>}*/}
                 </Stack>
             </Card.Section>
         </Card>
