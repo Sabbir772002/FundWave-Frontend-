@@ -13,7 +13,8 @@ import {
     Title,
     TitleProps
 } from '@mantine/core';
-import {TitleBadge} from "../../components";
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { TitleBadge } from "../../components";
 
 const useStyles = createStyles((theme) => ({
     feature: {
@@ -25,7 +26,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface FeatureProps extends PaperProps {
-    image: string
+    image: string;
     title: string;
     description: string;
     action: string;
@@ -37,7 +38,7 @@ const mockdata = [
         title: 'Help Investing in My Academic Future',
         description:
             'Help me achieve reach my academic dreams I am passionate about my studies, but I need your support to reach my goals. Your contributions will go directly towards my education, helping me focus on what matters most: learning and growing..',
-        action: `Check out avaialble student loans for contribution`
+        action: `Check out available student loans for contribution`
     },
     {
         image: 'https://images.livemint.com/img/2021/12/15/600x338/el_1639587081155_1639587095192.jpg',
@@ -48,7 +49,7 @@ const mockdata = [
     },
     {
         image: 'https://www.bracu.ac.bd/sites/default/files/news-image/SAF_Fall21.jpg',
-        title: 'Crowdfunding for Recent FLood',
+        title: 'Crowdfunding for Recent Flood',
         description:
             `Your contribution can bring hope and recovery The recent floods have devastated homes and livelihoods. By contributing to this campaign, you can help families rebuild their homes and restore their lives.`,
         action: 'See crowdfunding options'
@@ -58,43 +59,47 @@ const mockdata = [
         title: 'Stand with Us in This Time of Crisis',
         description:
             `Together, we can make a difference Our community is facing unprecedented damage from the floods. Your support can provide essential supplies, shelter, and relief to those in need.`,
-        action: 'Find out how we can work together '
+        action: 'Find out how we can work together'
     },
 ];
 
-function Feature({image, title, description, action}: FeatureProps) {
-    const {classes, cx} = useStyles();
+function Feature({ image, title, description, action }: FeatureProps) {
+    const { classes, cx } = useStyles();
 
     return (
         <Card className={cx(classes.feature, 'card')} shadow="md" radius="sm">
             <Card.Section>
-                <Image src={image} height={240} fit="cover"/>
+                <Image src={image} height={240} fit="cover" />
             </Card.Section>
             <Stack spacing="sm" mt="md">
                 <Title order={4}>{title}</Title>
                 <Text size="sm">{description}</Text>
-                <Button variant="subtle" color="secondary">{action}</Button>
+                <Button variant="subtle" color="secondary" component={Link} to="/loans">
+                    {action}
+                </Button>
             </Stack>
         </Card>
     );
 }
 
 interface IProps {
-    boxProps: BoxProps
-    titleProps?: TitleProps
-    subtitleProps?: TextProps
+    boxProps: BoxProps;
+    titleProps?: TitleProps;
+    subtitleProps?: TextProps;
 }
 
-const FeaturesSection = ({boxProps, subtitleProps}: IProps) => {
-    const items = mockdata.map((item) => <Feature {...item} key={item.title}/>);
+const FeaturesSection = ({ boxProps, subtitleProps }: IProps) => {
+    const items = mockdata.map((item) => <Feature {...item} key={item.title} />);
 
     return (
         <Box {...boxProps}>
             <Box mb="lg">
-                <TitleBadge title="what to expect"/>
-                <Text {...subtitleProps}>Our platform exists to support UIU students in need of whether crowdfunding for any crisis or seeking a student loan, we’re here to help you reach your goals with the support of your community.What dreams can we help you achieve?</Text>
+                <TitleBadge title="What to Expect" />
+                <Text {...subtitleProps}>
+                    Our platform exists to support UIU students in need of whether crowdfunding for any crisis or seeking a student loan, we’re here to help you reach your goals with the support of your community. What dreams can we help you achieve?
+                </Text>
             </Box>
-            <SimpleGrid cols={2} spacing="lg" breakpoints={[{maxWidth: 'md', cols: 2, spacing: 'sm'}]} >
+            <SimpleGrid cols={2} spacing="lg" breakpoints={[{ maxWidth: 'md', cols: 2, spacing: 'sm' }]}>
                 {items}
             </SimpleGrid>
         </Box>
