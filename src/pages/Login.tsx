@@ -89,7 +89,7 @@ const LoginPage = () => {
                         {/* <Checkbox label="Remember me" checked={rememberMe} onChange={(e) => setRememberMe(e.currentTarget.checked)} /> */}
                         <Anchor component="button" size="sm">
                             Forgot password?
-                        </Anchor> */}
+                        </Anchor> 
                     </Group>
                     <Button type="submit" fullWidth mt="xl">
                         Sign in

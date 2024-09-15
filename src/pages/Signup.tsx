@@ -141,10 +141,10 @@ const SignupPage = () => {
                     <TextInput label="Username" placeholder="Your Username" required mt="md" value={username} onChange={(e) => setUsername(e.target.value)} error={usernameError} />
                     <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Group position="apart" mt="lg">
-                        {/* <Checkbox label="Remember me" checked={rememberMe} onChange={(e) => setRememberMe(e.currentTarget.checked)} /> */}
+                         {/* <Checkbox label="Remember me" checked={rememberMe} onChange={(e) => setRememberMe(e.currentTarget.checked)} /> */} 
                         <Anchor component="button" size="sm">
                             Forgot password?
-                        </Anchor> */}
+                        </Anchor> 
                     </Group>
                     <Button type="submit" fullWidth mt="xl">
                         Sign Up
