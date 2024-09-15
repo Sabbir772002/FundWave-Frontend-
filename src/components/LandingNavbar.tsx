@@ -244,7 +244,12 @@ const LandingNavbar = ({compressed}: IProps) => {
                             {/* <Button component={Link} to="/how-it-works" className={classes.link} {...buttonProps}>
                                 How it works
                             </Button> */}
-                            <Button component={Link} to="/loans" className={classes.link} {...buttonProps}>
+                            <Button component={Link} to="/create-loan" className={classes.link} {...buttonProps}>
+                            Find Loan
+                            </Button> <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
+                            Start Fundraising
+
+                            </Button> <Button component={Link} to="/loans" className={classes.link} {...buttonProps}>
                                 Loans
                             </Button> <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
                                 Campaigns

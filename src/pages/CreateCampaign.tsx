@@ -244,7 +244,7 @@ const CreateCampaignPage = () => {
                                     <NumberInput value={amount}
                                     onChange={setAmount} label="Fixed amount(s)"/>}
                             </Paper>
-                            <Paper {...paperProps}>
+                            {/* <Paper {...paperProps}>
                                 <Stack spacing="sm">
                                     <Title {...subTitleProps}>Fund & Registration details</Title>
                                     <Text size="sm">*Name of the person receiving funds. For organizations, the legal representative name (this can be amended later).</Text>
@@ -264,7 +264,7 @@ const CreateCampaignPage = () => {
                                         </>
                                     }/>
                                 </Stack>
-                            </Paper>
+                            </Paper> */}
                         </Stepper.Step>
                         <Stepper.Step
                             label="Campaign story"
