@@ -244,7 +244,7 @@ const CreateCampaignPage = () => {
                                     <NumberInput value={amount}
                                     onChange={setAmount} label="Fixed amount(s)"/>}
                             </Paper>
-                            <Paper {...paperProps}>
+                            {/* <Paper {...paperProps}>
                                 <Stack spacing="sm">
                                     <Title {...subTitleProps}>Fund & Registration details</Title>
                                     <Text size="sm">*Name of the person receiving funds. For organizations, the legal representative name (this can be amended later).</Text>
@@ -264,7 +264,7 @@ const CreateCampaignPage = () => {
                                         </>
                                     }/>
                                 </Stack>
-                            </Paper>
+                            </Paper> */}
                         </Stepper.Step>
                         <Stepper.Step
                             label="Campaign story"
@@ -325,10 +325,10 @@ const CreateCampaignPage = () => {
                             </Paper>
                         </Stepper.Step>
                         <Stepper.Step label="Payment methods" description="Get full access">
-                            <Title {...titleProps}>Loan Payment Methods</Title>
+                            <Title {...titleProps}>Campaign Payment Methods</Title>
                             <Paper {...paperProps}>
                                 <Stack spacing="sm">
-                                    <Title {...subTitleProps}>Enable payment processors for your Loan page</Title>
+                                    <Title {...subTitleProps}>Enable payment processors for your campaign page</Title>
                                     <Alert icon={<IconCurrencyDollar size={18} />} color="blue">You can enable Payment method listed below for Taking Payment </Alert>
                                     <Text size="sm">Available payment methods</Text>
                                     <Group>

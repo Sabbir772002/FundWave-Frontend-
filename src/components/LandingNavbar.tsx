@@ -241,13 +241,15 @@ const LandingNavbar = ({compressed}: IProps) => {
                     <Flex justify="space-between" align="center" sx={{height: '100%'}}>
                         <BrandName size={28} asLink/>
                         <Flex align="center" gap="xs" sx={{height: '100%'}} className={classes.hiddenMobile}>
-                        <Button component={Link} to="/create-loan" className={classes.link} {...buttonProps}>
-                                Create Loan
-                            </Button>
-                            <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
-                                Start Fundraising
-                            </Button>
-                            <Button component={Link} to="/loans" className={classes.link} {...buttonProps}>
+                            {/* <Button component={Link} to="/how-it-works" className={classes.link} {...buttonProps}>
+                                How it works
+                            </Button> */}
+                            <Button component={Link} to="/create-loan" className={classes.link} {...buttonProps}>
+                            Start your Loan
+                            </Button> <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
+                            Start Fundraising
+
+                            </Button> <Button component={Link} to="/loans" className={classes.link} {...buttonProps}>
                                 Loans
                             </Button> <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
                                 Campaigns

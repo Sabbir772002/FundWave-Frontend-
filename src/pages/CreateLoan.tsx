@@ -50,6 +50,7 @@ import {
     IconChevronLeft,
     IconChevronRight,
     IconCurrencyDollar,
+    IconCurrencyTaka,
     IconInfoCircleFilled,
     IconLink,
     IconMail,
@@ -237,7 +238,7 @@ const CreateLoanPage = () => {
                     <Stepper active={active} onStepClick={setActive} breakpoint="sm">
                         <Stepper.Step
                             label="Get started"
-                            description="Set essential fundraiser details such as fundraiser title, target and currency"
+                            description="Set essential loan details such as loan title, target and interest amount"
                         >
                             <Title {...titleProps}>Loan information</Title>
                             <Paper {...paperProps}>
@@ -261,16 +262,16 @@ const CreateLoanPage = () => {
                                                 />
                                                 <NumberInput
                                                     label="Target amount"
-                                                    icon={<IconCurrencyDollar size={18} />}
+                                                    icon={<IconCurrencyTaka size={18} />}
                                                     {...socialForm.getInputProps('targetAmount')}
                                                 />
-                                                <Checkbox
+                                                {/* <Checkbox
                                                     label="Allow your fundraiser to be funded over the needed amount?"
                                                     {...socialForm.getInputProps('allowOverAmount', { type: 'checkbox' })}
-                                                />
+                                                /> */}
                                             </Stack> :
                                             <Stack spacing="xs">
-                                                <Text size="sm">Ongoing (no deadline) fundraiser?</Text>
+                                                <Text size="sm">Ongoing (no deadline) Loan?</Text>
                                                 <Text size="sm">This should be used if you are collecting money on a
                                                     regular basis.</Text>
                                                 <Checkbox
@@ -281,7 +282,7 @@ const CreateLoanPage = () => {
                                                 {minimumCheck &&
                                                     <NumberInput
                                                         label="Target amount"
-                                                        icon={<IconCurrencyDollar size={18} />}
+                                                        icon={<IconCurrencyTaka size={18} />}
                                                         {...socialForm.getInputProps('minimumTargetAmount')}
                                                     />}
                                             </Stack>}
@@ -305,8 +306,11 @@ const CreateLoanPage = () => {
                             </Paper>
                         </Stepper.Step>
                         <Stepper.Step
-                            label="Campaign story"
-                            description="Tell your story! Add your description, images, videos and more">
+                            label="Loan Purpose"
+                            description={<>
+                            Tell us why you need this loan! <br />
+                            Add images or documents to explain your financial needs <br />and how the loan will help.
+                        </>}>
                             <Title {...titleProps}>
                                 Your Loan story
                             </Title>

@@ -13,6 +13,7 @@ import {
 } from '@mantine/core';
 import { ILoans } from "../types";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -48,6 +49,7 @@ interface IProps extends PaperProps {
     data: ILoans;
     showActions?: boolean;
 }
+
 const LoanCard = ({ data, showActions }: IProps) => {
     const { classes } = useStyles();
     const {
@@ -70,8 +72,24 @@ const LoanCard = ({ data, showActions }: IProps) => {
     const deadline = new Date(deadlineDate);
     const today = new Date();
     const daysLeft = Math.max(Math.ceil((deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)), 0);
-
-    const People = 0;
+    const [People, setPeople] = useState(0);
+    
+    const findPeople = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/bids/${_id}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setPeople(data.data.length);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    }
+    useEffect(() => {
+        findPeople();
+    }
+    , [_id]);
 
     return (
         <Card radius="sm" shadow="md" ml="xs" component={Link} {...linkProps} className={classes.card}>
