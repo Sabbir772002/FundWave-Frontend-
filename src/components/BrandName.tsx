@@ -51,16 +51,16 @@ const Brand = ({asLink, variant, ...others}: IProps) => {
         asLink ?
             <UnstyledButton component={Link} to="/">
                 <Title className={variant === 'grayscale' ? classes.white : classes.title} {...others}>
-                    Crowd
+                    Fund
                     <Text component="span" className={variant === 'grayscale' ? '' : classes.highlight} inherit>
-                        Up
+                        Wave
                     </Text>
                 </Title>
             </UnstyledButton> :
             <Title className={classes.title} {...others}>
-                Crowd
+                Fund
                 <Text component="span" className={classes.highlight} inherit>
-                    Up
+                    Wave
                 </Text>
             </Title>
     );

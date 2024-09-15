@@ -24,7 +24,8 @@ import {
     TitleProps,
     useMantineTheme
 } from "@mantine/core";
-import { Link, RichTextEditor } from '@mantine/tiptap';
+import { Link } from 'react-router-dom';
+import { RichTextEditor } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import Highlight from '@tiptap/extension-highlight';
 import StarterKit from '@tiptap/starter-kit';
@@ -34,6 +35,7 @@ import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
 import React, { forwardRef, useState } from "react";
 import { DateInput } from "@mantine/dates";
+import { useNavigate } from "react-router-dom";
 import {
     IconBrandApple,
     IconBrandFacebook,
@@ -74,6 +76,8 @@ const SocialSelectItem = forwardRef<HTMLDivElement, ISocialProps>(
     )
 );
 const CreateLoanPage = () => {
+    const navigate = useNavigate();
+
     const theme = useMantineTheme();
     const [active, setActive] = useState(0);
     const [target, setTarget] = useState('deadline');
@@ -119,6 +123,7 @@ const CreateLoanPage = () => {
         };
   
     const handleSubmit = async () => {
+        
         const formData = {
             username:localStorage.getItem('username'),
             title: socialForm.values.title,
@@ -143,24 +148,38 @@ const CreateLoanPage = () => {
         console.log('formData:', formData);
 
         try {
+            const authToken = localStorage.getItem('authToken');
+
+            if (!authToken) {
+              console.error('No token found, please log in again.');
+              alert('Please log in again.');
+              return; // Stop if there's no token
+            }
+          
             const response = await fetch('http://localhost:3000/api/loans/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
+                    'Authorization': `Bearer ${authToken}` 
+                  },
+               body: JSON.stringify(formData),
             });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
-
-            const result = await response.json();
-            console.log('Success:', result);
-            // Handle successful submission (e.g., redirect or show a success message)
-        } catch (error) {
-            console.error('Error:', error);
-            // Handle errors (e.g., show an error message)
+            if (response.status === 401 || response.status === 403) {
+                alert('Your session has expired or is invalid. Please log in again.');
+                localStorage.removeItem('authToken'); // Clear token if invalid
+                navigate('/login');
+                return; // Stop further execution
+              }
+          
+              if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to create loan.');
+              }
+          
+              const data = await response.json();
+              console.log('Loan created successfully:', data);
+                } catch (error) {
+                   console.error('Error:', error);
         }
     };
 

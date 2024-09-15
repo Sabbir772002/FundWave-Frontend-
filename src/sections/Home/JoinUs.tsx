@@ -15,6 +15,7 @@ import {
 import {IconUsers, IconWorld} from "@tabler/icons-react"
 import {TitleBadge} from "../../components";
 import {useMediaQuery} from "@mantine/hooks";
+import { Link } from "react-router-dom";
 
 interface IProps {
     boxProps: BoxProps
@@ -65,8 +66,9 @@ const JoinUsSection = ({boxProps, subtitleProps}: IProps) => {
                         <Avatar radius="xl">+5</Avatar>
                     </Avatar.Group>
                     <Progress value={50}/>
-                    <Button>Join Us</Button>
-                </Stack>
+                    <Button component={Link} to="/signup">
+                    Join Us</Button>
+                    </Stack>
                 <Box mx={matchesMobile ? 0 : 'auto'}>
                     <Image
                         src="https://scontent.fdac19-1.fna.fbcdn.net/v/t39.30808-6/457298825_952789776875078_1004883036196412916_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFWxw7IPepcIKdxX5E3rDpFSog-1jEi8K1KiD7WMSLwrb9Nehmwc16VUPY_xDs4zzbVfCz4MiF8zT33p6tsB5Ef&_nc_ohc=JDsilFm_NPIQ7kNvgFRJJaB&_nc_ht=scontent.fdac19-1.fna&oh=00_AYBMoYYZmeF9NO5IVq2piQuajBX8kXeD86ctakt3T0rQOQ&oe=66E90558"

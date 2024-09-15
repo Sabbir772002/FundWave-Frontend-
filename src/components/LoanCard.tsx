@@ -11,8 +11,9 @@ import {
     Stack,
     Text,
 } from '@mantine/core';
-import {ICampaign} from "../types";
-import {Link} from "react-router-dom";
+import { ILoans } from "../types";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -45,34 +46,55 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface IProps extends PaperProps {
-    data: ICampaign
-    showActions?: boolean
+    data: ILoans;
+    showActions?: boolean;
 }
 
-const CampaignCard = ({data, showActions}: IProps) => {
-    const {classes} = useStyles();
+const LoanCard = ({ data, showActions }: IProps) => {
+    const { classes } = useStyles();
     const {
         mainImage,
+        username,
         _id,
         title,
-        amountRaised,
-        daysLeft,
-        contributors,
-        story,
-        category,
-        username,
-        deadlineDate,
-        Amount,
         createdAt,
-        target
-
-        
+        targetAmount, 
+        deadlineDate,
+        category,
+        interest,
+        story,
+        condition
     } = data;
-    const linkProps = {to: `/campaigns/${_id}`, rel: 'noopener noreferrer'};
+    
+    const linkProps = { to: `/loans/${_id}`, rel: 'noopener noreferrer' };
+
+    // Calculate days left for progress (assumes deadlineDate is in ISO format)
+    const deadline = new Date(deadlineDate);
+    const today = new Date();
+    const daysLeft = Math.max(Math.ceil((deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)), 0);
+    const [People, setPeople] = useState(0);
+    
+    const findPeople = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/bids/${_id}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setPeople(data.data.length);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    }
+    useEffect(() => {
+        findPeople();
+    }
+    , [_id]);
+
     return (
         <Card radius="sm" shadow="md" ml="xs" component={Link} {...linkProps} className={classes.card}>
             <Card.Section>
-                <Image src={mainImage} height={280} className={classes.image}/>
+                <Image src={mainImage} height={280} className={classes.image} />
             </Card.Section>
 
             <Card.Section pt={0} px="md" pb="md">
@@ -82,18 +104,18 @@ const CampaignCard = ({data, showActions}: IProps) => {
                     </Text>
 
                     <Group position="apart">
-                        {/* <Text size="xs" transform="uppercase" color="dimmed" fw={700}> By <b>{username}</b></Text> */}
-                        <Text size="xs"> By <b>{username}</b></Text>
+                        <Text size="xs" transform="uppercase" color="dimmed" fw={700}>{username}</Text>
                         <Badge variant="dot" color="secondary">{category}</Badge>
                     </Group>
 
-                    <Text lineClamp={3} size="sm"><b>Deadline: </b>{target=="deadline"?deadlineDate:target}</Text>
+                    {/* {showActions && <Text lineClamp={3} size="sm">{story}</Text>} */}
+                    <Text lineClamp={3} size="sm"><b>Target Amount: </b>{targetAmount}</Text>
 
-                    <Progress value={daysLeft}/>
+                    <Progress value={100 - (daysLeft / 30) * 100} />
 
                     <Flex justify="space-between">
-                        <Text><b>{amountRaised}</b> raised</Text>
-                        <Text><b>{contributors}</b> donations</Text>
+                        <Text><b>{People}</b> Interested</Text>
+                        <Text>Currntly <b>{condition}</b></Text>
                     </Flex>
 
                     {/*{showActions && <Button>Donate Now</Button>}*/}
@@ -103,4 +125,4 @@ const CampaignCard = ({data, showActions}: IProps) => {
     );
 };
 
-export default CampaignCard;
+export default LoanCard;

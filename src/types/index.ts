@@ -1,19 +1,40 @@
 export interface ICampaign {
-    id: string
+    _id: string
     title: string
-    description: string
+    story: string
     createdAt: string
     mainImage: string
-    createdBy: string
+    username: string
     daysLeft: number
-    amountRaised: string
-    goal: string
+    Amount: Number
+    target: string
     contributors: number
     createdByImage: string
     category: string
-    country: string
+    amountRaised: number
+    deadlineDate: string
     type: string | null
 }
+
+export interface ILoans {
+    _id: string; // ObjectId in MongoDB is represented as a string in TypeScript
+    username: string;
+    title: string;
+    category: string;
+    targetAmount: number; // Assuming targetAmount is a number, as shown in your example
+    deadlineDate: string; // Use string for ISO date format
+    donationType: string;
+    minimumCheck: boolean; // Assuming this is a boolean, not a string
+    interest: number; // Use number for floating-point values
+    bkashNumber: string;
+    nagadNumber: string;
+    rocketNumber: string;
+    story: string;
+    createdAt: string; // Use string for ISO date format
+    __v: number; // Version key is usually a number
+    condition: string;
+}
+
 
 export interface ITestimonial {
     id: string

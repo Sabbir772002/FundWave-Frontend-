@@ -1,10 +1,11 @@
 import {Box, BoxProps, Container, Flex, Select, SimpleGrid, Stack, TextInput, Title, TitleProps} from "@mantine/core";
 import campaignsData from "../data/Campaigns.json";
-import {CampaignCard} from "../components";
+import LoanCard from "../components/LoanCard";
 import {Helmet} from "react-helmet";
 import {useMediaQuery} from "@mantine/hooks";
 import  { useState, useEffect } from 'react';
-const CampaignsPage = (): JSX.Element => {
+
+const LoansPage = (): JSX.Element => {
     const matchesMobile = useMediaQuery('(max-width: 768px)');
 
     const boxProps: BoxProps = {
@@ -12,7 +13,6 @@ const CampaignsPage = (): JSX.Element => {
         mb: matchesMobile ? 4 : 48,
         py: matchesMobile ? 16 : 24
     }
-
     const titleProps: TitleProps = {
         size: 32,
         weight: 700,
@@ -20,28 +20,27 @@ const CampaignsPage = (): JSX.Element => {
         transform: 'capitalize',
         sx: {lineHeight: '40px'}
     }
-    const [campaign, setCampaign] = useState([{ id: 0 ,data:[{}]}]);
-    // Function to fetch loan data
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/campaign');
+    const [loansData, setLoansData] = useState([{ id: 0 ,data:[{}]}]);
+      // Function to fetch loan data
+      const fetchLoanData = async () => {
+        try {
+          const response = await fetch('http://localhost:3000/api/loans');
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+         setLoansData(data);
+        } catch (error) {
+          console.error('Error fetching loan data:', error);
         }
-        const data = await response.json();
-        setCampaign(data);
-      } catch (error) {
-        console.error('Error fetching loan data:', error);
-      }
-    };
-    // Fetch data when the component mounts
-    useEffect(() => {
-      fetchData();
-    }, []);
-    
-    const items = campaign.map(c => (<CampaignCard key={c.id} data={c} showActions={true}/>))
+      };
+      // Fetch data when the component mounts
+      useEffect(() => {
+        fetchLoanData();
+      }, []);
 
+    const items = loansData.map(c => (<LoanCard key={c.id} data={c} showActions={true}/>))
     return (
         <>
             <Helmet>
@@ -51,7 +50,7 @@ const CampaignsPage = (): JSX.Element => {
                 <Container size="lg">
                     <Stack>
                         <Box {...boxProps}>
-                            <Title {...titleProps} align="center">Discover campaigns to fund</Title>
+                            <Title {...titleProps} align="center">Discover Loans to Lend</Title>
                         </Box>
                         <Flex
                             justify="space-between"
@@ -70,7 +69,8 @@ const CampaignsPage = (): JSX.Element => {
                                         {value: '50', label: 'show: 50'},
                                         {value: '100', label: 'show: 100'},
                                     ]}
-                                />
+                            
+                                    />
                                 <Select
                                     label=""
                                     placeholder="Explore"
@@ -100,4 +100,4 @@ const CampaignsPage = (): JSX.Element => {
     );
 };
 
-export default CampaignsPage;
+export default LoansPage;

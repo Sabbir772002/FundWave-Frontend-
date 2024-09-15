@@ -45,7 +45,7 @@ const WaysToFundSection = ({boxProps, subtitleProps}: IProps) => {
                     <Grid.Col lg={4}>
                         <Stack spacing="xs" justify="center" sx={{height: '100%'}}>
                             <TitleBadge title="Make your impact"/>
-                            <Title order={3}>CrowdUp Gives You More</Title>
+                            <Title order={3}>FundWave Gives You More</Title>
                             <Text>Supercharge your fundraising efforts with our unique tools,
                                 features and personal
                                 support. Helping you raise more money than you could elsewhere!</Text>

@@ -57,35 +57,7 @@
           "link": "#"
         }
       ]
-    },
-    {
-      "title": "Resources",
-      "links": [
-        {
-          "label": "What is crowdfunding?",
-          "link": "#"
-        },
-        {
-          "label": "Help center",
-          "link": "#"
-        },
-        {
-          "label": "Blog",
-          "link": "#"
-        },
-        {
-          "label": "CrowdUp Stories",
-          "link": "#"
-        },
-        {
-          "label": "Careers",
-          "link": "#"
-        },
-        {
-          "label": "About",
-          "link": "#"
-        }
-      ]
     }
+    
   ]
 }
