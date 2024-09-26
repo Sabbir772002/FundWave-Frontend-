@@ -15,12 +15,16 @@ import {Navigate} from "react-router-dom";
 import LoansPage from "../pages/Loans";
 import CreateLoanPage from "../pages/CreateLoan";
 import LoanDetailsPage from "../pages/LoanDetailsPage";
+
+
+
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
     const username = localStorage.getItem('username');
     return username ? children : <Navigate to="/login" />;
 };
 
 import {DashboardLayout, PublicLayout} from "../layout";
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -145,8 +149,8 @@ const router = createBrowserRouter([
 
             }
         ]
-    },
-    
+    }
+   
 ]);
 
 
