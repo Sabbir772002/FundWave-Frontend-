@@ -70,7 +70,7 @@ const CampaignDetailsPage = (): JSX.Element => {
   };
 
   const iconSize = 18;
-
+  
   const fetchCampaignData = async () => {
     if (id) {
       try {

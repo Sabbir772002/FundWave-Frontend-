@@ -28,15 +28,15 @@ const Payment = () => {
       setLoading(false);
       return;
     }
-    if (!/^\d{10}$/.test(phone)) {
+    if (!/^\d{11}$/.test(phone)) {
       setError('Invalid phone number.');
       setLoading(false);
       return;
     }
-
     // Here you would integrate with SSL Commerce API
     try {
-      const response = await fetch('YOUR_SSL_COMMERCE_API_ENDPOINT', {
+      console.log("ami valo asi");
+      const response = await fetch(`http://localhost:3000/api/payment/thik`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
