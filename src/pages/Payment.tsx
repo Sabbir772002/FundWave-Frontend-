@@ -28,7 +28,7 @@ const Payment = () => {
       setLoading(false);
       return;
     }
-    if (!/^\d{10}$/.test(phone)) {
+    if (!/^\d{11}$/.test(phone)) {
       setError('Invalid phone number.');
       setLoading(false);
       return;
