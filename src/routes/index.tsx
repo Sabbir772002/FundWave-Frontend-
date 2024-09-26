@@ -15,6 +15,7 @@ import {Navigate} from "react-router-dom";
 import LoansPage from "../pages/Loans";
 import CreateLoanPage from "../pages/CreateLoan";
 import LoanDetailsPage from "../pages/LoanDetailsPage";
+import Payment from "../pages/Payment";
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
     const username = localStorage.getItem('username');
     return username ? children : <Navigate to="/login" />;
@@ -146,7 +147,18 @@ const router = createBrowserRouter([
             }
         ]
     },
-    
+    {
+        path: "payment", 
+        element: <PublicLayout />, 
+        children: [
+            {
+                path: '',
+                index: true,
+                element: <Payment/>,  // Define the PaymentPage route
+                errorElement: <Error404Page />
+            }
+        ]
+    }
 ]);
 
 
