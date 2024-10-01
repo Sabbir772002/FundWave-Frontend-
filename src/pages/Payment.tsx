@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Title, Text, Input, Button, Group, Select, Notification, Alert, Loader, Stack } from '@mantine/core';
+import axios from 'axios';
 
 const Payment = () => {
   const [amount, setAmount] = useState<number | ''>('');
@@ -17,50 +18,56 @@ const Payment = () => {
     setError(null);
     setSuccess(false);
 
-    // Perform validation
-    if (!amount || !transactionId || !paymentMethod || !name || !email || !phone) {
-      setError('Please fill in all fields.');
-      setLoading(false);
-      return;
-    }
-    if (!/^[\w-.]+@([\w-]+\.)+[A-Za-z]{2,4}$/.test(email)) {
-      setError('Invalid email address.');
-      setLoading(false);
-      return;
-    }
-    if (!/^\d{11}$/.test(phone)) {
-      setError('Invalid phone number.');
-      setLoading(false);
-      return;
-    }
-
+    // if (!amount || !transactionId || !paymentMethod || !name || !email || !phone) {
+    //   setError('Please fill in all fields.');
+    //   setLoading(false);
+    //   return;
+    // }
+    // if (!/^[\w-.]+@([\w-]+\.)+[A-Za-z]{2,4}$/.test(email)) {
+    //   setError('Invalid email address.');
+    //   setLoading(false);
+    //   return;
+    // }
+    // if (!/^\d{11}$/.test(phone)) {
+    //   setError('Invalid phone number.');
+    //   setLoading(false);
+    //   return;
+    // }
     // Here you would integrate with SSL Commerce API
     try {
-      const response = await fetch('YOUR_SSL_COMMERCE_API_ENDPOINT', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount,
-          transactionId,
-          paymentMethod,
-          name,
-          email,
-          phone,
-        }),
-      });
+      console.log("ami valo asi");
+      
+      // // Making the POST request with Axios
+      // const { data } = await axios.post('http://localhost:3000/api/payment/givepay', {
+      //   // user_email: email,
+      //   // Uncomment and set the values for the following fields as needed
+      //   // plan: plan,
+      //   // price: price,
+      //   // purchase_date: purchaseDate,
+      //   // expiration_date: expirationDate,
+      //   // currency: 'BDT',
+      //   // payment_method: 'SSLCOMMERZ'
+      // });  
+      // Making the POST request with Axios
+       const { data } = await axios.post('http://localhost:3000/api/payment/givepay');
 
-      if (response.ok) {
-        setSuccess(true);
+      console.log(data);
+    
+      // Check if the URL is present in the response
+      if (data.url) {
+        // Redirect the user to the payment page
+        window.location.replace(data.url);
       } else {
         setError('Payment failed. Please try again.');
       }
-    } catch {
-      setError('An error occurred. Please try again.');
+    } catch (error) {
+      console.error('Error:', error);
+      setError('An error occurred while processing your request.');
     } finally {
+      // Ensure loading state is handled in both success and error cases
       setLoading(false);
     }
+    
   };
 
   return (
