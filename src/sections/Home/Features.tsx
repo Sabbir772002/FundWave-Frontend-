@@ -34,14 +34,14 @@ interface FeatureProps extends PaperProps {
 
 const mockdata = [
     {
-        image: 'https://www.collegescholarships.org/images/loan-xpress.jpg',
+        image: 'https://scholarshipinindia.com.bd/uploads/event/event_1709129878.jpg',
         title: 'Help Investing in My Academic Future',
         description:
             'Help me achieve reach my academic dreams I am passionate about my studies, but I need your support to reach my goals. Your contributions will go directly towards my education, helping me focus on what matters most: learning and growing..',
         action: `Check out available student loans for contribution`
     },
     {
-        image: 'https://images.livemint.com/img/2021/12/15/600x338/el_1639587081155_1639587095192.jpg',
+        image: 'https://www.sdsbd.org/wp-content/uploads/2023/10/IMG_3705-1.jpg',
         title: 'Help Me Reach Graduation',
         description:
             `Your support can make a difference I’m working hard to finish my degree, but financial barriers are standing in my way. With your help, I can cover the costs of tuition and fees, and get one step closer to graduation.`,
