@@ -15,6 +15,7 @@ import {Navigate} from "react-router-dom";
 import LoansPage from "../pages/Loans";
 import CreateLoanPage from "../pages/CreateLoan";
 import LoanDetailsPage from "../pages/LoanDetailsPage";
+//import Chat from "../pages/Chat"; // Adjust the path if necessary
 
 
 
@@ -25,6 +26,7 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
 };
 
 import {DashboardLayout, PublicLayout} from "../layout";
+
 
 const router = createBrowserRouter([
     {
@@ -163,6 +165,8 @@ const router = createBrowserRouter([
             }
         ]
     }
+    
+      
 ]);
 
 
