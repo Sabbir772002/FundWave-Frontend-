@@ -15,7 +15,9 @@ import {Navigate} from "react-router-dom";
 import LoansPage from "../pages/Loans";
 import CreateLoanPage from "../pages/CreateLoan";
 import LoanDetailsPage from "../pages/LoanDetailsPage";
-//import Chat from "../pages/Chat"; // Adjust the path if necessary
+import Transaction from "../pages/Transaction"; // Removed duplicate import
+
+
 
 
 
@@ -26,7 +28,7 @@ const RequireAuth = ({ children }: { children: JSX.Element }) => {
 };
 
 import {DashboardLayout, PublicLayout} from "../layout";
-
+//import { Transaction } from "@tiptap/pm/state";
 
 const router = createBrowserRouter([
     {
@@ -164,9 +166,19 @@ const router = createBrowserRouter([
                 errorElement: <Error404Page />
             }
         ]
-    }
-    
-      
+    },
+    {
+        path: "transaction",
+        element: <PublicLayout />,
+        children: [
+          {
+            path: "",
+            index: true,
+            element: <Transaction />, // Use the updated `Transaction` component
+            errorElement: <Error404Page />,
+          }
+        ]
+    }  
 ]);
 
 

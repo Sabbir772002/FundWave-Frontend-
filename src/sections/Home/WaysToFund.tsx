@@ -45,10 +45,9 @@ const WaysToFundSection = ({boxProps, subtitleProps}: IProps) => {
                     <Grid.Col lg={4}>
                         <Stack spacing="xs" justify="center" sx={{height: '100%'}}>
                             <TitleBadge title="Make your impact"/>
-                            <Title order={3}>FundWave Gives You More</Title>
-                            <Text>Supercharge your fundraising efforts with our unique tools,
-                                features and personal
-                                support. Helping you raise more money than you could elsewhere!</Text>
+                            <Title order={3}>FundWave Helps You For</Title>
+                            <Text>Supercharge your fundraising efforts within our university,
+                                Helping you raise more money with the help than you could elsewhere</Text>
                         </Stack>
                     </Grid.Col>
                     <Grid.Col lg={8}>
@@ -62,9 +61,9 @@ const WaysToFundSection = ({boxProps, subtitleProps}: IProps) => {
                             >
                                 <Card.Section>
                                     <Image
-                                        src="https://images.unsplash.com/photo-1518101645466-7795885ff8f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"/>
+                                        src="https://www.newagebd.com/files/records/news/202310/215069_164.jpg"/>
                                 </Card.Section>
-                                <Text mt="md" align="center" {...subtitleProps}>Yourself</Text>
+                                <Text mt="md" align="center" {...subtitleProps}>Academics</Text>
                             </Card>
                             <Card
                                 className={cx(classes.feature, 'card')}
@@ -75,9 +74,9 @@ const WaysToFundSection = ({boxProps, subtitleProps}: IProps) => {
                             >
                                 <Card.Section>
                                     <Image
-                                        src="https://images.unsplash.com/photo-1674574124649-778f9afc0e9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"/>
+                                        src="https://www.dailymessenger.net/media/imgAll/2024February/en/BRAC-2410010611.jpg"/>
                                 </Card.Section>
-                                <Text mt="md" align="center" {...subtitleProps}>Friends & Family</Text>
+                                <Text mt="md" align="center" {...subtitleProps}>Social Welfare</Text>
                             </Card>
                             <Card
                                 className={cx(classes.feature, 'card')}
@@ -88,9 +87,9 @@ const WaysToFundSection = ({boxProps, subtitleProps}: IProps) => {
                             >
                                 <Card.Section>
                                     <Image
-                                        src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"/>
+                                        src="https://businessinspection.com.bd/wp-content/uploads/2022/07/NSUSSC-Successfully-Conducted-Flood-Relief-Distribution-1-1.jpg"/>
                                 </Card.Section>
-                                <Text mt="md" align="center" {...subtitleProps}>Charity</Text>
+                                <Text mt="md" align="center" {...subtitleProps}>Disaster or Crisis</Text>
                             </Card>
                         </SimpleGrid>
                     </Grid.Col>

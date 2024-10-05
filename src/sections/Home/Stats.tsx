@@ -3,16 +3,16 @@ import {TitleBadge} from "../../components";
 
 const mockData = [
     {
-        amount: '5B',
+        amount: '4 Cr',
         description: 'We have raised an impressive amounts of funds. Help use continue to grow and reach our ultimate goal.'
     },
     {
-        amount: '15K',
-        description: 'Over 12K campaigns are funded. Join us and be a part of our success story.'
+        amount: '4k',
+        description: 'Over 4kK campaigns are funded. Join us and be a part of our success story.'
     },
     {
-        amount: '700',
-        description: 'We have more than 700 active campaigns. Help us continue to made vision into reality.'
+        amount: '400',
+        description: 'We have more than 400 active campaigns. Help us continue to made vision into reality.'
     }
 ]
 
@@ -51,8 +51,8 @@ const StatsSection = ({boxProps, subtitleProps, titleProps}: IProps) => {
         <Box {...boxProps}>
             <Box mb="lg">
                 <TitleBadge title="make a difference"/>
-                <Title {...titleProps}>large pool potential investor</Title>
-                <Text {...subtitleProps}>With our crowdfunding platform, you can support the projects and causes you
+                <Title {...titleProps}>large pool of opportunities available</Title>
+                <Text {...subtitleProps}>With our crowdfunding platform, you can support the students and causes you
                     care about most</Text>
             </Box>
             <SimpleGrid
