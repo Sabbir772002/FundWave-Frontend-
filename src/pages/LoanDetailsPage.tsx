@@ -269,29 +269,8 @@ const LoanDetailsPage = (): JSX.Element => {
                                                 {final ? (
                                                     <Button size="xl">Transaction Page</Button>
                                                 ) : null}
-                                                <Button
-                                                    leftIcon={<IconShare size={iconSize} />}
-                                                    variant="outline"
-                                                    onClick={open}
-                                                    color="blue"
-                                                >
-                                                    Share with friends
-                                                </Button>
-                                                <Button
-                                                    leftIcon={following ? <IconHeartFilled size={iconSize} /> : <IconHeart size={iconSize} />}
-                                                    variant={following ? 'filled' : 'subtle'}
-                                                    color="secondary"
-                                                    onClick={() => {
-                                                        setFollowing();
-                                                        notifications.show({
-                                                            title: 'Notification',
-                                                            message: `${following ? 'Following' : 'Unfollowed'} this campaign`,
-                                                            withBorder: true,
-                                                        });
-                                                    }}
-                                                >
-                                                    {following ? 'Unfollow' : 'Follow'} this campaign
-                                                </Button>
+
+
                                             </Stack>
                                         </Paper>
                                     )}
