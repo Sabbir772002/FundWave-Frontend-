@@ -191,7 +191,7 @@ const LoanDetailsPage = (): JSX.Element => {
                                             <Title>{Loans?.title}</Title>
                                             {!matchesMobile ? (
                                                 <Flex gap="xs" align="center">
-                                                    <Text size="sm">Fundraise campaign created by</Text>
+                                                    <Text size="sm">Loan created by</Text>
                                                     <UnstyledButton component={Anchor}>
                                                         <Flex gap="xs" align="center">
                                                             <Avatar src={Loans?.createdByImage} radius="xl" size="sm" />
