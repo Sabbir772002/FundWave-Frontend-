@@ -316,7 +316,7 @@ const CreateLoanPage = () => {
                             </Title>
                             <Paper {...paperProps}>
                                 <Stack spacing="sm">
-                                    <Text size="sm">Explain why you&apos;re lending money, what the loan will be used
+                                    <Text size="sm">Explain why you&apos;re asking for money, what the loan will be used
                                         for, and
                                         how much you value the support</Text>
                                     <RichTextEditor editor={editor}>
@@ -371,7 +371,7 @@ const CreateLoanPage = () => {
                                 <Stack spacing="sm">
                                     <Title {...subTitleProps}>Enable payment processors for your Loan
                                         page</Title>
-                                    <Alert icon={<IconCurrencyDollar size={18} />} color="blue">You can enable Payment method listed below for Taking Payment </Alert>
+                                    <Alert icon={<IconCurrencyTaka size={18} />} color="blue">You can enable Payment method listed below for Taking Payment </Alert>
                                     <Text size="sm">Available payment methods</Text>
                                     <Group>
                                         <Button variant="light" leftIcon={<IconBrandPaypal size={18} />}>Bkash Number</Button>
