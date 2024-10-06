@@ -320,7 +320,7 @@ const CreateCampaignPage = () => {
                                     </RichTextEditor>
                                     <FileDropzone
                                         label="Upload campaign photos"
-                                        description="You can select and upload several in one go"/>
+                                        description="You can select and upload one image in one go"/>
                                 </Stack>
                             </Paper>
                         </Stepper.Step>
