@@ -142,9 +142,12 @@ const SignupPage = () => {
                     <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Group position="apart" mt="lg">
                          {/* <Checkbox label="Remember me" checked={rememberMe} onChange={(e) => setRememberMe(e.currentTarget.checked)} /> */} 
-                        {/* <Anchor component="button" size="sm">
+                        <Anchor component="button" size="sm">
+                        <Link to='/forgot/recovered'>
+
                             Forgot password?
-                        </Anchor>  */}
+                            </Link>
+                        </Anchor> 
                     </Group>
                     <Button type="submit" fullWidth mt="xl">
                         Sign Up

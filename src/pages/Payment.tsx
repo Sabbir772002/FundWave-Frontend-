@@ -17,7 +17,7 @@ const Payment = () => {
     setLoading(true);
     setError(null);
     setSuccess(false);
-
+    
     // if (!amount || !transactionId || !paymentMethod || !name || !email || !phone) {
     //   setError('Please fill in all fields.');
     //   setLoading(false);
@@ -36,7 +36,6 @@ const Payment = () => {
     // Here you would integrate with SSL Commerce API
     try {
       console.log("ami valo asi");
-      
       // // Making the POST request with Axios
       // const { data } = await axios.post('http://localhost:3000/api/payment/givepay', {
       //   // user_email: email,

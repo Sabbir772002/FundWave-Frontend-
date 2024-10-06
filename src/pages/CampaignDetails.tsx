@@ -33,6 +33,8 @@ import { Helmet } from "react-helmet";
 import * as dayjs from "dayjs";
 import * as LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { notifications } from "@mantine/notifications";
+import UpdateModal from "../pages/UpdateModal";
+import api from '../util/api';
 
 interface IDonation {
   campaignid: string;
@@ -55,7 +57,6 @@ const CampaignDetailsPage = (): JSX.Element => {
     p: "md",
     shadow: "sm",
   };
-
   const titleProps: TitleProps = {
     size: 32,
     weight: 700,
@@ -113,7 +114,9 @@ const CampaignDetailsPage = (): JSX.Element => {
 
   // Calculate days left and remaining amount if target is "deadline"
   const daysLeft = campaign?.target === "deadline" ? dayjs(campaign.deadlineDate).diff(dayjs(), "day") : null;
-  const remainingAmount = campaign ? campaign.Amount - raisedAmount : null;
+  const remainingAmount = campaign ? campaign.amount - raisedAmount : 0;
+  const [updateOpened, { open: updateOpen, close: updateClose }] = useDisclosure(false);
+
 
   return (
     <>
@@ -129,7 +132,7 @@ const CampaignDetailsPage = (): JSX.Element => {
                 <Stack>
                   <Card padding="md" shadow="sm">
                     <Card.Section>
-                      <Image src={campaign?.mainImage} height={480} />
+                      <Image src={`${api.img}${campaign.imageUrl}`} height={480} />
                     </Card.Section>
                     <Stack mt="md">
                       <Title>{campaign?.title}</Title>
@@ -163,9 +166,9 @@ const CampaignDetailsPage = (): JSX.Element => {
                             </UnstyledButton>
                           </Flex>
                           <Group>
-                            <Text size="sm">
+                            {/* <Text size="sm">
                               Location - <Anchor>{campaign?.country}</Anchor>
-                            </Text>
+                            </Text> */}
                             <Text size="sm">
                               Category - <Anchor>{campaign?.category}</Anchor>
                             </Text>
@@ -199,11 +202,25 @@ const CampaignDetailsPage = (): JSX.Element => {
                         <IconShare size={iconSize} />
                       </ActionIcon>
                     </Flex> */}
+                    {campaign?.condition === "Completed" ? (
+                    <Button variant="outline" disabled fullWidth>
+                        Campaign Completed
+                        </Button>
+                        ) : (
                     <Button onClick={donateOpen} fullWidth>
                       Donate
                     </Button>
-                    <Divider />
-                    {/* <Text size="lg" weight={500} align="center">
+                    )}
+                    {campaign?.username === localStorage.getItem("username") && campaign?.condition !== "Completed" ? (
+                      <>
+                      <Divider />
+                      <Button onClick={updateOpen} fullWidth>
+                        Update Campaign
+                      </Button>
+                      </>
+                    ) : null}
+
+                    <Divider />                    {/* <Text size="lg" weight={500} align="center">
                       {campaign?.target === "no-deadline" ? "Raised Amount" : "Amount Remaining"}
                     </Text> */}
                     <Title align="center" size="lg">
@@ -214,13 +231,13 @@ const CampaignDetailsPage = (): JSX.Element => {
                     >
                     {campaign?.target === "no-deadline"
                         ? `${raisedAmount.toLocaleString()} ৳ Raised`
-                        : `${remainingAmount.toLocaleString()} ৳ Remaining`}
+                        : `${remainingAmount?remainingAmount.toLocaleString():0} ৳ Remaining`}
                     </Text>
                     </Title>
                     <Progress
-                        value={campaign?.target === "no-deadline" ? 100 : Math.min((raisedAmount / campaign.Amount) * 100, 100)}
+                        value={campaign?.target === "no-deadline" ? 100 : Math.min((raisedAmount / campaign.amount) * 100, 100)}
                         size="xl"
-                        label={`${campaign?.target === "no-deadline" ? 100 : Math.min((raisedAmount / campaign.Amount) * 100, 100).toFixed(2)}%`}
+                        label={`${campaign?.target === "no-deadline" ? 100 : Math.min((raisedAmount / campaign.amount) * 100, 100).toFixed(2)}%`}
                         />
                      {campaign?.target === "deadline" && (
                            <>
@@ -229,10 +246,8 @@ const CampaignDetailsPage = (): JSX.Element => {
                                 const deadline = new Date(campaign.deadlineDate).getTime();
                                 const now = Date.now();
 
-                                // Calculate the remaining time in milliseconds
                                 const remainingTime = deadline - now;
 
-                                // Calculate days, hours, and minutes from remaining time
                                 const daysLeft = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
                                 const hoursLeft = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                                 const minutesLeft = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
@@ -272,7 +287,9 @@ const CampaignDetailsPage = (): JSX.Element => {
         ) : (
           <NotFound />
         )}
-        <DonationDrawer campaign={campaign} opened={donateOpened} onClose={donateClose} iconSize={iconSize} />
+        <DonationDrawer  campaign={campaign} opened={donateOpened} onClose={donateClose} iconSize={iconSize} />
+        <UpdateModal id={campaign?._id} opened={updateOpened} onClose={updateClose} />
+
         {/* <ShareModal opened={opened} onClose={close} /> */}
       </Box>
     </>

@@ -14,6 +14,7 @@ import {
 import {ICampaign} from "../types";
 import {Link} from "react-router-dom";
 import {useEffect, useState} from 'react';
+import api from '../util/api';
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -49,7 +50,6 @@ interface IProps extends PaperProps {
     data: ICampaign;
     showActions?: boolean;
 }
-
 const CampaignCard = ({data, showActions}: IProps) => {
     const {classes} = useStyles();
     const {
@@ -65,13 +65,14 @@ const CampaignCard = ({data, showActions}: IProps) => {
         deadlineDate,
         Amount,
         createdAt,
-        target
+        target,
+        imageUrl
     } = data;
 
     const [campaign, setCampaign] = useState<ICampaign | null>(null);
     const [donations, setDonations] = useState<any[]>([]);
     const [updatedAmountRaised, setUpdatedAmountRaised] = useState<number>(0);
-
+    const img=api.img;
     useEffect(() => {
         const fetchCampaignData = async () => {
             if (_id) {
@@ -86,8 +87,6 @@ const CampaignCard = ({data, showActions}: IProps) => {
                     const donationData = await donationResponse.json();
                     const totalAmountRaised = donationData.map(d => d.Amount).reduce((a, b) => a + b, 0);
                     setUpdatedAmountRaised(totalAmountRaised);
-
-                    
                     setCampaign(campaignData);
                     setDonations(donationData);
                 } catch (error) {
@@ -98,13 +97,13 @@ const CampaignCard = ({data, showActions}: IProps) => {
 
         fetchCampaignData();
     }, [_id]);
-
+    
     const linkProps = {to: `/campaigns/${_id}`, rel: 'noopener noreferrer'};
 
     return (
         <Card radius="sm" shadow="md" ml="xs" component={Link} {...linkProps} className={classes.card}>
             <Card.Section>
-                <Image src={mainImage} height={280} className={classes.image}/>
+                <Image src={`${img}${imageUrl}`} height={280} className={classes.image}/>
             </Card.Section>
 
             <Card.Section pt={0} px="md" pb="md">
@@ -117,10 +116,11 @@ const CampaignCard = ({data, showActions}: IProps) => {
                         <Text size="xs"> By <b>{username}</b></Text>
                         <Badge variant="dot" color="secondary">{category}</Badge>
                     </Group>
-
                     <Text lineClamp={3} size="sm">
                         <b>Deadline: </b>
-                        {target === "deadline" ? deadlineDate : target}
+                        {target === "deadline"
+                            ? `${new Date(deadlineDate).getUTCDate()} ${new Date(deadlineDate).toLocaleString('en-US', { month: 'long' })} ${new Date(deadlineDate).getUTCFullYear()}`
+                            : "No Deadline"}
                     </Text>
                      {Amount &&
                     <Progress value={(updatedAmountRaised / Amount) * 100} />

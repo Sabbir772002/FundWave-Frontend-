@@ -33,7 +33,7 @@ const UserCard = ({ username, ...others }: IProps) => {
     return (
         <Paper {...others}>
             <Flex gap="lg" align="center">
-                <Avatar src={userInfo.avatar} size={120} radius={120} />
+                <Avatar src={`http://localhost:3000/api/campaign${userInfo?.img}`} size={120} radius={120} />
                 <Stack spacing="xs" align="flex-start">
                     <Text ta="center" fz="lg" weight={500}>
                         {userInfo.username}

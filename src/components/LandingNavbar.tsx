@@ -294,8 +294,7 @@ const LandingNavbar = ({compressed}: IProps) => {
                             {/* <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
                                 Start a campaign
                             </Button> */}
-                            
-                            {username ? <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
+                            {username ? <Button component={Link} to={`/profile/${username}`} className={classes.link} {...buttonProps}>
                         {username}
                     </Button> : <Button component={Link} to="/login" className={classes.link} {...buttonProps}>
                         Login
@@ -329,14 +328,14 @@ const LandingNavbar = ({compressed}: IProps) => {
                     <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
                         Loan
                     </Button>
-                    <UnstyledButton className={classes.link} onClick={toggleLinks}>
+                    {/* <UnstyledButton className={classes.link} onClick={toggleLinks}>
                         <Center inline>
                             <Box component="span" mr={5}>
                                 Invest
                             </Box>
                             <IconChevronDown size={16} className={classes.linkIcon}/>
                         </Center>
-                    </UnstyledButton>
+                    </UnstyledButton> */}
                     <Collapse in={linksOpened}>{links}</Collapse>
 
                     {/* <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>

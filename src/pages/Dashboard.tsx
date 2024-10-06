@@ -25,7 +25,7 @@ import {
 } from "@tabler/icons-react";
 import {CampaignsTable, DonatorsTable, YearlyDonationChart} from "../components";
 import {Helmet} from "react-helmet";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -56,7 +56,8 @@ const useStyles = createStyles((theme) => ({
 
 const DashboardPage = () => {
     const {classes} = useStyles();
-
+    const username = localStorage.getItem('username');
+    const {id} = useParams();
     const paperProps: PaperProps = {
         p: "md",
         shadow: "sm"
@@ -66,8 +67,6 @@ const DashboardPage = () => {
         size: 18,
         mb: "sm"
     }
-    const username=localStorage.getItem('username');
-
     return (
         <>
             <Helmet>
@@ -172,8 +171,8 @@ const DashboardPage = () => {
                             <Card.Section mb="lg">
                                 <Flex align="center" justify="space-between">
                                     <Box>
-                                        <Title {...subTitleProps}>Campaigns</Title>
-                                        <Text size="sm">Let&apos;s manage your campaigns</Text>
+                                        <Title {...subTitleProps}>Activities</Title>
+                                        <Text size="sm">Details of {id} Activities</Text>
                                     </Box>
                                     <Button
                                         leftIcon={<IconPlus size={18}/>}
@@ -185,7 +184,7 @@ const DashboardPage = () => {
                                 </Flex>
                             </Card.Section>
                             <Card.Section>
-                                <CampaignsTable/>
+                                <CampaignsTable id={undefined}/>
                             </Card.Section>
                         </Paper>
                         {/* <Paper {...paperProps}>
@@ -207,3 +206,4 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
+

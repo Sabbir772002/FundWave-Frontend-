@@ -32,6 +32,7 @@ import {
     IconInfoCircleFilled,
     IconShieldCheckFilled
 } from "@tabler/icons-react";
+import axios from 'axios'; // Ensure you have axios imported
 import { CountrySelect } from "./index";
 import { ICampaign } from "../types";
 
@@ -41,10 +42,13 @@ interface IProps extends Pick<DrawerProps, 'opened' | 'onClose' | 'size'> {
 }
 
 const DonationDrawer = ({ campaign, iconSize, ...others }: IProps) => {
+    const username = localStorage.getItem('username');
     const [payment, setPayment] = useState('');
     const [donationAmount, setDonationAmount] = useState<number>(0);
     const [tipPercentage, setTipPercentage] = useState<number>(2); // Start with 2% as default
     const [isAnonymous, setIsAnonymous] = useState<boolean>(false); // Correct handling of checkbox state
+    const [error, setError] = useState<string | null>(null); // State for error handling
+    const [loading, setLoading] = useState<boolean>(false); // State for loading handling
     const theme = useMantineTheme();
 
     const paperProps: PaperProps = {
@@ -54,8 +58,45 @@ const DonationDrawer = ({ campaign, iconSize, ...others }: IProps) => {
     };
 
     // Calculate tip and total donation amount
-    const tipAmount = (donationAmount * (tipPercentage/10)) / 100;
+    const tipAmount = (donationAmount * tipPercentage) / 100;
     const totalAmount = donationAmount + tipAmount;
+
+    const handlePayment = async () => {
+        // Clear error state
+        setError(null);
+
+        // Validate the total amount
+        if (totalAmount <= 0) {
+            setError('Please enter a valid donation amount.');
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            // Making the POST request with Axios
+            const { data } = await axios.post('http://localhost:3000/api/payment/givepay', {
+                plan: "Campaign",
+                price: totalAmount,
+                username: username,
+                id: campaign?._id,
+            });
+
+            // Check if the URL is present in the response
+            if (data.url) {
+                // Redirect the user to the payment page
+                window.location.replace(data.url);
+            } else {
+                setError('Payment failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setError('An error occurred while processing your request.');
+        } finally {
+            // Ensure loading state is handled in both success and error cases
+            setLoading(false);
+        }
+    };
 
     return (
         <Drawer
@@ -84,9 +125,9 @@ const DonationDrawer = ({ campaign, iconSize, ...others }: IProps) => {
                         <Text size="sm" my="xs">CrowdUp has a 0% platform fee for organizers. CrowdUp will continue offering its services thanks to donors who will leave an optional amount here:</Text>
                         <Slider
                             marks={[
-                                { value: 20, label: '2%' },
-                                { value: 50, label: '5%' },
-                                { value: 80, label: '8%' },
+                                { value: 2, label: '2%' },
+                                { value: 5, label: '5%' },
+                                { value: 8, label: '8%' },
                             ]}
                             mb="lg"
                             value={tipPercentage}
@@ -129,7 +170,10 @@ const DonationDrawer = ({ campaign, iconSize, ...others }: IProps) => {
                                 <Text>Total due today</Text>
                                 <Text fw={500}>${totalAmount.toFixed(2)}</Text>
                             </Group>
-                            <Button size="lg">Donate Now</Button>
+                            <Button size="lg" onClick={handlePayment} disabled={loading}>
+                                {loading ? 'Processing...' : 'Donate Now'}
+                            </Button>
+                            {error && <Text color="red">{error}</Text>}
                         </Stack>
                     </Paper>
                     <Paper {...paperProps}>

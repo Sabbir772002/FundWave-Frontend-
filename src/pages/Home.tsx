@@ -33,21 +33,22 @@ const HomePage = (): JSX.Element => {
         sx: {lineHeight: '28px'}
     }
     const username=localStorage.getItem('username');
-
     return (
         <>
             <Helmet>
                 <title>Home</title>
             </Helmet>
             <Box>
+                
                 <HeroSection/>
                 <Container>
                     <Box {...boxProps}>
                         <TitleBadge title="About us"/>
                         <Title {...titleProps}>more students more impact</Title>
                         <Text {...subTitleProps}>Because together, we can make a real difference. Our service
-                           is to bring all UIU students in a common platform so that they can help each other and others in need.</Text>
+                           is to bring all UIU students in a common platfprm so that they can help each other and others in need.</Text>
                     </Box>
+                    
                     <FeaturesSection boxProps={boxProps} subtitleProps={subTitleProps}/>
                     <StatsSection boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>
                     {username==null && <JoinUsSection boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>}
