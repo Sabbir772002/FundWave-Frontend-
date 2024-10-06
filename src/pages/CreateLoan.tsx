@@ -61,7 +61,7 @@ import CategoryLoan from "../components/CategoryLoan";
 import { randomId } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import {CategorySelect, CountrySelect, CurrencySelect, FileDropzone} from "../components";
-const [isSubmitting, setIsSubmitting] = useState(false); // Add state to track form submission
+//const [isSubmitting, setIsSubmitting] = useState(false); // Add state to track form submission
 
 interface ISocialProps {
     icon: React.FC<any>;
@@ -126,7 +126,7 @@ const CreateLoanPage = () => {
         };
   
     const handleSubmit = async () => {
-        setIsSubmitting(true); // Disable the button while submitting
+        //setIsSubmitting(true); // Disable the button while submitting
 
         const formData = {
             username:localStorage.getItem('username'),
@@ -157,7 +157,7 @@ const CreateLoanPage = () => {
             if (!authToken) {
               console.error('No token found, please log in again.');
               alert('Please log in again.');
-              setIsSubmitting(false); // Re-enable the button on failur
+              //setIsSubmitting(false); // Re-enable the button on failur
               return; // Stop if there's no token
             }
           
@@ -173,7 +173,7 @@ const CreateLoanPage = () => {
                 alert('Your session has expired or is invalid. Please log in again.');
                 localStorage.removeItem('authToken'); // Clear token if invalid
                 navigate('/login');
-                setIsSubmitting(false); // Re-enable the button on failure
+                //setIsSubmitting(false); // Re-enable the button on failure
                 return; // Stop further execution
               }
           
@@ -186,9 +186,9 @@ const CreateLoanPage = () => {
               console.log('Loan created successfully:', data);
                 } catch (error) {
                    console.error('Error:', error);
-        }  finally {
-            setIsSubmitting(false); // Re-enable the button after submission
-        }
+        }  //finally {
+            //setIsSubmitting(false); // Re-enable the button after submission
+        //}
     };
 
     const socialFields = socialForm.values.employees.map((item, index) => (
