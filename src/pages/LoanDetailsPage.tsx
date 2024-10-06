@@ -339,6 +339,9 @@ const LoanDetailsPage = (): JSX.Element => {
                                         
                                     </Paper>
                                     <Paper {...paperProps}>
+                                        <Text>Deadline: {dayjs(Loans?.deadlineDate).format('LL')}</Text>
+                                    </Paper>
+                                    <Paper {...paperProps}>
                                         <Text>Created on {dayjs(Loans?.createdAt).format('LL')}</Text>
                                     </Paper>
                                     <Paper {...paperProps}>
@@ -543,7 +546,7 @@ const LoanDetailsPage = (): JSX.Element => {
                     data={[
                         { value: 'EMI', label: 'EMI' },
                         { value: 'One Time', label: 'One Time' },
-                        { value: 'Wish', label: 'Wish' },
+                        // { value: 'Wish', label: 'Wish' },
                     ]}
                     value={Emi}
                     onChange={setemitype}
@@ -567,7 +570,7 @@ const LoanDetailsPage = (): JSX.Element => {
                         data={[
                             { value: 'EMI', label: 'EMI' },
                             { value: 'One Time', label: 'One Time' },
-                            { value: 'Wish', label: 'Wish' },
+                            // { value: 'Wish', label: 'Wish' },
                         ]}
                         value={bidType}
                         onChange={setBidType}

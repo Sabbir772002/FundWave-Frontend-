@@ -16,6 +16,7 @@ export interface ICampaign {
     deadlineDate: string
     type: string | null
     imageUrl: string
+    tip: number
 }
 
 export interface ILoans {

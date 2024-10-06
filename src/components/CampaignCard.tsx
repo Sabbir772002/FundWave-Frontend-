@@ -85,7 +85,9 @@ const CampaignCard = ({data, showActions}: IProps) => {
                     }
                     const campaignData = await campaignResponse.json();
                     const donationData = await donationResponse.json();
-                    const totalAmountRaised = donationData.map(d => d.Amount).reduce((a, b) => a + b, 0);
+                    const tip = donationData.map(d => d.tip).reduce((a, b) => a + b, 0);
+                    const total = donationData.map(d => d.Amount).reduce((a, b) => a + b, 0);
+                    const totalAmountRaised=total-tip;
                     setUpdatedAmountRaised(totalAmountRaised);
                     setCampaign(campaignData);
                     setDonations(donationData);

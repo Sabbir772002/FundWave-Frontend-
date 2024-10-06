@@ -238,7 +238,7 @@ const LenderCard = ({ lender, final, own }: IProps) => {
         data={[
           { value: 'EMI', label: 'EMI' },
           { value: 'One Time', label: 'One Time' },
-          { value: 'Wish', label: 'Wish' }
+          // { value: 'Wish', label: 'Wish' }
         ]}
       />
       )}

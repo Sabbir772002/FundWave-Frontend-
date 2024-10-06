@@ -62,6 +62,7 @@ const DonationDrawer = ({ campaign, iconSize, ...others }: IProps) => {
     const totalAmount = donationAmount + tipAmount;
 
     const handlePayment = async () => {
+        console.log("tipAmount", tipAmount);
         // Clear error state
         setError(null);
 
@@ -76,6 +77,7 @@ const DonationDrawer = ({ campaign, iconSize, ...others }: IProps) => {
         try {
             // Making the POST request with Axios
             const { data } = await axios.post('http://localhost:3000/api/payment/givepay', {
+                tip:tipAmount,
                 plan: "Campaign",
                 price: totalAmount,
                 username: username,
@@ -137,20 +139,20 @@ const DonationDrawer = ({ campaign, iconSize, ...others }: IProps) => {
                     <Paper {...paperProps}>
                         <Stack>
                             <Group spacing={4}>
-                                <Checkbox
+                                {/* <Checkbox
                                     checked={isAnonymous} // Correct usage of `checked`
                                     onChange={(event) => setIsAnonymous(event.currentTarget.checked)}
                                     label="Don't display my name publicly on the fundraiser."
-                                />
+                                /> */}
                                 <Popover width={200} position="bottom" withArrow shadow="md">
                                     <Popover.Target>
                                         <ActionIcon color="primary" variant="subtle">
                                             <IconInfoCircleFilled size={iconSize} />
                                         </ActionIcon>
                                     </Popover.Target>
-                                    <Popover.Dropdown>
+                                    {/* <Popover.Dropdown>
                                         <Text size="sm">Your name will only be visible to the organizer, any team members, and the beneficiary</Text>
-                                    </Popover.Dropdown>
+                                    </Popover.Dropdown> */}
                                 </Popover>
                             </Group>
                         </Stack>

@@ -79,7 +79,6 @@ import {
       return 0;
     }
   };
-
   // Function to attach popularity to each loan
   const find = async () => {
     const updatedLoans = await Promise.all(
@@ -113,9 +112,8 @@ import {
         setFilteredLoans(loansData);
         return;
       }
-  
       const filtered = filteredLoans.filter((loan) =>
-        loan.title.toLowerCase().includes(term)
+        loan.title.toLowerCase().includes(term)||loan.category.toLowerCase().includes(term)||loan.condition.toLowerCase().includes(term)||loan.username.toLowerCase().includes(term)
       );
       setFilteredLoans(filtered);
       setActivePage(1); // Reset to first page on new search
@@ -135,7 +133,11 @@ import {
         sortedLoans = completedCampaigns;
         console.log("complted size",sortedLoans.length);
       }
-      setFilteredLoans(sortedLoans);
+      if (sortValue != "Completed") {
+        const completedCampaigns = sortedLoans.filter((campaign) => campaign.condition != "Completed");
+        sortedLoans = completedCampaigns;
+        console.log("complted size",sortedLoans.length);
+      }      setFilteredLoans(sortedLoans);
     };
     useEffect(() => {
       handleSort(sortOrder);

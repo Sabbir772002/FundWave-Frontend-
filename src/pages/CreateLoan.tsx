@@ -122,9 +122,8 @@ const CreateLoanPage = () => {
         const date = new Date(isoString);
             return date.toISOString().split('T')[0]; // Extracts 'YYYY-MM-DD' from ISO string
         };
-  
+
     const handleSubmit = async () => {
-        
         const formData = {
             username:localStorage.getItem('username'),
             title: socialForm.values.title,
@@ -133,7 +132,7 @@ const CreateLoanPage = () => {
             deadlineDate: target === 'deadline' && deadlineDate ? formatDate(String(deadlineDate)) : undefined,
             donationType,
             minimumCheck,
-            interest: socialForm.values.interest,
+            interest: 0,
             // firstName: socialForm.values.firstName,
             // lastName: socialForm.values.lastName,
             // profilePicture: socialForm.values.profilePicture,
@@ -165,20 +164,25 @@ const CreateLoanPage = () => {
                   },
                body: JSON.stringify(formData),
             });
+            console.log("here i am");
             if (response.status === 401 || response.status === 403) {
                 alert('Your session has expired or is invalid. Please log in again.');
                 localStorage.removeItem('authToken'); // Clear token if invalid
                 navigate('/login');
                 return; // Stop further execution
               }
+              console.log("not createed loan");
+            console.log(response);
           
               if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message || 'Failed to create loan.');
               }
-          
               const data = await response.json();
-              console.log('Loan created successfully:', data);
+              console.log(data);
+             if(data.loan._id) {
+                navigate(`/loans/${data.loan._id}`);
+            }
                 } catch (error) {
                    console.error('Error:', error);
         }
@@ -298,11 +302,11 @@ const CreateLoanPage = () => {
                                     data={[
                                         { label: '1 Time', value: '1 Time' },
                                         { label: 'Monthly', value: 'Monthly' },
-                                        { label: 'Lender wish', value: 'Lender wish' },
+                                        // { label: 'Lender wish', value: 'Lender wish' },
                                     ]}
                                     mb="sm"
                                 />
-                                <NumberInput label="Interest(%)" {...socialForm.getInputProps('interest')} />
+                                {/* <NumberInput label="Interest(%)" {...socialForm.getInputProps('interest')} /> */}
                             </Paper>
                         </Stepper.Step>
                         <Stepper.Step
@@ -365,7 +369,7 @@ const CreateLoanPage = () => {
                                 </Stack>
                             </Paper>
                         </Stepper.Step>
-                        <Stepper.Step label="Payment methods" description="Get full access">
+                        {/* <Stepper.Step label="Payment methods" description="Get full access">
                             <Title {...titleProps}>Loan Payment Methods</Title>
                             <Paper {...paperProps}>
                                 <Stack spacing="sm">
@@ -395,7 +399,7 @@ const CreateLoanPage = () => {
                                     </Group>
                                 </Stack>
                             </Paper>
-                        </Stepper.Step>
+                        </Stepper.Step> */}
                         <Stepper.Completed>
                             <Title {...titleProps} align="center" my="xl">Completed, take a seat while we finish setting
                                 up things for you</Title>
@@ -410,7 +414,7 @@ const CreateLoanPage = () => {
                         >
                             Back
                         </Button>
-                        {active < 4 ?
+                        {active < 3 ?
                             <Button onClick={nextStep} leftIcon={<IconChevronRight size={18} />}>Next step</Button> :
                             // <Button onClick={handleSubmit} component="a" href="/dashboard" leftIcon={<IconCheck size={18} />}>Launch
                              <Button onClick={handleSubmit} leftIcon={<IconCheck size={18} />}>Launch
