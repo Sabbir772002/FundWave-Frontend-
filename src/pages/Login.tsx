@@ -8,7 +8,7 @@ import {
     Text,
     Container,
     Group,
-    Button,
+    Button
 } from '@mantine/core';
 import {Helmet} from "react-helmet";
 //import {IconBrandFacebook, IconBrandGoogle} from "@tabler/icons-react";
@@ -87,9 +87,11 @@ const LoginPage = () => {
                     <PasswordInput label="Password" placeholder="Your password" required mt="md" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Group position="apart" mt="lg">
                         {/* <Checkbox label="Remember me" checked={rememberMe} onChange={(e) => setRememberMe(e.currentTarget.checked)} /> */}
+                        <Link to='/forgot/recovered'>
                         <Anchor component="button" size="sm">
                             Forgot password?
                         </Anchor> 
+                        </Link>
                     </Group>
                     <Button type="submit" fullWidth mt="xl">
                         Sign in

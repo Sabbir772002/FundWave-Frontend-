@@ -123,12 +123,12 @@ const HeroSection = () => {
     return (
         <div className={classes.wrapper}>
             <Overlay color="#000" opacity={0.65} zIndex={1}/>
-
+            
             <div className={classes.inner}>
                 <Container>
-                    <Stack spacing="xl">
+                    <Stack spacing="sm">
                         <Center>
-                            <Group spacing={4} className={classes.badge}>
+                            <Group spacing={2} className={classes.badge}>
                                 <IconRocket stroke={1.5}/>
                                 <Text transform="uppercase">Make it Happen</Text>
                             </Group>
@@ -146,14 +146,11 @@ const HeroSection = () => {
                             gradient={{from: theme.colors.green[4], to: theme.colors.lime[5]}}
                         >Fund Dreams.</Text>
                         </Title>
-                        <Text size="lg" className={classes.description}>
+                        <Text size="sm" className={classes.description}>
                             Join us and be part of something special. Together we can make a difference and bring your
                             dreams to
                             reality.
                         </Text>
-                    </Stack>
-                </Container>
-
                 <div className={classes.controls}>
                 <Button className={classes.control} variant="white" size="lg" component={Link} to="/create-loan">
                         Start your Loan
@@ -165,6 +162,9 @@ const HeroSection = () => {
                         Explore now
                     </Button>
                 </div>
+                </Stack>
+                </Container>
+
             </div>
         </div>
     );

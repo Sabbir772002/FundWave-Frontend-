@@ -1,6 +1,7 @@
 export interface ICampaign {
     _id: string
     title: string
+    condition: string
     story: string
     createdAt: string
     mainImage: string
@@ -8,12 +9,13 @@ export interface ICampaign {
     daysLeft: number
     Amount: Number
     target: string
-    contributors: number
+    donators: number
     createdByImage: string
     category: string
     amountRaised: number
     deadlineDate: string
     type: string | null
+    imageUrl: string
 }
 
 export interface ILoans {
@@ -27,9 +29,12 @@ export interface ILoans {
     minimumCheck: boolean; // Assuming this is a boolean, not a string
     interest: number; // Use number for floating-point values
     bkashNumber: string;
+    bonus: number;
     nagadNumber: string;
     rocketNumber: string;
     story: string;
+    biders: number;
+    img: string;
     createdAt: string; // Use string for ISO date format
     __v: number; // Version key is usually a number
     condition: string;

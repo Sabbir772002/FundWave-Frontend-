@@ -15,16 +15,25 @@ import {Navigate} from "react-router-dom";
 import LoansPage from "../pages/Loans";
 import CreateLoanPage from "../pages/CreateLoan";
 import LoanDetailsPage from "../pages/LoanDetailsPage";
+import DonationSucessPage from "../pages/PaymentDone";
+import Chatbox from "../pages/ChatBox";
+import ChatGO from "../pages/ChatBoss";
+import PassChanger from '../pages/RegisterPage/ChangePass/PassChanger';
+import Recovred from '../pages/RegisterPage/ForgetPassword/Recovered';
+import EmailVerificationForm from '../pages/RegisterPage/ForgetPassword/OTPInput';
+import Reset from '../pages/RegisterPage/ForgetPassword/Reset';
 
-
-
-import Payment from "../pages/Payment";
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
     const username = localStorage.getItem('username');
     return username ? children : <Navigate to="/login" />;
 };
-
+import Public_Chat from "../layout/Public_Chat";
 import {DashboardLayout, PublicLayout} from "../layout";
+import LoanPaymentDone from "../pages/LoanPaymentDone";
+import Trans from "../pages/Trans";
+import Profilebox from "../pages/Profilebox";
+import RedirectToUser from "../pages/Go";
+import { GoDash } from "react-icons/go";
 
 const router = createBrowserRouter([
     {
@@ -82,6 +91,7 @@ const router = createBrowserRouter([
             }
         ]
     },
+    
     {
         path: "loans",
         element: <PublicLayout/>,
@@ -101,6 +111,16 @@ const router = createBrowserRouter([
                 ),
                 errorElement: <DetailError404Page/>
             }
+            ,
+            {
+                path: "trans/:id",
+                element: (
+                    <RequireAuth>
+                    <Trans/>
+                </RequireAuth>
+                ),
+                errorElement: <DetailError404Page/>
+            }
         ]
     },
     {
@@ -113,9 +133,11 @@ const router = createBrowserRouter([
                 index: true,
                 element: (
                     <RequireAuth>
-                    <DashboardPage/>
-                </RequireAuth>
-                )
+                    <GoDash/>
+                   </RequireAuth>
+                ),
+                errorElement: <Error404Page/>,
+
             }
         ]
     },
@@ -131,7 +153,9 @@ const router = createBrowserRouter([
                     <RequireAuth>
                     <CreateCampaignPage />
                 </RequireAuth>
-                )
+                ),
+                errorElement: <Error404Page/>,
+
             }
         ]
     },{
@@ -152,17 +176,130 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: "payment", 
-        element: <PublicLayout />, 
+        path: "payment",
+        element: <PublicLayout />,
+        children: [
+            {
+                path: "",
+                index: true,
+                element: <LoansPage />,
+                errorElement: <Error404Page />,
+            },
+            {
+                path: "success/:id",
+                element: (
+                    <RequireAuth>
+                        <DonationSucessPage />
+                    </RequireAuth>
+                ),
+                errorElement: <DetailError404Page />
+            },
+            
+            {
+                path: "success/loan/:id",
+                element: (
+                    <RequireAuth>
+                        <LoanPaymentDone />
+                    </RequireAuth>
+                ),
+                errorElement: <DetailError404Page />
+            },
+            
+        ]
+    },
+    
+    {
+        path: "chat",
+        element: <Public_Chat/>,
+        children: [
+            {
+                path: "",
+                element: (
+                    <RequireAuth>
+                    <RedirectToUser/>
+                </RequireAuth>
+                ),
+                errorElement: <Error404Page/>,
+            },
+            
+            {
+                path: ":fnd",
+                element: (
+                    <RequireAuth>
+                    <Chatbox/>
+                </RequireAuth>
+                ),
+                errorElement: <DetailError404Page/>
+            }
+            ,
+            {
+                path: "msg/:id",
+                element: (
+                    <RequireAuth>
+                    <ChatGO/>
+                </RequireAuth>
+                ),
+                errorElement: <DetailError404Page/>
+            }
+        ]
+    },
+    {
+        path: "profile",
+        element: <DashboardLayout/>,
+        errorElement: <Error404Page/>,
+        children: [
+            {
+                path: ':id',
+                index: true,
+                element: (
+                    <RequireAuth>
+                    <Profilebox/>
+                </RequireAuth>
+                ),
+                errorElement: <Error404Page/>,
+
+            }
+        ]
+    },{
+        path: "forgot",
+        element: <DashboardLayout/>,
+        errorElement: <Error404Page/>,
         children: [
             {
                 path: '',
                 index: true,
-                element: <Payment/>,  // Define the PaymentPage route
-                errorElement: <Error404Page />
+                element: (
+                    <PassChanger/>
+                ),
+                errorElement: <Error404Page/>,
+
+            }, {
+                path: 'recovered',
+                index: true,
+                element: (
+                    <Recovred/>
+                ),
+                errorElement: <Error404Page/>,
+
+            },
+            {
+                path: 'otp',
+                index: true,
+                element: (
+                    <EmailVerificationForm/>
+                ),
+            },
+            {
+                path: 'reset',
+                index: true,
+                element: (
+                    <Reset/>
+                ),
+                errorElement: <Error404Page/>,
             }
         ]
-    }
+    },
+    
 ]);
 
 

@@ -129,41 +129,48 @@ const CreateCampaignPage = () => {
         mb: "md",
         sx: {backgroundColor: theme.white}
     }
+    const [image, setImage] = useState();
 
+    const handleImageDrop = (file) => {
+        console.log(file);
+        setImage(file[0]);
+    };
     const handleSubmit = async () => {
-        const campaignData = {
-            title: socialForm.values.title,
-            category: socialForm.values.category,
-            target,
-            deadlineDate,
-            donationType,
-            Amount: amount,
-            bkashNumber,
-            nagadNumber,
-            rocketNumber,
-            username: localStorage.getItem('username'),
-            story: editor?.getHTML() || '', 
-        };
-
+        const campaignData = new FormData();
+        campaignData.append('title', socialForm.values.title);
+        campaignData.append('category', socialForm.values.category);
+        campaignData.append('target', target);
+        campaignData.append('deadlineDate', deadlineDate?.toISOString() || '');
+        campaignData.append('donationType', donationType);
+        campaignData.append('amount', amount);
+        campaignData.append('bkashNumber', bkashNumber);
+        campaignData.append('nagadNumber', nagadNumber);
+        campaignData.append('rocketNumber', rocketNumber);
+        campaignData.append('username', localStorage.getItem('username') || '');
+        campaignData.append('story', editor?.getHTML() || '');
+        console.log("data", campaignData);
+    
+        if (image) {
+                campaignData.append('image', image); 
+        }
+    
         try {
             const response = await fetch('http://localhost:3000/api/campaign/create', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(campaignData),
+                body: campaignData,
             });
-
+    
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
+    
             const result = await response.json();
             console.log(result); // handle the result
         } catch (error) {
             console.error('Error creating campaign:', error);
         }
     };
+    
 
     return (
         <>
@@ -320,7 +327,9 @@ const CreateCampaignPage = () => {
                                     </RichTextEditor>
                                     <FileDropzone
                                         label="Upload campaign photos"
-                                        description="You can select and upload several in one go"/>
+                                        description="You can select and upload several in one go"
+                                        onDrop={handleImageDrop} // Call the handler on file drop
+                                    />
                                 </Stack>
                             </Paper>
                         </Stepper.Step>

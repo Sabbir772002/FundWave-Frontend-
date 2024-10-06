@@ -143,7 +143,10 @@ const SignupPage = () => {
                     <Group position="apart" mt="lg">
                          {/* <Checkbox label="Remember me" checked={rememberMe} onChange={(e) => setRememberMe(e.currentTarget.checked)} /> */} 
                         <Anchor component="button" size="sm">
+                        <Link to='/forgot/recovered'>
+
                             Forgot password?
+                            </Link>
                         </Anchor> 
                     </Group>
                     <Button type="submit" fullWidth mt="xl">

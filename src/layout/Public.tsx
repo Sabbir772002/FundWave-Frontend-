@@ -21,5 +21,4 @@ const PublicLayout = ({compressedNav}: IProps) => {
         </>
     );
 };
-
 export default PublicLayout;
