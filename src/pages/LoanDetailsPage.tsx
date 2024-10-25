@@ -422,6 +422,8 @@ const LoanDetailsPage = (): JSX.Element => {
                                                 {/* {final ? (
                                                     <Button size="xl">Transaction Page</Button>
                                                 ) : null} */}
+                                                ) : null}
+
 
                                             </Stack>
                                         </Paper>
