@@ -26,9 +26,10 @@ import {
     IconSettings,
     IconStar,
 } from '@tabler/icons-react';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {AppLinks, BrandName, SearchDrawer} from "./index";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../util/api';
 const useStyles = createStyles((theme) => ({
 
     header: {
@@ -173,7 +174,17 @@ const AppNavbar = ({...others}: IProps) => {
     const [searchOpened, {toggle: toggleSearchDrawer, close: closeSearchDrawer}] = useDisclosure(false);
     const matchesMobile = useMediaQuery('(max-width: 600px)');
     const username=localStorage.getItem('username');
-
+    const [userinfo, setUserinfo] = useState({});
+    const fetchuserinfo=async()=>{
+        const response = await fetch(`http://localhost:3000/auth/user/${username}`);
+        const data = await response.json();
+        setUserinfo(data);
+        console.log(data);
+    }
+    
+    useEffect(() => {
+        fetchuserinfo();
+    }, [username]);
     return (
         <Box {...others}>
             <Header
@@ -206,12 +217,12 @@ const AppNavbar = ({...others}: IProps) => {
                             <AppLinks className={classes.hiddenMobile}/>
                         </Group>
                         <Group>
-                            <ActionIcon variant="filled" color={theme.white} onClick={toggleSearchDrawer}>
+                            {/* <ActionIcon variant="filled" color={theme.white} onClick={toggleSearchDrawer}>
                                 <IconSearch size={ICON_SIZE}/>
-                            </ActionIcon>
-                            <ActionIcon variant="filled" color={theme.white}>
+                            </ActionIcon> */}
+                            {/* <ActionIcon variant="filled" color={theme.white}>
                                 <IconBell size={ICON_SIZE}/>
-                            </ActionIcon>
+                            </ActionIcon> */}
                             <Menu
                                 width={260}
                                 position="bottom-end"
@@ -226,7 +237,7 @@ const AppNavbar = ({...others}: IProps) => {
                                     >
                                         <Group spacing={7}>
                                             <Avatar
-                                                src={user.image}
+                                                src={`${api.img}${userinfo.img}` || user.image}
                                                 alt={user.name}
                                                 radius="xl"
                                                 size={matchesMobile ? 18 : 20}
@@ -270,7 +281,7 @@ const AppNavbar = ({...others}: IProps) => {
 
                                     <Menu.Label>Settings</Menu.Label>
                                     <Menu.Item icon={<IconSettings size="0.9rem" stroke={1.5}/>}>
-                                        Account settings
+                                   <Link to={`/profile/${username}`}>Profile</Link>
                                     </Menu.Item>
                                     <Menu.Item onClick={handleLogout}
 

@@ -34,6 +34,7 @@ import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
 import React, {forwardRef, useState} from "react";
 import {DateInput} from "@mantine/dates";
+
 import {
     IconBrandApple,
     IconBrandFacebook,
@@ -58,6 +59,7 @@ import {
 import {CategorySelect, CountrySelect, CurrencySelect, FileDropzone} from "../components";
 import {randomId} from "@mantine/hooks";
 import {useForm} from "@mantine/form";
+import {useNavigate} from "react-router-dom";
 
 interface ISocialProps {
     icon: React.FC<any>;
@@ -76,6 +78,7 @@ const SocialSelectItem = forwardRef<HTMLDivElement, ISocialProps>(
 );
 
 const CreateCampaignPage = () => {
+    const navigate=useNavigate();
     const theme = useMantineTheme();
     const [active, setActive] = useState(0);
     const [target, setTarget] = useState('deadline');
@@ -129,45 +132,52 @@ const CreateCampaignPage = () => {
         mb: "md",
         sx: {backgroundColor: theme.white}
     }
+    const [image, setImage] = useState();
 
+    const handleImageDrop = (file) => {
+        console.log(file);
+        setImage(file[0]);
+    };
     const handleSubmit = async () => {
-        const campaignData = {
-            title: socialForm.values.title,
-            category: socialForm.values.category,
-            target,
-            deadlineDate,
-            donationType,
-            Amount: amount,
-            bkashNumber,
-            nagadNumber,
-            rocketNumber,
-            username: localStorage.getItem('username'),
-            story: editor?.getHTML() || '', 
-        };
-
+        const campaignData = new FormData();
+        campaignData.append('title', socialForm.values.title);
+        campaignData.append('category', socialForm.values.category);
+        campaignData.append('target', target);
+        campaignData.append('deadlineDate', deadlineDate?.toISOString() || '');
+        campaignData.append('donationType', donationType);
+        campaignData.append('amount', amount);
+        campaignData.append('bkashNumber', bkashNumber);
+        campaignData.append('nagadNumber', nagadNumber);
+        campaignData.append('rocketNumber', rocketNumber);
+        campaignData.append('username', localStorage.getItem('username') || '');
+        campaignData.append('story', editor?.getHTML() || '');
+        console.log("data", campaignData);
+    
+        if (image) {
+                campaignData.append('image', image); 
+        }
+    
         try {
             const response = await fetch('http://localhost:3000/api/campaign/create', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(campaignData),
+                body: campaignData,
             });
-
+    
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
+    
             const result = await response.json();
-            console.log(result); // handle the result
+            navigate('/campaigns/' + result._id);
         } catch (error) {
             console.error('Error creating campaign:', error);
         }
     };
+    
 
     return (
         <>
-            <Helmet>
+     <Helmet>
                 <title>Create campaign</title>
             </Helmet>
             <Box>
@@ -320,11 +330,13 @@ const CreateCampaignPage = () => {
                                     </RichTextEditor>
                                     <FileDropzone
                                         label="Upload campaign photos"
-                                        description="You can select and upload one image in one go"/>
+                                        description="You can select and upload several in one go"
+                                        onDrop={handleImageDrop} // Call the handler on file drop
+                                    />
                                 </Stack>
                             </Paper>
                         </Stepper.Step>
-                        <Stepper.Step label="Payment methods" description="Get full access">
+                        {/* <Stepper.Step label="Payment methods" description="Get full access">
                             <Title {...titleProps}>Campaign Payment Methods</Title>
                             <Paper {...paperProps}>
                                 <Stack spacing="sm">
@@ -353,19 +365,18 @@ const CreateCampaignPage = () => {
                                     </Group>
                                 </Stack>
                             </Paper>
-                        </Stepper.Step>
+                        </Stepper.Step> */}
 
                         <Stepper.Completed>
                             <Title {...titleProps} align="center" my="xl">Completed, take a seat while we finish setting up things for you</Title>
                         </Stepper.Completed>
                     </Stepper>
-
                     <Group position="center" mt="xl">
                         <Button
                             variant="default"
                             onClick={prevStep}
                             leftIcon={<IconChevronLeft size={18}/>}
-                        >
+                            >
                             Back
                         </Button>
                         {active < 4 ?

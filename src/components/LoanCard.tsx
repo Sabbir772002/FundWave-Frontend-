@@ -73,14 +73,14 @@ const LoanCard = ({ data, showActions }: IProps) => {
     const today = new Date();
     const daysLeft = Math.max(Math.ceil((deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)), 0);
     const [People, setPeople] = useState(0);
-    
     const findPeople = async () => {
         try {
             const response = await fetch(`http://localhost:3000/api/bids/${_id}`);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
             const data = await response.json();
+            if(data.noBids){
+                setPeople(0);
+                return;
+            }
             setPeople(data.data.length);
         } catch (error) {
             console.error('Error fetching user data:', error);
@@ -90,11 +90,26 @@ const LoanCard = ({ data, showActions }: IProps) => {
         findPeople();
     }
     , [_id]);
+    const [user, setUser] = useState('');
 
+    const findUser = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/auth/user/${username}`);
+            const data = await response.json();
+            console.log(data);
+            setUser(data);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    }
+
+    useEffect(() => {
+        findUser();
+    }, [username]);
     return (
         <Card radius="sm" shadow="md" ml="xs" component={Link} {...linkProps} className={classes.card}>
             <Card.Section>
-                <Image src={mainImage} height={280} className={classes.image} />
+                <Image src={`http://localhost:3000/api/campaign${user.img}`} height={280} className={classes.image} />
             </Card.Section>
 
             <Card.Section pt={0} px="md" pb="md">
@@ -110,7 +125,6 @@ const LoanCard = ({ data, showActions }: IProps) => {
 
                     {/* {showActions && <Text lineClamp={3} size="sm">{story}</Text>} */}
                     <Text lineClamp={3} size="sm"><b>Target Amount: </b>{targetAmount}</Text>
-
                     <Progress value={100 - (daysLeft / 30) * 100} />
 
                     <Flex justify="space-between">

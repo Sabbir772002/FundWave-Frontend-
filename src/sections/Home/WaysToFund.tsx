@@ -57,7 +57,7 @@ const WaysToFundSection = ({boxProps, subtitleProps}: IProps) => {
                                 shadow="md"
                                 radius="sm"
                                 component={Link}
-                                to="/create-campaign"
+                                to="/create-loan"
                             >
                                 <Card.Section>
                                     <Image
