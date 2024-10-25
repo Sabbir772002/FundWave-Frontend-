@@ -13,6 +13,8 @@ import {
 } from '@mantine/core';
 import {ICampaign} from "../types";
 import {Link} from "react-router-dom";
+import {useEffect, useState} from 'react';
+import api from '../util/api';
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -45,29 +47,65 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface IProps extends PaperProps {
-    data: ICampaign
-    showActions?: boolean
+    data: ICampaign;
+    showActions?: boolean;
 }
-
 const CampaignCard = ({data, showActions}: IProps) => {
     const {classes} = useStyles();
     const {
         mainImage,
-        id,
+        _id,
         title,
         amountRaised,
         daysLeft,
         contributors,
-        description,
+        story,
         category,
-        country
+        username,
+        deadlineDate,
+        Amount,
+        createdAt,
+        target,
+        imageUrl
     } = data;
-    const linkProps = {to: `/campaigns/${id}`, rel: 'noopener noreferrer'};
+
+    const [campaign, setCampaign] = useState<ICampaign | null>(null);
+    const [donations, setDonations] = useState<any[]>([]);
+    const [updatedAmountRaised, setUpdatedAmountRaised] = useState<number>(0);
+    const img=api.img;
+    useEffect(() => {
+        const fetchCampaignData = async () => {
+            if (_id) {
+                try {
+                    const campaignResponse = await fetch(`http://localhost:3000/api/campaign/${_id}`);
+                    const donationResponse = await fetch(`http://localhost:3000/api/fundpayments/${_id}`);
+
+                    if (!campaignResponse.ok || !donationResponse.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    const campaignData = await campaignResponse.json();
+                    const donationData = await donationResponse.json();
+                    const tip = donationData.map(d => d.tip).reduce((a, b) => a + b, 0);
+                    const total = donationData.map(d => d.Amount).reduce((a, b) => a + b, 0);
+                    const totalAmountRaised=total-tip;
+                    setUpdatedAmountRaised(totalAmountRaised);
+                    setCampaign(campaignData);
+                    setDonations(donationData);
+                } catch (error) {
+                    console.error("Error fetching campaign or donation data:", error);
+                }
+            }
+        };
+
+        fetchCampaignData();
+    }, [_id]);
+    
+    const linkProps = {to: `/campaigns/${_id}`, rel: 'noopener noreferrer'};
 
     return (
         <Card radius="sm" shadow="md" ml="xs" component={Link} {...linkProps} className={classes.card}>
             <Card.Section>
-                <Image src={mainImage} height={280} className={classes.image}/>
+                <Image src={`${img}${imageUrl}`} height={280} className={classes.image}/>
             </Card.Section>
 
             <Card.Section pt={0} px="md" pb="md">
@@ -77,20 +115,28 @@ const CampaignCard = ({data, showActions}: IProps) => {
                     </Text>
 
                     <Group position="apart">
-                        <Text size="xs" transform="uppercase" color="dimmed" fw={700}>{country}</Text>
+                        <Text size="xs"> By <b>{username}</b></Text>
                         <Badge variant="dot" color="secondary">{category}</Badge>
                     </Group>
+                    <Text lineClamp={3} size="sm">
+                        <b>Deadline: </b>
+                        {target === "deadline"
+                            ? `${new Date(deadlineDate).getUTCDate()} ${new Date(deadlineDate).toLocaleString('en-US', { month: 'long' })} ${new Date(deadlineDate).getUTCFullYear()}`
+                            : "No Deadline"}
+                    </Text>
+                     {Amount &&
+                    <Progress value={(updatedAmountRaised / Amount) * 100} />
+                     }
+                     {!Amount &&
+                    <Progress value={100} />
+                     }
 
-                    {showActions && <Text lineClamp={3} size="sm">{description}</Text>}
-
-                    <Progress value={daysLeft}/>
 
                     <Flex justify="space-between">
-                        <Text><b>{amountRaised}</b> raised</Text>
-                        <Text><b>{contributors}</b> donations</Text>
+                        <Text><b>৳{updatedAmountRaised}</b> raised</Text>
+                        <Text><b>{donations.length}</b> donations</Text>
                     </Flex>
 
-                    {/*{showActions && <Button>Donate Now</Button>}*/}
                 </Stack>
             </Card.Section>
         </Card>

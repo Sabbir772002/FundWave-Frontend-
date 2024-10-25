@@ -1,20 +1,20 @@
-import {Dropzone, DropzoneProps, IMAGE_MIME_TYPE} from "@mantine/dropzone";
-import {Group, rem, Text, useMantineTheme} from "@mantine/core";
-import {IconAlbum, IconPhotoPlus, IconUpload, IconX} from "@tabler/icons-react";
+import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { Group, rem, Text, useMantineTheme } from "@mantine/core";
+import { IconAlbum, IconPhotoPlus, IconUpload, IconX } from "@tabler/icons-react";
 
 interface IFileInputProps extends Pick<DropzoneProps, 'multiple'> {
-    label: string
-    description: string
-    multiple?: boolean
+    label: string;
+    description: string;
+    onDrop: (files: File[]) => void; // Add onDrop prop to handle files
 }
 
-const FileDropzone = ({label, description, ...others}: IFileInputProps) => {
-    const theme = useMantineTheme()
+const FileDropzone = ({ label, description, onDrop, ...others }: IFileInputProps) => {
+    const theme = useMantineTheme();
 
     return (
         <Dropzone
-            onDrop={(files: any) => console.log('accepted files', files)}
-            onReject={(files: any) => console.log('rejected files', files)}
+            onDrop={onDrop} // Use the onDrop prop to handle accepted files
+            onReject={(files: File[]) => console.log('rejected files', files)}
             maxSize={3 * 1024 ** 2}
             accept={IMAGE_MIME_TYPE}
             {...others}
@@ -22,7 +22,7 @@ const FileDropzone = ({label, description, ...others}: IFileInputProps) => {
             <Group
                 position="center"
                 spacing="xl"
-                style={{minHeight: rem(120), pointerEvents: 'none'}}
+                style={{ minHeight: rem(120), pointerEvents: 'none' }}
             >
                 <Dropzone.Accept>
                     <IconUpload
@@ -40,8 +40,8 @@ const FileDropzone = ({label, description, ...others}: IFileInputProps) => {
                 </Dropzone.Reject>
                 <Dropzone.Idle>
                     {others.multiple ?
-                        <IconPhotoPlus size="3.2rem" stroke={1.5}/> :
-                        <IconAlbum size="3.2rem" stroke={1.5}/>
+                        <IconPhotoPlus size="3.2rem" stroke={1.5} /> :
+                        <IconAlbum size="3.2rem" stroke={1.5} />
                     }
                 </Dropzone.Idle>
 

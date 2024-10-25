@@ -45,7 +45,7 @@ const WaysToFundSection = ({boxProps, subtitleProps}: IProps) => {
                     <Grid.Col lg={4}>
                         <Stack spacing="xs" justify="center" sx={{height: '100%'}}>
                             <TitleBadge title="Make your impact"/>
-                            <Title order={3}>CrowdUp Gives You More</Title>
+                            <Title order={3}>FundWave Gives You More</Title>
                             <Text>Supercharge your fundraising efforts with our unique tools,
                                 features and personal
                                 support. Helping you raise more money than you could elsewhere!</Text>
@@ -58,14 +58,14 @@ const WaysToFundSection = ({boxProps, subtitleProps}: IProps) => {
                                 shadow="md"
                                 radius="sm"
                                 component={Link}
-                                to="/create-campaign"
+                                to="/create-loan"
                             >
                                 <Card.Section>
                                     <Image
                                         src="https://images.unsplash.com/photo-1518101645466-7795885ff8f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"/>
                                 </Card.Section>
                                 <Text mt="md" align="center" {...subtitleProps}>Yourself</Text>
-                            </Card>
+                            </Card>                          
                             <Card
                                 className={cx(classes.feature, 'card')}
                                 shadow="md"

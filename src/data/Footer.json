@@ -30,62 +30,34 @@
       ]
     },
     {
-      "title": "Learn more",
+      "title": "Student loans for",
       "links": [
         {
-          "label": "How CrowdUp Works",
+          "label": "Tuition",
           "link": "#"
         },
         {
-          "label": "Why CrowdUp",
+          "label": "Books",
           "link": "#"
         },
         {
-          "label": "Frequently Asked Questions",
+          "label": "Supplies",
           "link": "#"
         },
         {
-          "label": "Success Stories",
+          "label": "Research",
           "link": "#"
         },
         {
-          "label": "Supported Countries",
+          "label": "Technology",
           "link": "#"
         },
         {
-          "label": "Charity Fundraising",
-          "link": "#"
-        }
-      ]
-    },
-    {
-      "title": "Resources",
-      "links": [
-        {
-          "label": "What is crowdfunding?",
-          "link": "#"
-        },
-        {
-          "label": "Help center",
-          "link": "#"
-        },
-        {
-          "label": "Blog",
-          "link": "#"
-        },
-        {
-          "label": "CrowdUp Stories",
-          "link": "#"
-        },
-        {
-          "label": "Careers",
-          "link": "#"
-        },
-        {
-          "label": "About",
+          "label": "Study Abroad",
           "link": "#"
         }
       ]
     }
+    
   ]
 }

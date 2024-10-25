@@ -26,10 +26,12 @@ import {
     IconSettings,
     IconStar,
 } from '@tabler/icons-react';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {AppLinks, BrandName, SearchDrawer} from "./index";
-
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../util/api';
 const useStyles = createStyles((theme) => ({
+
     header: {
         backgroundColor: theme.colors.primary[6]
     },
@@ -141,23 +143,48 @@ const useStyles = createStyles((theme) => ({
     }
 }));
 
-const user = {
-    "name": "Jane Spoonfighter",
-    "email": "janspoon@fighter.dev",
-    "image": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-}
+
 
 const ICON_SIZE = 18
 
 type IProps = BoxProps
 
 const AppNavbar = ({...others}: IProps) => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        // Remove the token and username from localStorage
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('username');
+
+        // Redirect the user to the login page
+        navigate('/');
+    };
+    const user = {
+        "name": "Jane Spoonfighter",
+        "email": "janspoon@fighter.dev",
+        "image": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+    }
+
+
     const {classes, theme, cx} = useStyles();
+
     const [userMenuOpened, setUserMenuOpened] = useState(false);
     const [drawerOpened, {toggle: toggleDrawer, close: closeDrawer}] = useDisclosure(false);
     const [searchOpened, {toggle: toggleSearchDrawer, close: closeSearchDrawer}] = useDisclosure(false);
     const matchesMobile = useMediaQuery('(max-width: 600px)');
-
+    const username=localStorage.getItem('username');
+    const [userinfo, setUserinfo] = useState({});
+    const fetchuserinfo=async()=>{
+        const response = await fetch(`http://localhost:3000/auth/user/${username}`);
+        const data = await response.json();
+        setUserinfo(data);
+        console.log(data);
+    }
+    
+    useEffect(() => {
+        fetchuserinfo();
+    }, [username]);
     return (
         <Box {...others}>
             <Header
@@ -190,12 +217,12 @@ const AppNavbar = ({...others}: IProps) => {
                             <AppLinks className={classes.hiddenMobile}/>
                         </Group>
                         <Group>
-                            <ActionIcon variant="filled" color={theme.white} onClick={toggleSearchDrawer}>
+                            {/* <ActionIcon variant="filled" color={theme.white} onClick={toggleSearchDrawer}>
                                 <IconSearch size={ICON_SIZE}/>
-                            </ActionIcon>
-                            <ActionIcon variant="filled" color={theme.white}>
+                            </ActionIcon> */}
+                            {/* <ActionIcon variant="filled" color={theme.white}>
                                 <IconBell size={ICON_SIZE}/>
-                            </ActionIcon>
+                            </ActionIcon> */}
                             <Menu
                                 width={260}
                                 position="bottom-end"
@@ -210,7 +237,7 @@ const AppNavbar = ({...others}: IProps) => {
                                     >
                                         <Group spacing={7}>
                                             <Avatar
-                                                src={user.image}
+                                                src={`${api.img}${userinfo.img}` || user.image}
                                                 alt={user.name}
                                                 radius="xl"
                                                 size={matchesMobile ? 18 : 20}
@@ -218,7 +245,7 @@ const AppNavbar = ({...others}: IProps) => {
                                             {!matchesMobile &&
                                                 <>
                                                     <Text weight={500} size="sm" sx={{lineHeight: 1}} mr={3}>
-                                                        {user.name}
+                                                        {username}
                                                     </Text>
                                                     <IconChevronDown size={rem(12)} stroke={1.5}/>
                                                 </>}
@@ -226,7 +253,7 @@ const AppNavbar = ({...others}: IProps) => {
                                     </UnstyledButton>
                                 </Menu.Target>
                                 <Menu.Dropdown>
-                                    <Menu.Item
+                                    {/* <Menu.Item
                                         icon={<IconHeart
                                             size="0.9rem"
                                             color={theme.colors.red[6]}
@@ -250,13 +277,14 @@ const AppNavbar = ({...others}: IProps) => {
                                             stroke={1.5}/>}
                                     >
                                         Your comments
-                                    </Menu.Item>
+                                    </Menu.Item> */}
 
                                     <Menu.Label>Settings</Menu.Label>
                                     <Menu.Item icon={<IconSettings size="0.9rem" stroke={1.5}/>}>
-                                        Account settings
+                                   <Link to={`/profile/${username}`}>Profile</Link>
                                     </Menu.Item>
-                                    <Menu.Item
+                                    <Menu.Item onClick={handleLogout}
+
                                         icon={<IconLogout size="0.9rem" stroke={1.5}/>}>Logout</Menu.Item>
                                 </Menu.Dropdown>
                             </Menu>

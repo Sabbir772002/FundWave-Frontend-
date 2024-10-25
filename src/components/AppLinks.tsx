@@ -59,12 +59,14 @@ const useStyles = createStyles((theme) => ({
         },
     },
 }));
-
+const username=localStorage.getItem('username');
 const data = [
+    {link: '/create-loan', label: 'Create New Loan', icon: IconFolderPlus},
     {link: '/create-campaign', label: 'Create New Campaign', icon: IconFolderPlus},
-    {link: '/dashboard', label: 'My Dashboard', icon: IconHome},
-    {link: '', label: 'Following Campaigns', icon: IconHeart},
-    {link: '', label: 'Funded Campaigns', icon: IconFileDollar},
+    {link: '/loans', label: 'Loans', icon: IconFileDollar},
+    {link: '/campaigns', label: 'Campaigns', icon: IconHeart},
+
+    {link: `/profile/${username}`, label: 'My Dashboard', icon: IconHome},
 ];
 
 const ICON_SIZE = 18
@@ -96,5 +98,4 @@ const AppLinks = ({...others}: IProps) => {
         </Flex>
     );
 }
-
 export default AppLinks;

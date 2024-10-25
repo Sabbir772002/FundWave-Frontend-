@@ -8,7 +8,7 @@ const useStyles = createStyles((theme) => ({
         paddingTop: rem(180),
         paddingBottom: rem(130),
         backgroundImage:
-            'url(https://images.unsplash.com/photo-1509099836639-18ba1795216d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80)',
+            'url(https://www.uiu.ac.bd/wp-content/uploads/2024/06/1.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: rem(640),
@@ -117,52 +117,54 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 500
     }
 }));
-
 const HeroSection = () => {
     const {classes, theme} = useStyles();
 
     return (
         <div className={classes.wrapper}>
             <Overlay color="#000" opacity={0.65} zIndex={1}/>
-
+            
             <div className={classes.inner}>
                 <Container>
-                    <Stack spacing="xl">
+                    <Stack spacing="sm">
                         <Center>
-                            <Group spacing={4} className={classes.badge}>
+                            <Group spacing={2} className={classes.badge}>
                                 <IconRocket stroke={1.5}/>
                                 <Text transform="uppercase">Make it Happen</Text>
                             </Group>
                         </Center>
                         <Title className={classes.title}>
-                            Help the people, make <Text
+                            Help the students, Support <Text
                             component="span"
                             inherit
                             variant="gradient"
                             gradient={{from: theme.colors.lime[5], to: theme.colors.green[4]}}
-                        >big changes</Text> and <Text
+                        >the Loans</Text> and <Text
                             component="span"
                             inherit
                             variant="gradient"
                             gradient={{from: theme.colors.green[4], to: theme.colors.lime[5]}}
-                        >help this world.</Text>
+                        >Fund Dreams.</Text>
                         </Title>
-                        <Text size="lg" className={classes.description}>
+                        <Text size="sm" className={classes.description}>
                             Join us and be part of something special. Together we can make a difference and bring your
                             dreams to
                             reality.
                         </Text>
-                    </Stack>
-                </Container>
-
                 <div className={classes.controls}>
+                <Button className={classes.control} variant="white" size="lg" component={Link} to="/create-loan">
+                        Start your Loan
+                    </Button>
                     <Button className={classes.control} variant="white" size="lg" component={Link} to="/create-campaign">
                         Start a campaign
                     </Button>
-                    <Button className={classes.control} variant="white" size="lg" component={Link} to="/campaigns">
+                    <Button className={classes.control} variant="white" size="lg" component={Link} to="/loans">
                         Explore now
                     </Button>
                 </div>
+                </Stack>
+                </Container>
+
             </div>
         </div>
     );

@@ -13,7 +13,8 @@ import {
     Title,
     TitleProps
 } from '@mantine/core';
-import {TitleBadge} from "../../components";
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { TitleBadge } from "../../components";
 
 const useStyles = createStyles((theme) => ({
     feature: {
@@ -25,7 +26,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface FeatureProps extends PaperProps {
-    image: string
+    image: string;
     title: string;
     description: string;
     action: string;
@@ -33,69 +34,72 @@ interface FeatureProps extends PaperProps {
 
 const mockdata = [
     {
-        image: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        title: 'Community',
+        image: 'https://www.collegescholarships.org/images/loan-xpress.jpg',
+        title: 'Help Investing in My Academic Future',
         description:
-            'Together we are stronger than alone. Find your peers and learn from others. Join our founder community or come to an event featuring leading social entrepreneurs from around the world.',
-        action: `Check out what's on`
+            'Help me achieve reach my academic dreams I am passionate about my studies, but I need your support to reach my goals. Your contributions will go directly towards my education, helping me focus on what matters most: learning and growing..',
+        action: `Check out available student loans for contribution`
     },
     {
-        image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80',
-        title: 'Education',
+        image: 'https://images.livemint.com/img/2021/12/15/600x338/el_1639587081155_1639587095192.jpg',
+        title: 'Help Me Reach Graduation',
         description:
-            `Make your social enterprise (or “dream project”) a reality. Learn the keys to success and avoid the common missteps through one of our programs, working alongside other founders.`,
-        action: 'Learn more about upcoming programs and opportunities'
+            `Your support can make a difference I’m working hard to finish my degree, but financial barriers are standing in my way. With your help, I can cover the costs of tuition and fees, and get one step closer to graduation.`,
+        action: 'Empower Students, Get Repaid Fairly'
     },
     {
-        image: 'https://images.unsplash.com/photo-1574607383476-f517f260d30b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-        title: 'Crowdfunding',
+        image: 'https://www.bracu.ac.bd/sites/default/files/news-image/SAF_Fall21.jpg',
+        title: 'Crowdfunding for Recent Flood',
         description:
-            `Ready to rally the resources you need to do good? Crowdup offers project, recurring and debt crowdfunding. We can even help you design a great campaign to give you the highest chance to succeed!`,
+            `Your contribution can bring hope and recovery The recent floods have devastated homes and livelihoods. By contributing to this campaign, you can help families rebuild their homes and restore their lives.`,
         action: 'See crowdfunding options'
     },
     {
-        image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-        title: 'Partnerships',
+        image: 'https://outspoken.newagebd.com/files/img/202408/58abf1a455aaff4f1790de8441ed17e6.jpg',
+        title: 'Stand with Us in This Time of Crisis',
         description:
-            `Crowdup partners with leading brands, institutions and governments to support changemakers. We accelerate change through challenges, accelerators and funding programs.`,
-        action: 'Find out how we can work together '
+            `Together, we can make a difference Our community is facing unprecedented damage from the floods. Your support can provide essential supplies, shelter, and relief to those in need.`,
+        action: 'Find out how we can work together'
     },
 ];
 
-function Feature({image, title, description, action}: FeatureProps) {
-    const {classes, cx} = useStyles();
+function Feature({ image, title, description, action }: FeatureProps) {
+    const { classes, cx } = useStyles();
 
     return (
         <Card className={cx(classes.feature, 'card')} shadow="md" radius="sm">
             <Card.Section>
-                <Image src={image} height={240} fit="cover"/>
+                <Image src={image} height={240} fit="cover" />
             </Card.Section>
             <Stack spacing="sm" mt="md">
                 <Title order={4}>{title}</Title>
                 <Text size="sm">{description}</Text>
-                <Button variant="subtle" color="secondary">{action}</Button>
+                <Button variant="subtle" color="secondary" component={Link} to="/loans">
+                    {action}
+                </Button>
             </Stack>
         </Card>
     );
 }
 
 interface IProps {
-    boxProps: BoxProps
-    titleProps?: TitleProps
-    subtitleProps?: TextProps
+    boxProps: BoxProps;
+    titleProps?: TitleProps;
+    subtitleProps?: TextProps;
 }
 
-const FeaturesSection = ({boxProps, subtitleProps}: IProps) => {
-    const items = mockdata.map((item) => <Feature {...item} key={item.title}/>);
+const FeaturesSection = ({ boxProps, subtitleProps }: IProps) => {
+    const items = mockdata.map((item) => <Feature {...item} key={item.title} />);
 
     return (
         <Box {...boxProps}>
             <Box mb="lg">
-                <TitleBadge title="what to expect"/>
-                <Text {...subtitleProps}>CrowdUp exists to support social impact projects, enterprises and founders.
-                    What good can we help you start?</Text>
+                <TitleBadge title="What to Expect" />
+                <Text {...subtitleProps}>
+                    Our platform exists to support UIU students in need of whether crowdfunding for any crisis or seeking a student loan, we’re here to help you reach your goals with the support of your community. What dreams can we help you achieve?
+                </Text>
             </Box>
-            <SimpleGrid cols={2} spacing="lg" breakpoints={[{maxWidth: 'md', cols: 2, spacing: 'sm'}]} >
+            <SimpleGrid cols={2} spacing="lg" breakpoints={[{ maxWidth: 'md', cols: 2, spacing: 'sm' }]}>
                 {items}
             </SimpleGrid>
         </Box>

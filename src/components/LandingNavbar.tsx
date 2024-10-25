@@ -213,6 +213,7 @@ const LandingNavbar = ({compressed}: IProps) => {
             window.removeEventListener('scroll', stickNavbar);
         };
     }, []);
+    const username=localStorage.getItem('username');
 
     return (
         <Box
@@ -240,13 +241,20 @@ const LandingNavbar = ({compressed}: IProps) => {
                     <Flex justify="space-between" align="center" sx={{height: '100%'}}>
                         <BrandName size={28} asLink/>
                         <Flex align="center" gap="xs" sx={{height: '100%'}} className={classes.hiddenMobile}>
-                            <Button component={Link} to="/how-it-works" className={classes.link} {...buttonProps}>
+                            {/* <Button component={Link} to="/how-it-works" className={classes.link} {...buttonProps}>
                                 How it works
-                            </Button>
-                            <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
+                            </Button> */}
+                            <Button component={Link} to="/create-loan" className={classes.link} {...buttonProps}>
+                            Start your Loan
+                            </Button> <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
+                            Start Campaign
+
+                            </Button> <Button component={Link} to="/loans" className={classes.link} {...buttonProps}>
+                                Loans
+                            </Button> <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
                                 Campaigns
                             </Button>
-                            <HoverCard width={700} position="bottom" radius="sm" shadow="md" withinPortal>
+                            {/* <HoverCard width={700} position="bottom" radius="sm" shadow="md" withinPortal>
                                 <HoverCard.Target>
                                     <a href="#" className={classes.link}>
                                         <Center inline>
@@ -257,7 +265,7 @@ const LandingNavbar = ({compressed}: IProps) => {
                                         </Center>
                                     </a>
                                 </HoverCard.Target>
-
+                                
                                 <HoverCard.Dropdown sx={{overflow: 'hidden'}}>
                                     <Group position="apart" px="md">
                                         <Text fw={500} color="dark">Categories</Text>
@@ -274,27 +282,28 @@ const LandingNavbar = ({compressed}: IProps) => {
                                         {links}
                                     </SimpleGrid>
                                 </HoverCard.Dropdown>
-                            </HoverCard>
-                            <Button
+                            </HoverCard> */}
+                            {/* <Button
                                 leftIcon={<IconSearch size={18} className={classes.linkIcon}/>}
                                 onClick={toggleSearchDrawer}
                                 className={classes.link}
-                                {...buttonProps}
-                            >
+                                {...buttonProps}>
+
                                 Search
-                            </Button>
-                            <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
+                            </Button> */}
+                            {/* <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
                                 Start a campaign
-                            </Button>
-                            <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
-                                My dashboard
-                            </Button>
+                            </Button> */}
+                            {username ? <Button component={Link} to={`/profile/${username}`} className={classes.link} {...buttonProps}>
+                        {username}
+                    </Button> : <Button component={Link} to="/login" className={classes.link} {...buttonProps}>
+                        Login
+                    </Button>}
                         </Flex>
                         <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop}/>
                     </Flex>
                 </Container>
             </Header>
-
             <Drawer
                 opened={drawerOpened}
                 onClose={closeDrawer}
@@ -314,24 +323,30 @@ const LandingNavbar = ({compressed}: IProps) => {
                         How it works
                     </Button>
                     <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
-                        Campaigns
+                        Donate
                     </Button>
-                    <UnstyledButton className={classes.link} onClick={toggleLinks}>
+                    <Button component={Link} to="/campaigns" className={classes.link} {...buttonProps}>
+                        Loan
+                    </Button>
+                    {/* <UnstyledButton className={classes.link} onClick={toggleLinks}>
                         <Center inline>
                             <Box component="span" mr={5}>
                                 Invest
                             </Box>
                             <IconChevronDown size={16} className={classes.linkIcon}/>
                         </Center>
-                    </UnstyledButton>
+                    </UnstyledButton> */}
                     <Collapse in={linksOpened}>{links}</Collapse>
 
-                    <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
+                    {/* <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
                         Start a campaign
-                    </Button>
-                    <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
-                        My dashboard
-                    </Button>
+                    </Button> */}
+                    {username ? <Button component={Link} to="/dashboard" className={classes.link} {...buttonProps}>
+                        {username}
+                    </Button> : <Button component={Link} to="/login" className={classes.link} {...buttonProps}>
+                        Login
+                    </Button>}
+                    
                     <Button
                         leftIcon={<IconSearch size={18}/>}
                         onClick={() => {

@@ -6,8 +6,9 @@ import StatsSection from "../sections/Home/Stats";
 import JoinUsSection from "../sections/Home/JoinUs";
 import WaysToFundSection from "../sections/Home/WaysToFund";
 import CampaignsSection from "../sections/Home/Campaigns";
+import Loan from "../sections/Home/loan";
 import GetStartedSection from "../sections/Home/GetStarted";
-import TestimonialsSection from "../sections/Home/Testimonials";
+// import TestimonialsSection from "../sections/Home/Testimonials";
 import {Helmet} from "react-helmet";
 
 const HomePage = (): JSX.Element => {
@@ -31,31 +32,33 @@ const HomePage = (): JSX.Element => {
         mb: "md",
         sx: {lineHeight: '28px'}
     }
-
+    const username=localStorage.getItem('username');
     return (
         <>
             <Helmet>
                 <title>Home</title>
             </Helmet>
             <Box>
+                
                 <HeroSection/>
                 <Container>
                     <Box {...boxProps}>
                         <TitleBadge title="About us"/>
-                        <Title {...titleProps}>more people more impact</Title>
-                        <Text {...subTitleProps}>Because together, we can make a real difference. Our volunteers service
-                            in a
-                            variety of roles according to their skills and interests.</Text>
+                        <Title {...titleProps}>more students more impact</Title>
+                        <Text {...subTitleProps}>Because together, we can make a real difference. Our service
+                           is to bring all UIU students in a common platfprm so that they can help each other and others in need.</Text>
                     </Box>
+                    
                     <FeaturesSection boxProps={boxProps} subtitleProps={subTitleProps}/>
                     <StatsSection boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>
-                    <JoinUsSection boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>
+                    {username==null && <JoinUsSection boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>}
                 </Container>
                 <WaysToFundSection boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>
                 <Container>
-                    <TestimonialsSection boxProps={boxProps} titleProps={titleProps}/>
+                    {/* <TestimonialsSection boxProps={boxProps} titleProps={titleProps}/> */}
+                    <Loan boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>
                     <CampaignsSection boxProps={boxProps} titleProps={titleProps} subtitleProps={subTitleProps}/>
-                    <GetStartedSection boxProps={boxProps} titleProps={titleProps}/>
+                    {/* <GetStartedSection boxProps={boxProps} titleProps={titleProps}/> */}
                 </Container>
             </Box>
         </>
