@@ -21,7 +21,7 @@ const SignupPage = () => {
     const [usernameError, setUsernameError] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
+   // const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
 
     const validateEmail = (email) => {

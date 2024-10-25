@@ -49,7 +49,7 @@ import {
     IconChevronLeft,
     IconChevronRight,
     IconCurrency,
-    IconCurrencyDollar,
+    IconCurrencyTaka,
     IconInfoCircleFilled,
     IconLink,
     IconMail,
@@ -278,7 +278,7 @@ const CreateCampaignPage = () => {
                         </Stepper.Step>
                         <Stepper.Step
                             label="Campaign story"
-                            description="Tell your story! Add your description, images, videos and more">
+                            description="Tell your story! Add your description, images and more">
                             <Title {...titleProps}>
                                 Your campaign story
                             </Title>
@@ -341,7 +341,7 @@ const CreateCampaignPage = () => {
                             <Paper {...paperProps}>
                                 <Stack spacing="sm">
                                     <Title {...subTitleProps}>Enable payment processors for your campaign page</Title>
-                                    <Alert icon={<IconCurrencyDollar size={18} />} color="blue">You can enable Payment method listed below for Taking Payment </Alert>
+                                    <Alert icon={<IconCurrencyTaka size={18} />} color="blue">You can enable Payment method listed below for Taking Payment </Alert>
                                     <Text size="sm">Available payment methods</Text>
                                     <Group>
                                         <Button variant="light" leftIcon={<IconBrandPaypal size={18} />}>Bkash Number</Button>

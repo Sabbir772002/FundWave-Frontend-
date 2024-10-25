@@ -60,6 +60,8 @@ import {
 import CategoryLoan from "../components/CategoryLoan";
 import { randomId } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
+import {CategorySelect, CountrySelect, CurrencySelect, FileDropzone} from "../components";
+//const [isSubmitting, setIsSubmitting] = useState(false); // Add state to track form submission
 
 interface ISocialProps {
     icon: React.FC<any>;
@@ -124,6 +126,7 @@ const CreateLoanPage = () => {
         };
 
     const handleSubmit = async () => {
+
         const formData = {
             username:localStorage.getItem('username'),
             title: socialForm.values.title,
@@ -153,6 +156,7 @@ const CreateLoanPage = () => {
             if (!authToken) {
               console.error('No token found, please log in again.');
               alert('Please log in again.');
+              //setIsSubmitting(false); // Re-enable the button on failur
               return; // Stop if there's no token
             }
           
@@ -169,6 +173,7 @@ const CreateLoanPage = () => {
                 alert('Your session has expired or is invalid. Please log in again.');
                 localStorage.removeItem('authToken'); // Clear token if invalid
                 navigate('/login');
+                //setIsSubmitting(false); // Re-enable the button on failure
                 return; // Stop further execution
               }
               console.log("not createed loan");
@@ -185,7 +190,9 @@ const CreateLoanPage = () => {
             }
                 } catch (error) {
                    console.error('Error:', error);
-        }
+        }  //finally {
+            //setIsSubmitting(false); // Re-enable the button after submission
+        //}
     };
 
     const socialFields = socialForm.values.employees.map((item, index) => (
@@ -242,7 +249,8 @@ const CreateLoanPage = () => {
                     <Stepper active={active} onStepClick={setActive} breakpoint="sm">
                         <Stepper.Step
                             label="Get started"
-                            description="Set essential loan details such as loan title, target and interest amount"
+                            description="Set essential loan details such as 
+                            loan title,target and interest amount"
                         >
                             <Title {...titleProps}>Loan information</Title>
                             <Paper {...paperProps}>
@@ -312,15 +320,15 @@ const CreateLoanPage = () => {
                         <Stepper.Step
                             label="Loan Purpose"
                             description={<>
-                            Tell us why you need this loan! <br />
-                            Add images or documents to explain your financial needs <br />and how the loan will help.
+                            Tell us why you need this loan! 
+                            Add images so that lenders can trust you.
                         </>}>
                             <Title {...titleProps}>
                                 Your Loan story
                             </Title>
                             <Paper {...paperProps}>
                                 <Stack spacing="sm">
-                                    <Text size="sm">Explain why you&apos;re lending money, what the loan will be used
+                                    <Text size="sm">Explain why you&apos;re asking for money, what the loan will be used
                                         for, and
                                         how much you value the support</Text>
                                     <RichTextEditor editor={editor}>
@@ -366,6 +374,9 @@ const CreateLoanPage = () => {
 
                                         <RichTextEditor.Content />
                                     </RichTextEditor>
+                                    <FileDropzone
+                                        label="Upload campaign photos"
+                                        description="You can select and upload one image in one go"/>
                                 </Stack>
                             </Paper>
                         </Stepper.Step>
@@ -375,7 +386,7 @@ const CreateLoanPage = () => {
                                 <Stack spacing="sm">
                                     <Title {...subTitleProps}>Enable payment processors for your Loan
                                         page</Title>
-                                    <Alert icon={<IconCurrencyDollar size={18} />} color="blue">You can enable Payment method listed below for Taking Payment </Alert>
+                                    <Alert icon={<IconCurrencyTaka size={18} />} color="blue">You can enable Payment method listed below for Taking Payment </Alert>
                                     <Text size="sm">Available payment methods</Text>
                                     <Group>
                                         <Button variant="light" leftIcon={<IconBrandPaypal size={18} />}>Bkash Number</Button>
@@ -418,7 +429,7 @@ const CreateLoanPage = () => {
                             <Button onClick={nextStep} leftIcon={<IconChevronRight size={18} />}>Next step</Button> :
                             // <Button onClick={handleSubmit} component="a" href="/dashboard" leftIcon={<IconCheck size={18} />}>Launch
                              <Button onClick={handleSubmit} leftIcon={<IconCheck size={18} />}>Launch
-                            campaign</Button>
+                            Loan</Button>
                         }
                     </Group>
                 </Container>

@@ -28,7 +28,7 @@ import {
     IconBrandApple,
     IconBrandGoogle,
     IconCreditCard,
-    IconCurrencyDollar,
+    IconCurrencyTaka,
     IconInfoCircleFilled,
     IconShieldCheckFilled
 } from "@tabler/icons-react";
@@ -118,13 +118,13 @@ const DonationDrawer = ({ campaign, iconSize, ...others }: IProps) => {
                         size="md"
                         label="Enter your donation"
                         precision={2}
-                        rightSection={<IconCurrencyDollar size={iconSize} />}
+                        rightSection={<IconCurrencyTaka size={iconSize} />}
                         value={donationAmount}
                         onChange={(value) => setDonationAmount(value || 0)} // Set donation amount
                     />
                     <Paper {...paperProps}>
-                        <Text fw={500}>Tip CrowdUp services</Text>
-                        <Text size="sm" my="xs">CrowdUp has a 0% platform fee for organizers. CrowdUp will continue offering its services thanks to donors who will leave an optional amount here:</Text>
+                        <Text fw={500}>Tip FundWave services</Text>
+                        <Text size="sm" my="xs">Fundwave has a 0% platform fee for organizers. Fundwave will continue offering its services thanks to donors who will leave an optional amount here:</Text>
                         <Slider
                             marks={[
                                 { value: 2, label: '2%' },
@@ -165,7 +165,7 @@ const DonationDrawer = ({ campaign, iconSize, ...others }: IProps) => {
                                 <Text fw={500}>${donationAmount.toFixed(2)}</Text>
                             </Group>
                             <Group position="apart">
-                                <Text>CrowdUp tip</Text>
+                                <Text>Fundwave tip</Text>
                                 <Text fw={500}>${tipAmount.toFixed(2)}</Text>
                             </Group>
                             <Group position="apart">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Button, Table, Text, Notification, Title, Loader, NumberInput } from '@mantine/core';
 import { Link, useParams } from 'react-router-dom';
-import { IconCurrencyDollar } from '@tabler/icons-react';
+import { IconCurrencyTaka } from '@tabler/icons-react';
 import EMIPayments from './Emipayments';
 // LoanPayments Component
 const LoanPayments = ({ loan, loanId,bids }) => {
@@ -109,23 +109,23 @@ const LoanPayments = ({ loan, loanId,bids }) => {
         <tbody>
           <tr>
             <td>Total Payable Amount</td>
-            <td>${((bids.bonus ? bids.bonus : 0) + totaldebt + totaldebt * (loan.interest / 100.0)).toFixed(2)}</td>
+            <td>৳{((bids.bonus ? bids.bonus : 0) + totaldebt + totaldebt * (loan.interest / 100.0)).toFixed(2)}</td>
           </tr>
           <tr>
             <td>Total Interest</td>
-            <td>${(totaldebt * (loan.interest / 100)).toFixed(2)}</td>
+            <td>৳{(totaldebt * (loan.interest / 100)).toFixed(2)}</td>
           </tr>
           <tr>
             <td>Total Bonus</td>
-            <td>${(bids.bonus ? bids.bonus : 0).toFixed(2)}</td>
+            <td>৳{(bids.bonus ? bids.bonus : 0).toFixed(2)}</td>
           </tr>
           <tr>
             <td>Total Paid</td>
-            <td>${totalPaid.toFixed(2)}</td>
+            <td>৳{totalPaid.toFixed(2)}</td>
           </tr>
           <tr>
             <td>Remaining Debt</td>
-            <td>${remainingDebt.toFixed(2)}</td>
+            <td>৳{remainingDebt.toFixed(2)}</td>
           </tr>
         </tbody>
       </Table>
@@ -135,7 +135,7 @@ const LoanPayments = ({ loan, loanId,bids }) => {
           <NumberInput
             label="How much do you want to pay?"
             precision={2}
-            rightSection={<IconCurrencyDollar size={20} />}
+            rightSection={<IconCurrencyTaka size={20} />}
             value={payvalue}
             onChange={(value) => setPayvalue(value || 0)}
             mt="md"
@@ -254,7 +254,7 @@ const Trans = () => {
             <tbody>
               <tr>
                 <td>{loan.title}</td>
-                <td>${loan.targetAmount}</td>
+                <td>৳{loan.targetAmount}</td>
                 <td>{loan.interest}%</td>
                 <td>{new Date(loan.deadlineDate).toLocaleDateString()}</td>
                 <td>

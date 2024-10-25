@@ -18,7 +18,7 @@ const LoginPage = () => {
     // const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
+    // const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
