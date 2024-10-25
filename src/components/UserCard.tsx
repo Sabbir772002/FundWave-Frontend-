@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Avatar, Button, Flex, Paper, Stack, Text } from '@mantine/core';
 import { IconSend } from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
 
 interface IProps {
     username: string;
@@ -42,7 +43,7 @@ const UserCard = ({ username, ...others }: IProps) => {
                         {userInfo.email} • {userInfo.job}
                     </Text>
                     <Button variant="light" leftIcon={<IconSend size={18} />} fullWidth>
-                        Send message
+                    <Link to={`/chat/${userInfo.username}`}>Send Message</Link>
                     </Button>
                 </Stack>
             </Flex>

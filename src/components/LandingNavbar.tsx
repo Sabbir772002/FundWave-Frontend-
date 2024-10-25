@@ -283,14 +283,14 @@ const LandingNavbar = ({compressed}: IProps) => {
                                     </SimpleGrid>
                                 </HoverCard.Dropdown>
                             </HoverCard> */}
-                            <Button
+                            {/* <Button
                                 leftIcon={<IconSearch size={18} className={classes.linkIcon}/>}
                                 onClick={toggleSearchDrawer}
                                 className={classes.link}
                                 {...buttonProps}>
 
                                 Search
-                            </Button>
+                            </Button> */}
                             {/* <Button component={Link} to="/create-campaign" className={classes.link} {...buttonProps}>
                                 Start a campaign
                             </Button> */}

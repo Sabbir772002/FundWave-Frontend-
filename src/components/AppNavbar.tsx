@@ -181,6 +181,7 @@ const AppNavbar = ({...others}: IProps) => {
         setUserinfo(data);
         console.log(data);
     }
+    
     useEffect(() => {
         fetchuserinfo();
     }, [username]);
@@ -216,12 +217,12 @@ const AppNavbar = ({...others}: IProps) => {
                             <AppLinks className={classes.hiddenMobile}/>
                         </Group>
                         <Group>
-                            <ActionIcon variant="filled" color={theme.white} onClick={toggleSearchDrawer}>
+                            {/* <ActionIcon variant="filled" color={theme.white} onClick={toggleSearchDrawer}>
                                 <IconSearch size={ICON_SIZE}/>
-                            </ActionIcon>
-                            <ActionIcon variant="filled" color={theme.white}>
+                            </ActionIcon> */}
+                            {/* <ActionIcon variant="filled" color={theme.white}>
                                 <IconBell size={ICON_SIZE}/>
-                            </ActionIcon>
+                            </ActionIcon> */}
                             <Menu
                                 width={260}
                                 position="bottom-end"

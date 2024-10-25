@@ -69,8 +69,10 @@ import {
           }
     
           const donationData = await donationResponse.json();
-          const totalAmountRaised = donationData.map((d: any) => d.Amount).reduce((a: number, b: number) => a + b, 0);
-          
+          const total = donationData.map((d: any) => d.Amount).reduce((a: number, b: number) => a + b, 0);
+          const tip = donationData.map((d: any) => d.tip).reduce((a: number, b: number) => a + b, 0);
+          const totalAmountRaised=total-tip;
+          console.log(totalAmountRaised,tip);
           return totalAmountRaised;
         } catch (error) {
           console.error("Error fetching campaign or donation data:", error);
@@ -105,12 +107,11 @@ import {
         return;
         }
       const filtered = filteredCampaigns.filter((campaign) =>
-        campaign.title.toLowerCase().includes(term)
+        campaign.title.toLowerCase().includes(term)||campaign.category.toLowerCase().includes(term)||campaign.username.toLowerCase().includes(term)
       );
       setFilteredCampaigns(filtered);
       setActivePage(1); // Reset to the first page on new search
-    };
-  
+    }
     // Handle sorting
     const handleSort = (sortValue: string) => {
       setSortOrder(sortValue);
@@ -134,8 +135,7 @@ import {
     const paginatedCampaigns = filteredCampaigns.slice(
       (activePage - 1) * itemsPerPage,
       activePage * itemsPerPage
-    );
-  
+    )
     const items = paginatedCampaigns.map((campaign) => (
       <CampaignCard key={campaign.id} data={campaign} showActions={true} />
     ));

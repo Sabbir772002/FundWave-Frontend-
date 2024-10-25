@@ -35,12 +35,12 @@ import * as LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { notifications } from "@mantine/notifications";
 import UpdateModal from "../pages/UpdateModal";
 import api from '../util/api';
-
 interface IDonation {
   campaignid: string;
   Amount: number;
   give:string;
   createdAt: Date;
+  tip: number;
 }
 
 const CampaignDetailsPage = (): JSX.Element => {
@@ -101,15 +101,14 @@ const CampaignDetailsPage = (): JSX.Element => {
           console.error("Error fetching donation data:", error);
         }
       }
-  }
-
+    }
   useEffect(() => {
     fetchCampaignData();
     fetchDonationData();
   }, [id]);
 
   // Calculate raised amount and donors count
-  const raisedAmount = donations.reduce((sum, donation) => sum + donation.Amount, 0);
+  const raisedAmount = donations.reduce((sum, donation) => sum + donation.Amount-donation.tip, 0);
   const donorsCount = donations.length;
 
   // Calculate days left and remaining amount if target is "deadline"
@@ -256,7 +255,7 @@ const CampaignDetailsPage = (): JSX.Element => {
                                 const totalDays = Math.ceil(
                                 (deadline - new Date(campaign.createdAt).getTime()) / (1000 * 60 * 60 * 24)
                                 );
-                                const daysLeftPercentage = (daysLeft / totalDays) * 100;
+                                const daysLeftPercentage = (daysLeft / totalDays) *100;
 
                                 return (
                                 <>
